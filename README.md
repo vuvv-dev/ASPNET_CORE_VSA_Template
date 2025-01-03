@@ -1,10 +1,10 @@
 # ASPNET_CORE_VSA_Template
 
-=== Vertical Slice Architecture Template ===
+=== ASP NET Core Verticle Slice Architecture Template ===
 
 ## TL;DR
 
-- WindowsThe ASP.NET Core template follows the Vertical Slice Architecture (VSA)..
+- The ASP.NET Core template follows the Vertical Slice Architecture (VSA).
 
 - Detail of each config file: [Coming soon]()
 
