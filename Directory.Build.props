@@ -1,0 +1,38 @@
+<Project>
+    <!-- General config -->
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>disable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <NoWarn>CS1591;CS1573;RCS1079;IDE0022</NoWarn>
+        <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+    </PropertyGroup>
+
+    <!-- Set the publish directory -->
+    <PropertyGroup>
+        <PublishRootDir>$(MSBuildThisFileDirectory)\Publish</PublishRootDir>
+    </PropertyGroup>
+
+    <!-- Clean the publish assets after build -->
+    <Target Name="CleanPublishAssets" BeforeTargets="Build">
+        <RemoveDir Directories="$(PublishDir)"></RemoveDir>
+    </Target>
+
+    <!-- Move the published assets to the publish directory -->
+    <Target Name="MovePublishedAssets" AfterTargets="Publish">
+        <ItemGroup>
+            <!-- Pattern for getting publish folder of any projects -->
+            <PublishedAssets Include="$(OutDir)\publish\**\*.*" />
+        </ItemGroup>
+
+        <!-- 
+            Iterate through each publish folder and 
+            copy the files to the publish directory 
+        -->
+        <Copy SourceFiles="@(PublishedAssets)"
+            DestinationFolder="$(PublishRootDir)"
+            SkipUnchangedFiles="true" />
+    </Target>
+</Project>
