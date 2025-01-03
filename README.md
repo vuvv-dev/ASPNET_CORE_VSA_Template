@@ -1,4 +1,4 @@
-# VSA_Template
+# ASPNET_CORE_VSA_Template
 
 === Vertical Slice Architecture Template ===
 
@@ -14,7 +14,7 @@
 
 ## Introduction 😊😊
 
-Welcome to the Vertical Slice Architecture Template! This template is a starting point for building a project following the Vertical Slice Architecture (VSA) while maintaining source code readable when the source gets larger.
+Welcome to the ASP NET Core Vertical Slice Architecture Template! This template is a starting point for building an ASP NET Core project following the Vertical Slice Architecture (VSA) while maintaining source code readable when the source gets larger.
 
 ## Reason
 
