@@ -14,6 +14,8 @@
 
 ## Introduction 😊😊
 
+Welcome to the Vertical Slice Architecture Template! This template is a starting point for building a project following the Vertical Slice Architecture (VSA) while maintaining source code readable when the source gets larger.
+
 ## Reason
 
 In the past, I often followed tutorials to build projects, but I encountered significant challenges with the project structures they suggested. Here are some common issues I faced:
