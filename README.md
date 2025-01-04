@@ -1,7 +1,5 @@
 # ASPNET_CORE_VSA_Template
 
-=== ASP NET Core Verticle Slice Architecture Template ===
-
 ## TL;DR
 
 - The ASP.NET Core template follows the Vertical Slice Architecture (VSA).
@@ -12,9 +10,9 @@
 
 - For project, I use [Fast Endpoint](https://fast-endpoints.com/) to construct api because while it is easy to write, it is WAY MORE READABLE due to fluent API, but you can use controller or minimal api if you want.
 
-## Introduction 😊😊
+## Introduction
 
-Welcome to the ASP NET Core Vertical Slice Architecture Template! This template is a starting point for building an ASP NET Core project following the Vertical Slice Architecture (VSA) while maintaining source code readable when the source gets larger.
+Welcome to the ASP.NET Core Vertical Slice Architecture Template! This template is designed to help you build maintainable, scalable ASP.NET Core projects following the Vertical Slice Architecture (VSA). Its modular approach keeps your codebase clean and easy to navigate as your project grows.
 
 ## Reason
 
@@ -22,28 +20,24 @@ In the past, I often followed tutorials to build projects, but I encountered sig
 
 - **Long service files**: These became difficult to maintain as they grew in size.
 - **Scattered context**: Retrieving all the information related to a feature was challenging because methods and classes were spread across multiple files and folders.
-- **Fat controllers**: Controllers often became bloated and hard to manage. 🤦‍♂️
+- **Fat controllers**: Controllers often became bloated and hard to manage.
 
 I realized that this approach, known as **technical-based architecture**, groups all files of the same type (e.g., services in a `Services` folder). While this approach seemed organized, it often led to inefficiencies. To address this, I researched **feature-based architecture**, which has the following advantages:
 
 - Each feature has its own dedicated folder, making the structure easier to navigate.
-- All files related to a feature are stored together, simplifying maintenance. 😍😍
+- All files related to a feature are stored together, simplifying maintenance.
 
 However, even with a feature-based architecture, I encountered new challenges as the project grew:
 
-- **Class naming conflicts**: With multiple feature-related classes in one project, it was easy to mistype or confuse class names (e.g., `FM1Endpoint` vs. `FM2Endpoint`). ☹️
+- **Class naming conflicts**: With multiple feature-related classes in one project, it was easy to mistype or confuse class names (e.g., `FM1Endpoint` vs. `FM2Endpoint`).
 
-To solve this, I decided to move each feature into its own class library. This approach makes it impossible to call classes from one feature without explicitly referencing its assembly, reducing the chances of errors.
+To solve this, I decided to move each feature into its own class library. This approach makes it impossible to call classes from one feature without explicitly referencing its assembly (e.g., `FM1Endpoint` cannot be called from assembly containing `FM2Endpoint`), reducing the chances of errors.
 
-And that’s how this template was born! 🤣🤣
+And that’s how this template was born!
 
 ## Demo video
 
 [Coming soon]()
-
-## Features
-
-- Demo web api with 1 feat (will upgrade for more).
 
 ## Getting Started
 
@@ -58,27 +52,27 @@ Ensure you have the following installed:
 Clone this project via this command:
 
 ```bash
-git clone https://github.com/Jackpieking/VerticleSliceArchitectureTemplate.git
+git clone https://github.com/Jackpieking/ASPNET_CORE_VSA_Template.git
 ```
 
 ## Usage
 
 ### 1. Navigate to the root of the template
 
-- Below here is some example of cd to the template folder, just change the dir to meet your need, as long as you get into the root of template folder that you have just cloned
+- Below here is some example of navigating to the template folder, just change the folder to the one that meets your need, as long as you get into the root of template folder that you have just cloned.
 
 #### Example:
 
 - Windows
 
 ```bash
-cd E:\CODE_PROJECTS\VerticleSliceArchitectureTemplate\
+cd E:\CODE_PROJECTS\ASPNET_CORE_VSA_Template\
 ```
 
 - Mac/Linux
 
 ```bash
-cd E:/CODE_PROJECTS/VerticleSliceArchitectureTemplate\
+cd /home/CODE_PROJECTS/ASPNET_CORE_VSA_Template/
 ```
 
 ### 2. Install necessary dotnet tool via this command:
@@ -95,7 +89,23 @@ cd E:/CODE_PROJECTS/VerticleSliceArchitectureTemplate\
 ./Scripts/Init/init.sh
 ```
 
-### 3. Build the project via this command:
+### 3. Run the project via this command:
+
+- Windows
+
+```bash
+.\Scripts\Run\run.ps1
+```
+
+- Mac/Linux
+
+```bash
+./Scripts/Run/run.sh
+```
+
+## Other usage
+
+### 1. Build the project via this command:
 
 - Windows
 
@@ -109,23 +119,45 @@ cd E:/CODE_PROJECTS/VerticleSliceArchitectureTemplate\
 ./Scripts/Build/build.sh
 ```
 
-### 3. Run the project via this command:
+### 2. Test the project via this command:
 
 - Windows
 
 ```bash
-Coming soon
+.\Scripts\Test\test.ps1
 ```
 
 - Mac/Linux
 
 ```bash
-Coming soon
+./Scripts/Test/test.sh
 ```
+
+--> The result will be in TestResults/ folder, the content inside will be always the newest.
+
+![TestResult folder image](./Static/images/TestResult.png)
+
+### 3. Publish the project via this command:
+
+- Windows
+
+```bash
+.\Scripts\PublishApp\publish.ps1
+```
+
+- Mac/Linux
+
+```bash
+./Scripts/PublishApp/publish.sh
+```
+
+--> The result will be in out/ folder, the content inside will be always the newest.
+
+![Out folder image](./Static/images/Out.png)
 
 ## License
 
-VSA_Template is licensed under the Apache V2.0 License. See [LICENSE](https://github.com/Jackpieking/VerticleSliceArchitectureTemplate/blob/master/LICENSE) for more details.
+This project is licensed under the [Apache V2.0 License](https://github.com/Jackpieking/VerticleSliceArchitectureTemplate/blob/master/LICENSE), allowing you to freely use, modify, and distribute it under the terms of the license.
 
 ## Contact
 

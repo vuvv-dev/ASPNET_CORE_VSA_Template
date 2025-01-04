@@ -9,7 +9,6 @@ set -e
 # Constants
 CONFIGURATION_MODE="Release"
 PROJECT_NAME="ASPNET_CORE_VSA_Template"
-CURRENT_PATH=$(pwd)
 
 # Function to find the root directory containing the solution file
 find_project_root() {
@@ -40,28 +39,10 @@ fi
 
 # Set to working directory to project root
 echo "Project root path determined: $project_root"
-cd "$project_root"
 
-echo "Formatting project (csharpier)..."
-dotnet csharpier .
+echo "Run project..."
+dotnet run -c Release --project "$project_root/Src/Entry/Entry.Src/"
 if [ $? -ne 0 ]; then
-    echo "dotnet format failed"
+    echo "dotnet run failed"
     exit 1
 fi
-
-echo "Restoring project..."
-dotnet restore "$project_root/SetupProject.sln"
-if [ $? -ne 0 ]; then
-    echo "dotnet restore failed"
-    exit 1
-fi
-
-echo "Building project..."
-dotnet build --no-restore -c "$CONFIGURATION_MODE" "$project_root/SetupProject.sln"
-if [ $? -ne 0 ]; then
-    echo "dotnet build failed"
-    exit 1
-fi
-
-# Go back to original directory
-cd "$CURRENT_PATH"

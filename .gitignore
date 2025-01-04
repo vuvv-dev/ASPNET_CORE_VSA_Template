@@ -362,7 +362,7 @@ Src/Documentation/api/
 appsetting.*
 
 # Publish assets
-Publish/
+out/
 
 # Test result
 TestResults/

@@ -7,7 +7,6 @@ $ErrorActionPreference = "Stop"
 # Constants
 $CONFIGURATION_MODE = 'Release'
 $PROJECT_NAME = 'ASPNET_CORE_VSA_Template'
-$CURRENT_PATH = Get-Location
 
 # Function to find the root directory containing the solution file
 function Find-ProjectRoot {
@@ -49,28 +48,10 @@ if (-not $projectRoot) {
 
 # Set to working directory to project root
 Write-Output "Project root path determined: $projectRoot"
-Set-Location $projectRoot
 
-Write-Output "Format project (csharpier)..."
-dotnet csharpier .
+Write-Output "Run project..."
+dotnet run -c $CONFIGURATION_MODE --project $projectRoot\Src\Entry\Entry.Src\
 if ($LASTEXITCODE -ne 0) {
-    Write-Error "dotnet format failed"
+    Write-Error "dotnet run failed"
     exit $LASTEXITCODE
 }
-
-Write-Output "Restore project..."
-dotnet restore $projectRoot\SetupProject.sln
-if ($LASTEXITCODE -ne 0) {
-    Write-Error "dotnet restore failed"
-    exit $LASTEXITCODE
-}
-
-Write-Output "Build project..."
-dotnet build --no-restore -c $CONFIGURATION_MODE $projectRoot\SetupProject.sln
-if ($LASTEXITCODE -ne 0) {
-    Write-Error "dotnet build failed"
-    exit $LASTEXITCODE
-}
-
-# Set back to original directory
-Set-Location $CURRENT_PATH

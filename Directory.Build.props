@@ -12,7 +12,7 @@
 
     <!-- Set the publish directory -->
     <PropertyGroup>
-        <PublishRootDir>$(MSBuildThisFileDirectory)\Publish</PublishRootDir>
+        <PublishRootDir>$(MSBuildThisFileDirectory)\out</PublishRootDir>
     </PropertyGroup>
 
     <!-- Clean the publish assets after build -->
