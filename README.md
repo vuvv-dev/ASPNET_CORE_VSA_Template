@@ -4,11 +4,13 @@
 
 - The ASP.NET Core template follows the Vertical Slice Architecture (VSA).
 
-- Detail of each config file: [Coming soon]()
+- Please leave the name of the repository folder that you have cloned as `ASPNET_CORE_VSA_Template` (already having that name when you clone in default) in order to make the scripts work.
 
 - For how to test the project, please check out this [Getting Started](#getting-started)
 
-- For project, I use [Fast Endpoint](https://fast-endpoints.com/) to construct api because while it is easy to write, it is WAY MORE READABLE due to fluent API, but you can use controller or minimal api if you want.
+- For a gental introduction about project and each config file, please check out [Link](./Static/Docs/AGentleIntroduction.md)
+
+- For explaination about the src structure, please check out this [Coming soon]()
 
 ## Introduction
 
@@ -45,7 +47,7 @@ And that’s how this template was born!
 
 Ensure you have the following installed:
 
-- DOTNET SDK [8.0.404](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
+- .NET SDK 8.0.404
 
 ### Installation
 
@@ -135,7 +137,7 @@ cd /home/CODE_PROJECTS/ASPNET_CORE_VSA_Template/
 
 --> The result will be in TestResults/ folder, the content inside will be always the newest.
 
-![TestResult folder image](./Static/images/TestResult.png)
+![TestResult folder image](./Static/Images/TestResult.png)
 
 ### 3. Publish the project via this command:
 
@@ -153,7 +155,7 @@ cd /home/CODE_PROJECTS/ASPNET_CORE_VSA_Template/
 
 --> The result will be in out/ folder, the content inside will be always the newest.
 
-![Out folder image](./Static/images/Out.png)
+![Out folder image](./Static/Images/Out.png)
 
 ## License
 
