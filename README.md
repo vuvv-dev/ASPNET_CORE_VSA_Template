@@ -169,7 +169,7 @@ cd /home/CODE_PROJECTS/ASPNET_CORE_VSA_Template/
 
 ## License
 
-This project is licensed under the [Apache V2.0 License](https://github.com/Jackpieking/VerticleSliceArchitectureTemplate/blob/master/LICENSE), allowing you to freely use, modify, and distribute it under the terms of the license.
+This project is licensed under the [MIT License](https://github.com/Jackpieking/VerticleSliceArchitectureTemplate/blob/master/LICENSE), allowing you to freely use, modify, and distribute it under the terms of the license.
 
 ## Contact
 
