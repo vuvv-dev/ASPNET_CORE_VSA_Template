@@ -107,7 +107,7 @@ Places for all scripts that is used in this project such as build, publish, etc.
 
 Place for workflows that run in github, maybe after commit or pull request or many other scenarios.
 
-## ⚙️ .config ([more](DotnetToolConfig.md))
+## ⚙️ .config/dotnet-tools.json ([more](DotnetToolConfig.md))
 
 There is a dotnet tool file inside which is containing metadata about the dotnet tool that the project use like csharpier, dotnet-ef,...
 

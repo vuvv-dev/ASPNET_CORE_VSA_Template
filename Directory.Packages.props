@@ -1,22 +1,9 @@
 <Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
   <!-- Dependencies center -->
-  <!-- Add dependencies here -->
-  <!-- Example -->
-  <!-- 
-    <PackageVersion 
-      Include="x"
-      Version="x.x.x" 
-      Condition="'$(TargetFramework)' == 'netx.0'" /> 
-  -->
-  <!--  
-    <PackageVersion 
-      Include="x" 
-      Version="x.x.x" 
-      PrivateAssets="all" 
-      IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive"/> 
-  -->
-  <ItemGroup>
-  </ItemGroup>
   <ItemGroup>
     <PackageVersion Include="FastEndpoints" Version="5.33.0" />
   </ItemGroup>

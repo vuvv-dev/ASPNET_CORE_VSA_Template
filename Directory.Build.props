@@ -4,7 +4,6 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>disable</ImplicitUsings>
         <Nullable>disable</Nullable>
-        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <NoWarn>CS1591;CS1573;RCS1079;IDE0022</NoWarn>
         <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
