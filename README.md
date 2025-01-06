@@ -173,7 +173,7 @@ This project is licensed under the [Apache V2.0 License](https://github.com/Jack
 
 ## Contact
 
-For inquiries, please submit issues on [GitHub](https://github.com/Jackpieking/VerticleSliceArchitectureTemplate).
+For inquiries, please submit issues on [GitHub Dicussions](https://github.com/Jackpieking/ASPNET_CORE_VSA_Template/discussions).
 
 ---
 
