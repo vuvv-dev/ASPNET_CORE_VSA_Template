@@ -1,7 +1,5 @@
 # 🦄 A Gentle Introduction
 
-The ASP.NET Core VSA template is an easy-to-use, fast, and maintainable way to build scalable ASP.NET Core projects following the Vertical Slice Architecture (VSA).
-
 In my view, an application typically contains two types of features:
 
 - **Non-Functional Features**: These features focus on aspects like performance, security, or usability. Examples include caching or logging. While they don't directly affect the core functionality of the app, they are crucial for the system's overall health.

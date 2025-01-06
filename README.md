@@ -14,7 +14,7 @@
 
 ## Introduction
 
-Welcome to the ASP.NET Core Vertical Slice Architecture Template! This template is designed to help you build maintainable, scalable ASP.NET Core projects following the Vertical Slice Architecture (VSA). Its modular approach keeps your codebase clean and easy to navigate as your project grows.
+Welcome to the ASP.NET Core Vertical Slice Architecture Template! This template is designed to help you build maintainable, scalable ASP.NET Core projects that follows the Vertical Slice Architecture (VSA). Its modular approach keeps your codebase clean and easy to navigate as your project grows.
 
 ## Context
 
