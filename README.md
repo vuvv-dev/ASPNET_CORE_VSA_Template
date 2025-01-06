@@ -61,10 +61,6 @@ git clone https://github.com/Jackpieking/ASPNET_CORE_VSA_Template.git
 
 ### 1. Navigate to the root of the template
 
-- Below here is some example of navigating to the template folder, just change the folder to the one that meets your need, as long as you get into the root of template folder that you have just cloned.
-
-#### Example:
-
 - Windows
 
 ```bash
@@ -77,7 +73,7 @@ cd E:\CODE_PROJECTS\ASPNET_CORE_VSA_Template\
 cd /home/CODE_PROJECTS/ASPNET_CORE_VSA_Template/
 ```
 
-### 2. Install necessary dotnet tool via this command:
+### 2. Install necessary dotnet tool via this script:
 
 - Windows
 
@@ -91,7 +87,7 @@ cd /home/CODE_PROJECTS/ASPNET_CORE_VSA_Template/
 ./Scripts/Init/init.sh
 ```
 
-### 3. Run the project via this command:
+### 3. Run the project via this script:
 
 - Windows
 
@@ -107,7 +103,7 @@ cd /home/CODE_PROJECTS/ASPNET_CORE_VSA_Template/
 
 ## Other usage
 
-### 1. Build the project via this command:
+### 1. Build the project via this script:
 
 - Windows
 
@@ -121,7 +117,7 @@ cd /home/CODE_PROJECTS/ASPNET_CORE_VSA_Template/
 ./Scripts/Build/build.sh
 ```
 
-### 2. Test the project via this command:
+### 2. Test the project via this script:
 
 - Windows
 
@@ -139,7 +135,7 @@ cd /home/CODE_PROJECTS/ASPNET_CORE_VSA_Template/
 
 ![TestResult folder image](./Static/Images/TestResult.png)
 
-### 3. Publish the project via this command:
+### 3. Publish the project via this script:
 
 - Windows
 
@@ -157,7 +153,7 @@ cd /home/CODE_PROJECTS/ASPNET_CORE_VSA_Template/
 
 ![Out folder image](./Static/Images/Out.png)
 
-### 4. Clean the project via this command:
+### 4. Clean the project via this script:
 
 - Windows
 
