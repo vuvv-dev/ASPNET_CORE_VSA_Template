@@ -50,14 +50,14 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Restoring project..."
-dotnet restore "$project_root/SetupProject.sln"
+dotnet restore "./SetupProject.sln"
 if [ $? -ne 0 ]; then
     echo "dotnet restore failed"
     exit 1
 fi
 
 echo "Building project..."
-dotnet build --no-restore -c "$CONFIGURATION_MODE" "$project_root/SetupProject.sln"
+dotnet build --no-restore -c "$CONFIGURATION_MODE" "./SetupProject.sln"
 if [ $? -ne 0 ]; then
     echo "dotnet build failed"
     exit 1

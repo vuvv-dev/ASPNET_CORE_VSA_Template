@@ -7,6 +7,7 @@
 set -e
 
 # Constants
+CONFIGURATION_MODE="Release"
 PROJECT_NAME="ASPNET_CORE_VSA_Template"
 CURRENT_PATH=$(pwd)
 
@@ -41,19 +42,12 @@ fi
 echo "Project root path determined: $project_root"
 cd "$project_root"
 
-echo "Formatting project (csharpier)..."
-dotnet csharpier .
+echo "Clean project..."
+dotnet clean -c "$CONFIGURATION_MODE" "./SetupProject.sln"
 if [ $? -ne 0 ]; then
     echo "dotnet format failed"
     exit 1
 fi
 
 # Go back to original directory
-cd "$CURRENT_PATH
-
-echo "Run project..."
-dotnet run -c Release --project "$project_root/Src/Entry/Entry.Src/"
-if [ $? -ne 0 ]; then
-    echo "dotnet run failed"
-    exit 1
-fi
+cd "$CURRENT_PATH"

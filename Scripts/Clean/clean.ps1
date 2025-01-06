@@ -51,24 +51,10 @@ if (-not $projectRoot) {
 Write-Output "Project root path determined: $projectRoot"
 Set-Location $projectRoot
 
-Write-Output "Format project (csharpier)..."
-dotnet csharpier .
+Write-Output "Clean project..."
+dotnet clean -c $CONFIGURATION_MODE .\SetupProject.sln
 if ($LASTEXITCODE -ne 0) {
     Write-Error "dotnet format failed"
-    exit $LASTEXITCODE
-}
-
-Write-Output "Restore project..."
-dotnet restore .\SetupProject.sln
-if ($LASTEXITCODE -ne 0) {
-    Write-Error "dotnet restore failed"
-    exit $LASTEXITCODE
-}
-
-Write-Output "Build project..."
-dotnet build --no-restore -c $CONFIGURATION_MODE .\SetupProject.sln
-if ($LASTEXITCODE -ne 0) {
-    Write-Error "dotnet build failed"
     exit $LASTEXITCODE
 }
 

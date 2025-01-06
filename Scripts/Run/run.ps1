@@ -5,7 +5,6 @@
 $ErrorActionPreference = "Stop"
 
 # Constants
-$CONFIGURATION_MODE = 'Release'
 $PROJECT_NAME = 'ASPNET_CORE_VSA_Template'
 $CURRENT_PATH = Get-Location
 
@@ -62,7 +61,7 @@ if ($LASTEXITCODE -ne 0) {
 Set-Location $CURRENT_PATH
 
 Write-Output "Run project..."
-dotnet run -c $CONFIGURATION_MODE --project $projectRoot\Src\Entry\Entry.Src\
+dotnet run -c Release --project $projectRoot\Src\Entry\Entry.Src\
 if ($LASTEXITCODE -ne 0) {
     Write-Error "dotnet run failed"
     exit $LASTEXITCODE
