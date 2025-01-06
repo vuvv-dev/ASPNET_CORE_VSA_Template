@@ -6,9 +6,9 @@
 
 - Please leave the name of the repository folder that you have cloned as `ASPNET_CORE_VSA_Template` (already having that name when you clone in default) in order to make the scripts work.
 
-- For how to test the project, please check out this [Getting Started](#getting-started)
+- For a **introduction about project and each config file**, please check out [Here](./Static/Docs/AGentleIntroduction.md)
 
-- For a gental introduction about project and each config file, please check out [Link](./Static/Docs/AGentleIntroduction.md)
+- For how to test the project, please check out this [Getting Started](#getting-started)
 
 - For explaination about the src structure, please check out this [Coming soon]()
 
@@ -16,7 +16,7 @@
 
 Welcome to the ASP.NET Core Vertical Slice Architecture Template! This template is designed to help you build maintainable, scalable ASP.NET Core projects following the Vertical Slice Architecture (VSA). Its modular approach keeps your codebase clean and easy to navigate as your project grows.
 
-## Reason
+## Context
 
 In the past, I often followed tutorials to build projects, but I encountered significant challenges with the project structures they suggested. Here are some common issues I faced:
 
