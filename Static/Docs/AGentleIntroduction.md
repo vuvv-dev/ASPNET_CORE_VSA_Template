@@ -8,7 +8,7 @@ In my view, an application typically contains two types of features:
 
 - **Functional Features**: These represent the main functionalities of the system, such as user logins, report generation, or data processing. These features directly impact how users interact with the application.
 
-Each feature usually consists of 1 to 3 components, depending on the complexity:
+Each feature usually consists of 1 to 3 components or maybe more if needed, depending on the complexity:
 
 - **Presentation (Optional)**: This is the entry point for user interaction with the feature, such as API endpoints or views. Some features may not need a presentation layer (e.g., background tasks like cleaning or scheduled processes).
 
