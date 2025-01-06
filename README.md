@@ -157,6 +157,20 @@ cd /home/CODE_PROJECTS/ASPNET_CORE_VSA_Template/
 
 ![Out folder image](./Static/Images/Out.png)
 
+### 4. Clean the project via this command:
+
+- Windows
+
+```bash
+.\Scripts\Clean\clean.ps1
+```
+
+- Mac/Linux
+
+```bash
+./Scripts/Clean/clean.sh
+```
+
 ## License
 
 This project is licensed under the [Apache V2.0 License](https://github.com/Jackpieking/VerticleSliceArchitectureTemplate/blob/master/LICENSE), allowing you to freely use, modify, and distribute it under the terms of the license.
