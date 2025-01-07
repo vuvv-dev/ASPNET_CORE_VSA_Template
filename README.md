@@ -61,13 +61,13 @@ git clone https://github.com/Jackpieking/ASPNET_CORE_VSA_Template.git
 
 ### 1. Navigate to the root of the template
 
-- Windows
+- #### Windows
 
 ```bash
 cd E:\CODE_PROJECTS\ASPNET_CORE_VSA_Template\
 ```
 
-- Mac/Linux
+- #### Mac/Linux
 
 ```bash
 cd /home/CODE_PROJECTS/ASPNET_CORE_VSA_Template/
@@ -75,13 +75,13 @@ cd /home/CODE_PROJECTS/ASPNET_CORE_VSA_Template/
 
 ### 2. Install necessary dotnet tool via this script:
 
-- Windows
+- #### Windows
 
 ```bash
 .\Scripts\Init\init.ps1
 ```
 
-- Mac/Linux
+- #### Mac/Linux
 
 ```bash
 ./Scripts/Init/init.sh
@@ -89,13 +89,13 @@ cd /home/CODE_PROJECTS/ASPNET_CORE_VSA_Template/
 
 ### 3. Run the project via this script:
 
-- Windows
+- #### Windows
 
 ```bash
 .\Scripts\Run\run.ps1
 ```
 
-- Mac/Linux
+- #### Mac/Linux
 
 ```bash
 ./Scripts/Run/run.sh
@@ -105,13 +105,13 @@ cd /home/CODE_PROJECTS/ASPNET_CORE_VSA_Template/
 
 ### 1. Build the project via this script:
 
-- Windows
+- #### Windows
 
 ```bash
 .\Scripts\Build\build.ps1
 ```
 
-- Mac/Linux
+- #### Mac/Linux
 
 ```bash
 ./Scripts/Build/build.sh
@@ -119,13 +119,13 @@ cd /home/CODE_PROJECTS/ASPNET_CORE_VSA_Template/
 
 ### 2. Test the project via this script:
 
-- Windows
+- #### Windows
 
 ```bash
 .\Scripts\Test\test.ps1
 ```
 
-- Mac/Linux
+- #### Mac/Linux
 
 ```bash
 ./Scripts/Test/test.sh
@@ -137,13 +137,13 @@ cd /home/CODE_PROJECTS/ASPNET_CORE_VSA_Template/
 
 ### 3. Publish the project via this script:
 
-- Windows
+- #### Windows
 
 ```bash
 .\Scripts\PublishApp\publish.ps1
 ```
 
-- Mac/Linux
+- #### Mac/Linux
 
 ```bash
 ./Scripts/PublishApp/publish.sh
@@ -155,13 +155,13 @@ cd /home/CODE_PROJECTS/ASPNET_CORE_VSA_Template/
 
 ### 4. Clean the project via this script:
 
-- Windows
+- #### Windows
 
 ```bash
 .\Scripts\Clean\clean.ps1
 ```
 
-- Mac/Linux
+- #### Mac/Linux
 
 ```bash
 ./Scripts/Clean/clean.sh
