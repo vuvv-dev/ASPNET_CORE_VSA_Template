@@ -12,8 +12,6 @@ public sealed class TodoTaskEntity : BaseEntity<long>
 
     public DateTime CreatedDate { get; set; }
 
-    public DateTime StartDate { get; set; }
-
     public DateTime DueDate { get; set; }
 
     public bool IsInMyDay { get; set; }
@@ -61,13 +59,6 @@ public sealed class TodoTaskEntity : BaseEntity<long>
             public static class CreatedDate
             {
                 public const string ColumnName = "created_date";
-
-                public const bool IsNotNull = true;
-            }
-
-            public static class StartDate
-            {
-                public const string ColumnName = "start_date";
 
                 public const bool IsNotNull = true;
             }

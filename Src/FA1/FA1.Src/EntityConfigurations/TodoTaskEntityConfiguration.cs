@@ -29,17 +29,11 @@ public sealed class TodoTaskEntityConfiguration : IEntityTypeConfiguration<TodoT
             )
             .IsRequired(TodoTaskEntity.Metadata.Properties.Note.IsNotNull);
 
-        builder 
+        builder
             .Property(entity => entity.CreatedDate)
             .HasColumnName(TodoTaskEntity.Metadata.Properties.CreatedDate.ColumnName)
             .HasColumnType(FA1Constant.DatabaseType.TIMESTAMPZ)
             .IsRequired(TodoTaskEntity.Metadata.Properties.CreatedDate.IsNotNull);
-
-        builder
-            .Property(entity => entity.StartDate)
-            .HasColumnName(TodoTaskEntity.Metadata.Properties.StartDate.ColumnName)
-            .HasColumnType(FA1Constant.DatabaseType.TIMESTAMPZ)
-            .IsRequired(TodoTaskEntity.Metadata.Properties.StartDate.IsNotNull);
 
         builder
             .Property(entity => entity.DueDate)
