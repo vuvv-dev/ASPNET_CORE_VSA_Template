@@ -16,7 +16,7 @@ Each feature usually consists of 1 to 3 components or maybe more if needed, depe
 
 In larger projects, you may have hundreds of features. VSA stands out as an excellent choice because it organizes the codebase into **self-contained and independent feature modules**, which makes it easier to maintain and scale as the project grows.
 
-However, **VSA is just an approach** to structuring your code. It's up to you to implement it in a way that works best for your project.
+However, **VSA is just an approach** to structure your code. It's up to you to implement it in a way that works best for your project.
 
 ==> This template represents my own approach to implementing VSA.
 
