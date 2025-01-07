@@ -1,12 +1,14 @@
 # This is build script for the project (Window version)
 # Execute this to build the project
 
+# Change this to your project name
+$PROJECT_NAME = 'ASPNET_CORE_VSA_Template'
+
 # Set error handling
 $ErrorActionPreference = "Stop"
 
 # Constants
 $CONFIGURATION_MODE = 'Release'
-$PROJECT_NAME = 'ASPNET_CORE_VSA_Template'
 $CURRENT_PATH = Get-Location
 
 # Function to find the root directory containing the solution file

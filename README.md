@@ -4,7 +4,7 @@
 
 - The ASP.NET Core template follows the Vertical Slice Architecture (VSA).
 
-- Please leave the name of the repository folder that you have cloned as `ASPNET_CORE_VSA_Template` (already having that name when you clone in default) in order to make the scripts work.
+- Please leave the name of the repository folder that you have cloned as `ASPNET_CORE_VSA_Template` (default) in order to make the scripts work or check out how to make scripts work with different folder name [Coming soon]().
 
 - For a **introduction about project and each config file**, please check out [Here](./Static/Docs/AGentleIntroduction.md)
 
@@ -131,7 +131,7 @@ cd /home/CODE_PROJECTS/ASPNET_CORE_VSA_Template/
 ./Scripts/Test/test.sh
 ```
 
---> The result will be in TestResults/ folder, the content inside will be always the newest.
+--> The result will be in `TestResults` folder, the content inside will be always the newest.
 
 ![TestResult folder image](./Static/Images/TestResult.png)
 
@@ -149,7 +149,7 @@ cd /home/CODE_PROJECTS/ASPNET_CORE_VSA_Template/
 ./Scripts/PublishApp/publish.sh
 ```
 
---> The result will be in out/ folder, the content inside will be always the newest.
+--> The result will be in `out` folder, the content inside will be always the newest.
 
 ![Out folder image](./Static/Images/Out.png)
 

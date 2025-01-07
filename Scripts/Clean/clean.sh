@@ -3,12 +3,14 @@
 # This is build script for the project (Linux/Mac version)
 # Execute this to build the project
 
+# Change this to your project name
+PROJECT_NAME="ASPNET_CORE_VSA_Template"
+
 # Exit on errors
 set -e
 
 # Constants
 CONFIGURATION_MODE="Release"
-PROJECT_NAME="ASPNET_CORE_VSA_Template"
 CURRENT_PATH=$(pwd)
 
 # Function to find the root directory containing the solution file
