@@ -97,9 +97,11 @@ You can use this file to ignore files in docker. it make the bundle much smaller
 
 It is used to configure the behavior of the C# format tool (CSharpier), like how many tabs, how many spaces, etc. Just like how prettier works.
 
-## 📂 Scripts
+## 📂 Scripts ([more](CustomizeScript.md))
 
-Places for all scripts that is used in this project such as build, publish, etc.
+Place for all scripts that is used in this project such as build, publish, etc.
+
+Read more [**here**](CustomizeScript.md).
 
 ## ⚙️ .github/workflows
 
@@ -107,6 +109,6 @@ Place for workflows that run in github, maybe after commit or pull request or ma
 
 ## ⚙️ .config/dotnet-tools.json ([more](DotnetToolConfig.md))
 
-There is a dotnet tool file inside which is containing metadata about the dotnet tool that the project use like csharpier, dotnet-ef,...
+This file contains metadata about the dotnet tool that the project use like csharpier, dotnet-ef,...
 
 Read more [**here**](DotnetToolConfig.md).
