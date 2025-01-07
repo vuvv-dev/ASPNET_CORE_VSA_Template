@@ -173,4 +173,4 @@ This project is licensed under the [MIT License](https://github.com/Jackpieking/
 
 ## Contact
 
-For inquiries, please submit questions and other thing related to this project on [GitHub Dicussions](https://github.com/Jackpieking/ASPNET_CORE_VSA_Template/discussions).
+Please submit any problems or questions related to this project on [GitHub issues](https://github.com/Jackpieking/ASPNET_CORE_VSA_Template/issues).
