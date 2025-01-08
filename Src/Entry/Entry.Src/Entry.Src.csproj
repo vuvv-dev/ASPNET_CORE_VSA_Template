@@ -1,6 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <ItemGroup>
-    <ProjectReference Include="..\..\F1\F1.Src\F1.Src.csproj" />
-    <ProjectReference Include="..\..\F2\F2.Src\F2.Src.csproj" />
+    <ProjectReference Include="..\..\Core\FA1\FA1.Src\FA1.Src.csproj" />
+    <ProjectReference Include="..\..\Core\FA2\FA2.Src\FA2.Src.csproj" />
+    <ProjectReference Include="..\..\Core\F1\F1.Src\F1.Src.csproj" />
+    <ProjectReference Include="..\..\Core\F2\F2.Src\F2.Src.csproj" />
   </ItemGroup>
 </Project>
