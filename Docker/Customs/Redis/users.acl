@@ -1,0 +1,5 @@
+user default off
+
+user otheruser off
+
+user admin on >Admin123@ +@all

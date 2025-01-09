@@ -25,13 +25,13 @@ public sealed class FA1Register : IServiceRegister
         IConfiguration configuration
     )
     {
+        var configOption = configuration
+            .GetRequiredSection("Database")
+            .GetRequiredSection("Main")
+            .Get<AppDbContextOption>();
+
         services.AddDbContextPool<AppDbContext>(config =>
         {
-            var configOption = configuration
-                .GetRequiredSection("Database")
-                .GetRequiredSection("Main")
-                .Get<AppDbContextOption>();
-
             config
                 .UseNpgsql(
                     configOption.ConnectionString,
@@ -47,7 +47,7 @@ public sealed class FA1Register : IServiceRegister
                 .EnableDetailedErrors(configOption.EnableDetailedErrors)
                 .EnableThreadSafetyChecks(configOption.EnableThreadSafetyChecks)
                 .EnableServiceProviderCaching(configOption.EnableServiceProviderCaching);
-        });
+        }, configOption.MaxActiveConnections);
     }
 
     private static void AddAspNetCoreIdentity(

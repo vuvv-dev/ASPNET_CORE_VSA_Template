@@ -15,4 +15,6 @@ public sealed class AppDbContextOption
     public bool EnableThreadSafetyChecks { get; init; }
 
     public bool EnableServiceProviderCaching { get; init; }
+
+    public int MaxActiveConnections { get; init; }
 }
