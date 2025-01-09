@@ -30,24 +30,27 @@ public sealed class FA1Register : IServiceRegister
             .GetRequiredSection("Main")
             .Get<AppDbContextOption>();
 
-        services.AddDbContextPool<AppDbContext>(config =>
-        {
-            config
-                .UseNpgsql(
-                    configOption.ConnectionString,
-                    dbOption =>
-                    {
-                        dbOption
-                            .MigrationsAssembly(typeof(AppDbContext).Assembly.FullName)
-                            .EnableRetryOnFailure(configOption.EnableRetryOnFailure)
-                            .CommandTimeout(configOption.CommandTimeOutInSecond);
-                    }
-                )
-                .EnableSensitiveDataLogging(configOption.EnableSensitiveDataLogging)
-                .EnableDetailedErrors(configOption.EnableDetailedErrors)
-                .EnableThreadSafetyChecks(configOption.EnableThreadSafetyChecks)
-                .EnableServiceProviderCaching(configOption.EnableServiceProviderCaching);
-        }, configOption.MaxActiveConnections);
+        services.AddDbContextPool<AppDbContext>(
+            config =>
+            {
+                config
+                    .UseNpgsql(
+                        configOption.ConnectionString,
+                        dbOption =>
+                        {
+                            dbOption
+                                .MigrationsAssembly(typeof(AppDbContext).Assembly.FullName)
+                                .EnableRetryOnFailure(configOption.EnableRetryOnFailure)
+                                .CommandTimeout(configOption.CommandTimeOutInSecond);
+                        }
+                    )
+                    .EnableSensitiveDataLogging(configOption.EnableSensitiveDataLogging)
+                    .EnableDetailedErrors(configOption.EnableDetailedErrors)
+                    .EnableThreadSafetyChecks(configOption.EnableThreadSafetyChecks)
+                    .EnableServiceProviderCaching(configOption.EnableServiceProviderCaching);
+            },
+            configOption.MaxActiveConnections
+        );
     }
 
     private static void AddAspNetCoreIdentity(
