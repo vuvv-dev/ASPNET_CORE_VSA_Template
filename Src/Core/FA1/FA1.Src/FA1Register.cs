@@ -29,7 +29,7 @@ public sealed class FA1Register : IServiceRegister
         {
             var configOption = configuration
                 .GetRequiredSection("Database")
-                .GetRequiredSection("MainDb")
+                .GetRequiredSection("Main")
                 .Get<AppDbContextOption>();
 
             config
