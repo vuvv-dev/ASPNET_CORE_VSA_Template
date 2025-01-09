@@ -1,6 +1,0 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <ItemGroup>
-    <ProjectReference Include="..\..\FCommon\FCommon.Test\FCommon.Test.csproj" />
-    <ProjectReference Include="..\F2.Src\F2.Src.csproj" />
-  </ItemGroup>
-</Project>
