@@ -13,6 +13,8 @@ public sealed class AdditionalUserInfoEntity : BaseEntity<long>
 
     #region Navigations
     public IEnumerable<TodoTaskListEntity> TodoTaskLists { get; set; }
+
+    public IdentityUserEntity IdentityUser { get; set; }
     #endregion
 
     public static class Metadata
