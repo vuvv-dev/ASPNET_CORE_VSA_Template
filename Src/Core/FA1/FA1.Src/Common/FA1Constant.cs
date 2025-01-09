@@ -8,8 +8,8 @@ public static class FA1Constant
     {
         public const string VARCHAR = "VARCHAR";
 
-        public const string LONG = "LONG";
+        public const string LONG = "BIGINT";
 
-        public const string TIMESTAMPZ = "TIMESTAMPZ";
+        public const string TIMESTAMPZ = "TIMESTAMP WITH TIME ZONE";
     }
 }

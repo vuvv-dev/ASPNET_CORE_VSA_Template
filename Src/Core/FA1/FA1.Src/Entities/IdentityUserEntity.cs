@@ -4,6 +4,10 @@ namespace FA1.Src.Entities;
 
 public sealed class IdentityUserEntity : IdentityUser<long>
 {
+    #region Navigations
+    public AdditionalUserInfoEntity AdditionalUserInfo { get; set; }
+    #endregion
+
     public static class Metadata
     {
         public const string TableName = "user";

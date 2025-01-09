@@ -12,6 +12,8 @@ public sealed class AppDbContext : IdentityDbContext<IdentityUserEntity, Identit
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        base.OnModelCreating(builder);
+
         builder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
 
         builder.HasDefaultSchema(FA1Constant.DatabaseSchema);
