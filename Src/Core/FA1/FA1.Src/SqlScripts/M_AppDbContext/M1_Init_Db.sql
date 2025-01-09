@@ -1,4 +1,7 @@
-﻿BEGIN TRANSACTION;
+﻿-- Create a new database called 'todoappdb'
+CREATE DATABASE todoappdb;
+
+BEGIN TRANSACTION;
 SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
 
 CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
