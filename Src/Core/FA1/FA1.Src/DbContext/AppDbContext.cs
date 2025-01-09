@@ -7,6 +7,9 @@ namespace FA1.Src.DbContext;
 
 public sealed class AppDbContext : IdentityDbContext<IdentityUserEntity, IdentityRoleEntity, long>
 {
+    public AppDbContext(DbContextOptions options)
+        : base(options) { }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
