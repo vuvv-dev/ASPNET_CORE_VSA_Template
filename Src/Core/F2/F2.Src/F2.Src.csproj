@@ -3,4 +3,7 @@
     <ProjectReference Include="..\..\FCommon\FCommon.Src\FCommon.Src.csproj" />
     <ProjectReference Include="..\..\FA1\FA1.Src\FA1.Src.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+  </ItemGroup>
 </Project>

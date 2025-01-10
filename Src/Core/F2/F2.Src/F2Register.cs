@@ -1,6 +1,7 @@
 using F2.Src.BusinessLogic;
 using F2.Src.DataAccess;
 using FCommon.Src.DependencyInjection;
+using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,8 +11,14 @@ public sealed class F2Register : IServiceRegister
 {
     public IServiceCollection Register(IServiceCollection services, IConfiguration configuration)
     {
+        var currentAssembly = typeof(F2Register).Assembly;
+
         #region Filters
-        services = services.RegisterFiltersFromAssembly(typeof(F2Register));
+        services.RegisterFiltersFromAssembly(currentAssembly);
+        #endregion
+
+        #region Validation
+        services.AddValidatorsFromAssembly(currentAssembly, ServiceLifetime.Singleton);
         #endregion
 
         #region Core
