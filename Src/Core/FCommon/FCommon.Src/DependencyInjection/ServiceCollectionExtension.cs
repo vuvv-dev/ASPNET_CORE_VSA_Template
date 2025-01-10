@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Reflection;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -23,11 +24,11 @@ public static class ServiceCollectionExtension
     // exception
     public static IServiceCollection RegisterFiltersFromAssembly(
         this IServiceCollection services,
-        Type assembly
+        Assembly assembly
     )
     {
         var actionFilterType = typeof(IAsyncActionFilter);
-        var allTypes = assembly.Assembly.GetTypes();
+        var allTypes = assembly.GetTypes();
 
         var isFilterFound = allTypes.Any(type =>
             actionFilterType.IsAssignableFrom(type) && !type.IsInterface
@@ -35,7 +36,7 @@ public static class ServiceCollectionExtension
         if (!isFilterFound)
         {
             throw new ApplicationException(
-                $"No filters are found in this assembly {assembly.Name}, please omit this function !!"
+                $"No filters are found in this assembly {assembly.GetName()}, please omit this function !!"
             );
         }
 
