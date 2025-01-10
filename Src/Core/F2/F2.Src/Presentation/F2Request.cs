@@ -5,5 +5,5 @@ namespace F2.Src.Presentation;
 public sealed class F2Request
 {
     [FromRoute]
-    public string Name { get; init; }
+    public long ListId { get; init; }
 }
