@@ -1,6 +1,10 @@
+using System.Threading;
+using System.Threading.Tasks;
+using FA1.Src.Entities;
+
 namespace F2.Src.DataAccess;
 
 public interface IF2Repository
 {
-    string GetUser();
+    Task<TodoTaskListEntity> GetTodoTaskListAsync(long listId, CancellationToken ct);
 }

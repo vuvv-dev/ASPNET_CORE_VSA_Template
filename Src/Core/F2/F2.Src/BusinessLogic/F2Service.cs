@@ -1,6 +1,9 @@
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 using F2.Src.Common;
 using F2.Src.DataAccess;
+using FA1.Src.Entities;
 
 namespace F2.Src.BusinessLogic;
 
@@ -13,8 +16,18 @@ public sealed class F2Service
         _repository = repository;
     }
 
-    public (int appCode, string value) Execute()
+    public async Task<(int appCode, TodoTaskListEntity todoTaskList)> ExecuteAsync(
+        long listId,
+        CancellationToken ct
+    )
     {
-        return (F2Constant.AppCode.SUCCESS, _repository.Value.GetUser());
+        var list = await _repository.Value.GetTodoTaskListAsync(listId, ct);
+
+        if (Equals(list, null))
+        {
+            return (F2Constant.AppCode.LIST_NOT_FOUND, null);
+        }
+
+        return (F2Constant.AppCode.SUCCESS, list);
     }
 }
