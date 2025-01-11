@@ -4,7 +4,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace FA1.Src.EntityConfigurations;
 
-public sealed class IdentityRoleEntityConfiguration : IEntityTypeConfiguration<IdentityRoleEntity>
+public sealed class BaseIdentityRoleEntityConfiguration
+    : IEntityTypeConfiguration<IdentityRoleEntity>
 {
     public void Configure(EntityTypeBuilder<IdentityRoleEntity> builder)
     {
