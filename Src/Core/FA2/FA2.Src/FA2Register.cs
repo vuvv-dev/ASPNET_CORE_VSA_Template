@@ -1,6 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using FA2.Src.AccessToken;
+using FA2.Src.RefreshToken;
 using FCommon.Src.DependencyInjection;
 using FConfig.Src;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -47,7 +48,10 @@ public sealed class FA2Register : IServiceRegister
 
         services
             .AddSingleton(tokenValidationParameters)
-            .AddSingleton<IAppAccessTokenHandler, AppAccessTokenHandler>();
+            .AddSingleton<IAppAccessTokenHandler, AppAccessTokenHandler>()
+            .MakeSingletonLazy<IAppAccessTokenHandler>()
+            .AddSingleton<IAppRefreshTokenHandler, AppRefreshTokenHandler>()
+            .MakeSingletonLazy<IAppRefreshTokenHandler>();
     }
 
     private static void AddJwtAuthentication(

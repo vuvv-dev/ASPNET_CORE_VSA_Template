@@ -19,15 +19,10 @@ public sealed class AppAccessTokenHandler : IAppAccessTokenHandler
 
     public string GenerateJWS(IEnumerable<Claim> claims)
     {
-        var isExpiredTimeValid = DateTime.TryParse(
+        _ = DateTime.TryParse(
             claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Expired).Value,
             out var expiredTime
         );
-        if (!isExpiredTimeValid)
-        {
-            return string.Empty;
-        }
-
         var signingCredentials = new SigningCredentials(
             _validationParameters.IssuerSigningKey,
             SecurityAlgorithms.HmacSha256
@@ -46,9 +41,7 @@ public sealed class AppAccessTokenHandler : IAppAccessTokenHandler
         };
 
         var tokenHandler = new JwtSecurityTokenHandler();
-
         var jwtDescriptor = tokenHandler.CreateToken(tokenDescriptor);
-
         var jws = tokenHandler.WriteToken(jwtDescriptor);
 
         return jws;
