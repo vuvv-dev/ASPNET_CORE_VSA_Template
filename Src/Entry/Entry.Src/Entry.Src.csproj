@@ -4,6 +4,7 @@
     <ProjectReference Include="..\..\Core\FA2\FA2.Src\FA2.Src.csproj" />
     <ProjectReference Include="..\..\Core\F1\F1.Src\F1.Src.csproj" />
     <ProjectReference Include="..\..\Core\F2\F2.Src\F2.Src.csproj" />
+    <ProjectReference Include="..\..\Core\FA3\FA3.Src\FA3.Src.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design">

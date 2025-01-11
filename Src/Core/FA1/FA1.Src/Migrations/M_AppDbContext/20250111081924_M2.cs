@@ -18,28 +18,24 @@ namespace FA1.Src.Migrations.M_AppDbContext
                 type: "character varying(34)",
                 maxLength: 34,
                 nullable: false,
-                defaultValue: "");
+                defaultValue: ""
+            );
 
             migrationBuilder.AddColumn<DateTime>(
                 name: "expired_at",
                 schema: "todo",
                 table: "user_token",
                 type: "TIMESTAMP WITH TIME ZONE",
-                nullable: true);
+                nullable: true
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Discriminator",
-                schema: "todo",
-                table: "user_token");
+            migrationBuilder.DropColumn(name: "Discriminator", schema: "todo", table: "user_token");
 
-            migrationBuilder.DropColumn(
-                name: "expired_at",
-                schema: "todo",
-                table: "user_token");
+            migrationBuilder.DropColumn(name: "expired_at", schema: "todo", table: "user_token");
         }
     }
 }
