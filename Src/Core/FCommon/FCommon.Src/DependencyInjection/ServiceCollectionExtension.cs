@@ -8,6 +8,8 @@ namespace FCommon.Src.DependencyInjection;
 
 public static class ServiceCollectionExtension
 {
+    private static readonly Type AsyncActionFilterType = typeof(IAsyncActionFilter);
+
     public static IServiceCollection MakeSingletonLazy<T>(this IServiceCollection services)
         where T : class
     {
@@ -27,11 +29,10 @@ public static class ServiceCollectionExtension
         Assembly assembly
     )
     {
-        var actionFilterType = typeof(IAsyncActionFilter);
         var allTypes = assembly.GetTypes();
 
         var isFilterFound = allTypes.Any(type =>
-            actionFilterType.IsAssignableFrom(type) && !type.IsInterface
+            AsyncActionFilterType.IsAssignableFrom(type) && !type.IsInterface
         );
         if (!isFilterFound)
         {
@@ -44,7 +45,7 @@ public static class ServiceCollectionExtension
         {
             // Is this type implement interface and not the interface
             // itself
-            if (actionFilterType.IsAssignableFrom(type) && !type.IsInterface)
+            if (AsyncActionFilterType.IsAssignableFrom(type) && !type.IsInterface)
             {
                 services.AddSingleton(type);
             }
