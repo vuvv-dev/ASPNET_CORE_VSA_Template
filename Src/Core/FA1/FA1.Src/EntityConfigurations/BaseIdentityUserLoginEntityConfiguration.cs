@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace FA1.Src.EntityConfigurations;
 
-public sealed class IdentityUserLoginEntityConfiguration
+public sealed class BaseIdentityUserLoginEntityConfiguration
     : IEntityTypeConfiguration<IdentityUserLogin<long>>
 {
     public void Configure(EntityTypeBuilder<IdentityUserLogin<long>> builder)
