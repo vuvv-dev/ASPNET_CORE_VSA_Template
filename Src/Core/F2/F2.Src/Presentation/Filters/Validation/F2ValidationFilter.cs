@@ -1,12 +1,9 @@
-using System;
 using System.Net.Mime;
 using System.Threading.Tasks;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc.Formatters;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace F2.Src.Presentation.Filters.Validation;
 
