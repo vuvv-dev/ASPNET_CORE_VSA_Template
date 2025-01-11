@@ -4,7 +4,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace FA1.Src.EntityConfigurations;
 
-public sealed class IdentityUserEntityConfiguration : IEntityTypeConfiguration<IdentityUserEntity>
+public sealed class BaseIdentityUserEntityConfiguration
+    : IEntityTypeConfiguration<IdentityUserEntity>
 {
     public void Configure(EntityTypeBuilder<IdentityUserEntity> builder)
     {

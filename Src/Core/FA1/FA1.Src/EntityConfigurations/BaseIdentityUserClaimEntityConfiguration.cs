@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace FA1.Src.EntityConfigurations;
 
-public sealed class IdentityUserClaimEntityConfiguration
+public sealed class BaseIdentityUserClaimEntityConfiguration
     : IEntityTypeConfiguration<IdentityUserClaim<long>>
 {
     public void Configure(EntityTypeBuilder<IdentityUserClaim<long>> builder)
