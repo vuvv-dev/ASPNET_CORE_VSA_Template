@@ -28,21 +28,21 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseRouting();
+    app.UseRouting().UseAuthentication().UseAuthorization();
 
     app.MapControllers();
 }
 
 if (app.Environment.IsStaging())
 {
-    app.UseRouting();
+    app.UseRouting().UseAuthentication().UseAuthorization();
 
     app.MapControllers();
 }
 
 if (app.Environment.IsProduction())
 {
-    app.UseRouting();
+    app.UseRouting().UseAuthentication().UseAuthorization();
 
     app.MapControllers();
 }
