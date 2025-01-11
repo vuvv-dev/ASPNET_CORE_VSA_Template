@@ -5,13 +5,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace F2.Src.Presentation.Filters.Validation;
+namespace F1.Src.Presentation.Filters.Validation;
 
-public sealed class F2ValidationFilter : IAsyncActionFilter
+public sealed class F1ValidationFilter : IAsyncActionFilter
 {
-    private readonly IValidator<F2Request> _validator;
+    private readonly IValidator<F1Request> _validator;
 
-    public F2ValidationFilter(IValidator<F2Request> validator)
+    public F1ValidationFilter(IValidator<F1Request> validator)
     {
         _validator = validator;
     }
@@ -23,7 +23,7 @@ public sealed class F2ValidationFilter : IAsyncActionFilter
     {
         const string RequestKey = "request";
 
-        var request = context.ActionArguments[RequestKey] as F2Request;
+        var request = context.ActionArguments[RequestKey] as F1Request;
 
         var result = await _validator.ValidateAsync(request);
 
