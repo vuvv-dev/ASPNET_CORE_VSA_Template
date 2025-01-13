@@ -26,7 +26,7 @@ public sealed class F1Repository : IF1Repository
         _signInManager = signInManager;
     }
 
-    public async Task<F1CheckPasswordSignInResultModel> CheckPasswordSignInAsync(
+    public async Task<F1PasswordSignInResultModel> CheckPasswordSignInAsync(
         string email,
         string password,
         CancellationToken ct
