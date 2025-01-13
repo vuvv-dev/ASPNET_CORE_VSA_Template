@@ -16,17 +16,8 @@ public sealed class FA1Register : IServiceRegister
     {
         AddAppDbContextPool(services, configuration);
         AddAspNetCoreIdentity(services, configuration);
-        AddAppDefinedServices(services);
 
         return services;
-    }
-
-    private static void AddAppDefinedServices(IServiceCollection services)
-    {
-        services.MakeScopedLazy<AppDbContext>();
-        services.MakeScopedLazy<UserManager<IdentityUserEntity>>();
-        services.MakeScopedLazy<RoleManager<IdentityRoleEntity>>();
-        services.MakeScopedLazy<SignInManager<IdentityUserEntity>>();
     }
 
     private static void AddAppDbContextPool(
