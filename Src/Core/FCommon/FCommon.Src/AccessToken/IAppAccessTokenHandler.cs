@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 
-namespace FA2.Src.AccessToken;
+namespace FCommon.Src.AccessToken;
 
 public interface IAppAccessTokenHandler
 {

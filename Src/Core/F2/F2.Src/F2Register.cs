@@ -1,6 +1,6 @@
 using F2.Src.BusinessLogic;
 using F2.Src.DataAccess;
-using FCommon.Src.DependencyInjection;
+using FACommon.Src.DependencyInjection;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

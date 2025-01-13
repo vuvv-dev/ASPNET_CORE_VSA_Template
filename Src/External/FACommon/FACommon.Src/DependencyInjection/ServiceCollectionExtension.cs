@@ -4,7 +4,7 @@ using System.Reflection;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FCommon.Src.DependencyInjection;
+namespace FACommon.Src.DependencyInjection;
 
 public static class ServiceCollectionExtension
 {

@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Base\FBaseApi.Src\FBaseApi.Src.csproj" />
-    <ProjectReference Include="..\..\..\Base\FConfig.Src\FConfig.Src.csproj" />
+    <ProjectReference Include="..\..\..\External\FA1\FA1.Src\FA1.Src.csproj" />
+    <ProjectReference Include="..\..\..\External\FA2\FA2.Src\FA2.Src.csproj" />
+    <ProjectReference Include="..\..\..\External\FA3\FA3.Src\FA3.Src.csproj" />
   </ItemGroup>
 </Project>
