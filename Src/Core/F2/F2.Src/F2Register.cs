@@ -25,8 +25,7 @@ public sealed class F2Register : IServiceRegister
         services
             .AddScoped<IF2Repository, F2Repository>()
             .MakeScopedLazy<IF2Repository>()
-            .AddScoped<F2Service>()
-            .MakeScopedLazy<F2Service>();
+            .AddScoped<F2Service>();
         #endregion
 
         return services;
