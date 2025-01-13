@@ -8,5 +8,10 @@ public sealed class F1AppResponseModel : IServiceResponse
 
     public BodyDto Body { get; set; }
 
-    public sealed class BodyDto { }
+    public sealed class BodyDto
+    {
+        public string AccessToken { get; set; }
+
+        public string RefreshToken { get; set; }
+    }
 }

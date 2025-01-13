@@ -1,5 +1,6 @@
 using System.Net.Mime;
 using System.Threading.Tasks;
+using F1.Src.Common;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,9 +22,7 @@ public sealed class F1ValidationFilter : IAsyncActionFilter
         ActionExecutionDelegate next
     )
     {
-        const string RequestKey = "request";
-
-        var request = context.ActionArguments[RequestKey] as F1Request;
+        var request = context.ActionArguments[F1Constant.REQUEST_ARGUMENT_NAME] as F1Request;
 
         var result = await _validator.ValidateAsync(request);
 
@@ -32,7 +31,7 @@ public sealed class F1ValidationFilter : IAsyncActionFilter
             context.Result = new ContentResult
             {
                 StatusCode = StatusCodes.Status400BadRequest,
-                Content = "Invalid request, validation failed",
+                Content = F1Constant.AppCode.VALIDATION_FAILED.ToString(),
                 ContentType = MediaTypeNames.Application.Json,
             };
 

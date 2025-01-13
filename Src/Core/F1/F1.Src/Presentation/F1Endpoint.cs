@@ -1,19 +1,19 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using F1.Src.BusinessLogic;
 using F1.Src.Common;
+using F1.Src.Mapper;
+using F1.Src.Models;
 using F1.Src.Presentation.Filters.Validation;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace F1.Src.Presentation;
 
 public sealed class F1Endpoint : ControllerBase
 {
-    private readonly Lazy<F1Service> _service;
+    private readonly F1Service _service;
 
-    public F1Endpoint(Lazy<F1Service> service)
+    public F1Endpoint(F1Service service)
     {
         _service = service;
     }
@@ -22,10 +22,16 @@ public sealed class F1Endpoint : ControllerBase
     [ServiceFilter<F1ValidationFilter>(Order = 1)]
     public async Task<IActionResult> ExecuteAsync(F1Request request, CancellationToken ct)
     {
-        F1Response response = new();
+        var appRequest = new F1AppRequestModel
+        {
+            Email = request.Email,
+            Password = request.Password,
+            RememberMe = request.RememberMe,
+        };
+        var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
-        await Task.Delay(1, ct);
+        var httpResponse = F1HttpResponseMapper.Get(appResponse.AppCode);
 
-        return StatusCode(StatusCodes.Status200OK, response);
+        return StatusCode(httpResponse.HttpCode, httpResponse);
     }
 }
