@@ -8,7 +8,7 @@ public interface IF1Repository
 {
     Task<bool> IsUserFoundByEmailAsync(string email, CancellationToken ct);
 
-    Task<F1CheckPasswordSignInResultModel> CheckPasswordSignInAsync(
+    Task<F1PasswordSignInResultModel> CheckPasswordSignInAsync(
         string email,
         string password,
         CancellationToken ct
