@@ -5,6 +5,6 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\FCommon\FCommon.Src\FCommon.Src.csproj" />
+    <ProjectReference Include="..\..\FACommon\FACommon.Src\FACommon.Src.csproj" />
   </ItemGroup>
 </Project>

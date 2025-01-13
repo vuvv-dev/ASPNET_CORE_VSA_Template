@@ -1,4 +1,4 @@
-namespace FA2.Src.RefreshToken;
+namespace FCommon.Src.RefreshToken;
 
 public interface IAppRefreshTokenHandler
 {

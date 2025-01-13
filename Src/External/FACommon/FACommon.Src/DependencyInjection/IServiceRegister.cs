@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FCommon.Src.DependencyInjection;
+namespace FACommon.Src.DependencyInjection;
 
 public interface IServiceRegister
 {
