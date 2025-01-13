@@ -6,9 +6,9 @@ public sealed class F1AppResponseModel : IServiceResponse
 {
     public int AppCode { get; set; }
 
-    public BodyDto Body { get; set; }
+    public BodyModel Body { get; set; }
 
-    public sealed class BodyDto
+    public sealed class BodyModel
     {
         public string AccessToken { get; set; }
 

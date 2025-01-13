@@ -1,4 +1,6 @@
 using System;
+using FConfig.Src;
+using Microsoft.Extensions.Configuration;
 using SnowflakeGenerator;
 using SnowflakeGenerator.Exceptions;
 
@@ -6,18 +8,61 @@ namespace FCommon.Src.IdGeneration;
 
 public sealed class SnowflakeIdGenerator : IAppIdGenerator
 {
-    private static readonly Settings GeneratorSettings = new()
-    {
-        CustomEpoch = new(2025, 1, 1, 0, 0, 0, TimeSpan.Zero),
-    };
+    private readonly Settings _idGeneratorSettings;
+    private readonly Snowflake _idGenerator;
 
-    private static readonly Snowflake Generator = new(GeneratorSettings);
+    public SnowflakeIdGenerator(IConfiguration configuration)
+    {
+        var option = configuration.GetRequiredSection("SnowflakeId").Get<SnowflakeIdOption>();
+
+        _idGeneratorSettings = new()
+        {
+            MachineID = option.MachineId,
+            CustomEpoch = new(
+                option.CustomEpoch.Year,
+                option.CustomEpoch.Month,
+                option.CustomEpoch.Day,
+                option.CustomEpoch.Hour,
+                option.CustomEpoch.Minute,
+                option.CustomEpoch.Second,
+                TimeSpan.Zero
+            ),
+            MachineIDBitLength = option.MachineIDBitLength,
+            SequenceBitLength = option.SequenceBitLength,
+        };
+
+        _idGenerator = new(_idGeneratorSettings);
+    }
+
+    public AppDecodedIdModel DecodeId(long id)
+    {
+        try
+        {
+            var (timestamp, machineID, sequence) = _idGenerator.DecodeID(id);
+
+            long createdUnixTimestamp =
+                timestamp + _idGeneratorSettings.CustomEpoch.Value.ToUnixTimeMilliseconds();
+
+            var createdDateTime = DateTimeOffset.FromUnixTimeMilliseconds(createdUnixTimestamp);
+
+            return new()
+            {
+                MachineId = machineID,
+                Sequence = sequence,
+                CreatedTimestamp = createdDateTime,
+            };
+        }
+        catch (SnowflakeException)
+        {
+            return null;
+        }
+    }
 
     public long NextId()
     {
         try
         {
-            return Generator.NextID();
+            return _idGenerator.NextID();
         }
         catch (SnowflakeException)
         {

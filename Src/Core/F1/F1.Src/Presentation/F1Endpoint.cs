@@ -30,7 +30,7 @@ public sealed class F1Endpoint : ControllerBase
         };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
-        var httpResponse = F1HttpResponseMapper.Get(appResponse.AppCode);
+        var httpResponse = F1HttpResponseMapper.Get(appRequest, appResponse);
 
         return StatusCode(httpResponse.HttpCode, httpResponse);
     }
