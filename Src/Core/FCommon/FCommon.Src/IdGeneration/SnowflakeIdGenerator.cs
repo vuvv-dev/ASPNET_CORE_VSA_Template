@@ -2,9 +2,9 @@ using System;
 using SnowflakeGenerator;
 using SnowflakeGenerator.Exceptions;
 
-namespace FA3.Src.Generator;
+namespace FCommon.Src.IdGeneration;
 
-public sealed class SnowFlakeGenerator : IIdGenerator
+public sealed class SnowflakeIdGenerator : IAppIdGenerator
 {
     private static readonly Settings GeneratorSettings = new()
     {

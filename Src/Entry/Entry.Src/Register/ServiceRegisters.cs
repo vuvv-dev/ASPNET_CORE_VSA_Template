@@ -4,7 +4,9 @@ using System.Linq;
 using System.Reflection;
 using F2.Src;
 using FA1.Src;
-using FCommon.Src.DependencyInjection;
+using FA2.Src;
+using FA3.Src;
+using FACommon.Src.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,6 +19,8 @@ public static class ServiceRegisters
     [
         typeof(F2Register).Assembly,
         typeof(FA1Register).Assembly,
+        typeof(FA2Register).Assembly,
+        typeof(FA3Register).Assembly,
     ];
     private static readonly Type ServiceRegisterType = typeof(IServiceRegister);
 

@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\FA2\FA2.Test\FA2.Test.csproj" />
-    <ProjectReference Include="..\..\Core\FA1\FA1.Test\FA1.Test.csproj" />
     <ProjectReference Include="..\..\Core\F2\F2.Test\F2.Test.csproj" />
     <ProjectReference Include="..\..\Core\F1\F1.Test\F1.Test.csproj" />
-    <ProjectReference Include="..\..\Core\FA3\FA3.Test\FA3.Test.csproj" />
+    <ProjectReference Include="..\..\External\FA2\FA2.Test\FA2.Test.csproj" />
+    <ProjectReference Include="..\..\External\FA1\FA1.Test\FA1.Test.csproj" />
+    <ProjectReference Include="..\..\External\FA3\FA3.Test\FA3.Test.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

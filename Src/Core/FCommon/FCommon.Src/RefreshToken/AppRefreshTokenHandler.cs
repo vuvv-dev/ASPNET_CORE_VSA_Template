@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace FA2.Src.RefreshToken;
+namespace FCommon.Src.RefreshToken;
 
 public sealed class AppRefreshTokenHandler : IAppRefreshTokenHandler
 {

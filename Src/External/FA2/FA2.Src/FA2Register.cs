@@ -1,8 +1,6 @@
 using System.Security.Cryptography;
 using System.Text;
-using FA2.Src.AccessToken;
-using FA2.Src.RefreshToken;
-using FCommon.Src.DependencyInjection;
+using FACommon.Src.DependencyInjection;
 using FConfig.Src;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
@@ -29,6 +27,7 @@ public sealed class FA2Register : IServiceRegister
         var appAuthOption = configuration
             .GetRequiredSection("Authentication")
             .GetRequiredSection("Jwt")
+            .GetRequiredSection("User")
             .Get<JwtAuthenticationOption>();
 
         var tokenValidationParameters = new TokenValidationParameters
@@ -46,12 +45,7 @@ public sealed class FA2Register : IServiceRegister
             ),
         };
 
-        services
-            .AddSingleton(tokenValidationParameters)
-            .AddSingleton<IAppAccessTokenHandler, AppAccessTokenHandler>()
-            .MakeSingletonLazy<IAppAccessTokenHandler>()
-            .AddSingleton<IAppRefreshTokenHandler, AppRefreshTokenHandler>()
-            .MakeSingletonLazy<IAppRefreshTokenHandler>();
+        services.AddSingleton(tokenValidationParameters);
     }
 
     private static void AddJwtAuthentication(
@@ -62,6 +56,7 @@ public sealed class FA2Register : IServiceRegister
         var appAuthOption = configuration
             .GetRequiredSection("Authentication")
             .GetRequiredSection("Jwt")
+            .GetRequiredSection("User")
             .Get<JwtAuthenticationOption>();
 
         var tokenValidationParameters = new TokenValidationParameters

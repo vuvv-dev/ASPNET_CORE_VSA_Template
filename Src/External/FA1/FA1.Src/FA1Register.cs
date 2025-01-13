@@ -1,7 +1,7 @@
 using System;
 using FA1.Src.DbContext;
 using FA1.Src.Entities;
-using FCommon.Src.DependencyInjection;
+using FACommon.Src.DependencyInjection;
 using FConfig.Src;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

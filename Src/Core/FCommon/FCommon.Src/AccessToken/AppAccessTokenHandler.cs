@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
-using FA2.Src.Common;
+using FCommon.Src.Constants;
 using Microsoft.IdentityModel.Tokens;
 
-namespace FA2.Src.AccessToken;
+namespace FCommon.Src.AccessToken;
 
 public sealed class AppAccessTokenHandler : IAppAccessTokenHandler
 {
@@ -34,7 +34,7 @@ public sealed class AppAccessTokenHandler : IAppAccessTokenHandler
             Issuer = _validationParameters.ValidIssuer,
             IssuedAt = DateTime.UtcNow,
             Expires = expiredTime,
-            TokenType = FA2Constant.JsonWebToken.JWS,
+            TokenType = AppConstants.JsonWebToken.Type.JWS,
             CompressionAlgorithm = CompressionAlgorithms.Deflate,
             SigningCredentials = signingCredentials,
             Subject = new(claims),
