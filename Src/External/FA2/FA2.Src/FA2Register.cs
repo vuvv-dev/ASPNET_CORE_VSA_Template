@@ -14,38 +14,8 @@ public sealed class FA2Register : IServiceRegister
     public IServiceCollection Register(IServiceCollection services, IConfiguration configuration)
     {
         AddJwtAuthentication(services, configuration);
-        AddAppDefinedServices(services, configuration);
 
         return services;
-    }
-
-    private static void AddAppDefinedServices(
-        IServiceCollection services,
-        IConfiguration configuration
-    )
-    {
-        var appAuthOption = configuration
-            .GetRequiredSection("Authentication")
-            .GetRequiredSection("Jwt")
-            .GetRequiredSection("User")
-            .Get<JwtAuthenticationOption>();
-
-        var tokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = appAuthOption.ValidateIssuer,
-            ValidateAudience = appAuthOption.ValidateAudience,
-            ValidateLifetime = appAuthOption.ValidateLifetime,
-            ValidateIssuerSigningKey = appAuthOption.ValidateIssuerSigningKey,
-            RequireExpirationTime = appAuthOption.RequireExpirationTime,
-            ValidTypes = appAuthOption.ValidTypes,
-            ValidIssuer = appAuthOption.ValidIssuer,
-            ValidAudience = appAuthOption.ValidAudience,
-            IssuerSigningKey = new SymmetricSecurityKey(
-                new HMACSHA256(Encoding.UTF8.GetBytes(appAuthOption.IssuerSigningKey)).Key
-            ),
-        };
-
-        services.AddSingleton(tokenValidationParameters);
     }
 
     private static void AddJwtAuthentication(

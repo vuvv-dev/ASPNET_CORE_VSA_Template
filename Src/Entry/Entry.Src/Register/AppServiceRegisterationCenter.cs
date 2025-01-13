@@ -8,17 +8,19 @@ using FA1.Src;
 using FA2.Src;
 using FA3.Src;
 using FACommon.Src.DependencyInjection;
+using FCommon.Src;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Entry.Src.Register;
 
-public static class ServiceRegisters
+public static class AppServiceRegisterationCenter
 {
     // Add assembly that you want to register HERE !!
     private static readonly List<Assembly> RegisterAssemblies =
     [
         // Core
+        typeof(CommonServiceRegister).Assembly,
         typeof(F1Register).Assembly,
         typeof(F2Register).Assembly,
         // External
