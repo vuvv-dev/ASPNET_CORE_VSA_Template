@@ -1,11 +1,11 @@
 using F1.Src.BusinessLogic;
 using F1.Src.DataAccess;
-using FCommon.Src.DependencyInjection;
+using FACommon.Src.DependencyInjection;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace F2.Src;
+namespace F1.Src;
 
 public sealed class F1Register : IServiceRegister
 {
