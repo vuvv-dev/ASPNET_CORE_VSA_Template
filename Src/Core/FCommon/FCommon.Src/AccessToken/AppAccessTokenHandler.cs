@@ -20,7 +20,9 @@ public sealed class AppAccessTokenHandler : IAppAccessTokenHandler
     public string GenerateJWS(IEnumerable<Claim> claims)
     {
         _ = DateTime.TryParse(
-            claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Expired).Value,
+            claims
+                .FirstOrDefault(claim => claim.Type == AppConstants.JsonWebToken.ClaimType.EXP)
+                .Value,
             out var expiredTime
         );
         var signingCredentials = new SigningCredentials(
