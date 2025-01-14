@@ -23,7 +23,7 @@ public static class F2HttpResponseMapper
             _httpResponseMapper.TryAdd(
                 F2Constant.AppCode.LIST_NOT_FOUND,
                 (appRequest, appResponse) =>
-                    new F2Response
+                    new()
                     {
                         HttpCode = StatusCodes.Status404NotFound,
                         AppCode = F2Constant.AppCode.LIST_NOT_FOUND,
@@ -33,7 +33,7 @@ public static class F2HttpResponseMapper
             _httpResponseMapper.TryAdd(
                 F2Constant.AppCode.SUCCESS,
                 (appRequest, appResponse) =>
-                    new F2Response
+                    new()
                     {
                         HttpCode = StatusCodes.Status400BadRequest,
                         AppCode = F2Constant.AppCode.SUCCESS,

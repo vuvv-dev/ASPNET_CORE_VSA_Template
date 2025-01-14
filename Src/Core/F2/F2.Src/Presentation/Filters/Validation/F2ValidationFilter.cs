@@ -26,19 +26,14 @@ public sealed class F2ValidationFilter : IAsyncActionFilter
         var request = context.ActionArguments[F2Constant.REQUEST_ARGUMENT_NAME] as F2Request;
 
         var result = await _validator.ValidateAsync(request);
-
         if (!result.IsValid)
         {
-            var httpResponse = new F2Response
-            {
-                HttpCode = StatusCodes.Status400BadRequest,
-                AppCode = F2Constant.AppCode.VALIDATION_FAILED,
-            };
-
             context.Result = new ContentResult
             {
-                StatusCode = StatusCodes.Status400BadRequest,
-                Content = JsonSerializer.Serialize(httpResponse),
+                StatusCode = F2Constant.DefaultResponse.Http.VALIDATION_FAILED.HttpCode,
+                Content = JsonSerializer.Serialize(
+                    F2Constant.DefaultResponse.Http.VALIDATION_FAILED
+                ),
                 ContentType = MediaTypeNames.Application.Json,
             };
 
