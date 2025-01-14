@@ -25,7 +25,6 @@ public sealed class F1ValidationFilter : IAsyncActionFilter
         var request = context.ActionArguments[F1Constant.REQUEST_ARGUMENT_NAME] as F1Request;
 
         var result = await _validator.ValidateAsync(request);
-
         if (!result.IsValid)
         {
             context.Result = new ContentResult
