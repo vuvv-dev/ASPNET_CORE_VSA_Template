@@ -7,6 +7,7 @@
     <ProjectReference Include="..\..\External\FA1\FA1.Test\FA1.Test.csproj" />
     <ProjectReference Include="..\..\External\FA3\FA3.Test\FA3.Test.csproj" />
     <ProjectReference Include="..\..\Core\F3\F3.Test\F3.Test.csproj" />
+    <ProjectReference Include="..\..\Core\F4\F4.Test\F4.Test.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
