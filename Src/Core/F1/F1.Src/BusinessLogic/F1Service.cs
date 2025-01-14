@@ -6,6 +6,7 @@ using F1.Src.Common;
 using F1.Src.DataAccess;
 using F1.Src.Models;
 using FCommon.Src.AccessToken;
+using FCommon.Src.Constants;
 using FCommon.Src.FeatureService;
 using FCommon.Src.IdGeneration;
 using FCommon.Src.RefreshToken;
@@ -63,13 +64,23 @@ public sealed class F1Service : IServiceHandler<F1AppRequestModel, F1AppResponse
             tokenId,
             request.RememberMe
         );
-        await _repository.Value.CreateRefreshTokenAsync(newRefreshToken, ct);
+        var result = await _repository.Value.CreateRefreshTokenAsync(newRefreshToken, ct);
+        if (result)
+        {
+            return F1Constant.DefaultResponse.App.SERVER_ERROR;
+        }
 
         var newAccessToken = _accessTokenHandler.Value.GenerateJWS(
             [
-                new(JwtRegisteredClaimNames.Jti, tokenId.ToString()),
-                new(JwtRegisteredClaimNames.Sub, passwordSignInResult.UserId.ToString()),
-                new(JwtRegisteredClaimNames.Exp, DateTime.UtcNow.AddMinutes(60).ToString()),
+                new(AppConstants.JsonWebToken.ClaimType.JTI, tokenId.ToString()),
+                new(
+                    AppConstants.JsonWebToken.ClaimType.SUB,
+                    passwordSignInResult.UserId.ToString()
+                ),
+                new(
+                    AppConstants.JsonWebToken.ClaimType.EXP,
+                    DateTime.UtcNow.AddMinutes(60).ToString()
+                ),
             ]
         );
 

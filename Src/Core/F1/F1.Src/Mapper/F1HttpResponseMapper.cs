@@ -49,6 +49,11 @@ public static class F1HttpResponseMapper
                 F1Constant.AppCode.USER_NOT_FOUND,
                 (appRequest, appResponse) => F1Constant.DefaultResponse.Http.USER_NOT_FOUND
             );
+
+            _httpResponseMapper.TryAdd(
+                F1Constant.AppCode.SERVER_ERROR,
+                (appRequest, appResponse) => F1Constant.DefaultResponse.Http.SERVER_ERROR
+            );
         }
     }
 

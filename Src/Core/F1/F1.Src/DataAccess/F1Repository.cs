@@ -47,22 +47,32 @@ public sealed class F1Repository : IF1Repository
         };
     }
 
-    public async Task CreateRefreshTokenAsync(F1RefreshTokenModel model, CancellationToken ct)
+    public async Task<bool> CreateRefreshTokenAsync(F1RefreshTokenModel model, CancellationToken ct)
     {
-        await _context
-            .Set<IdentityUserTokenEntity>()
-            .AddAsync(
-                new()
-                {
-                    LoginProvider = model.LoginProvider,
-                    ExpiredAt = model.ExpiredAt,
-                    UserId = model.UserId,
-                    Value = model.Value,
-                    Name = model.Name,
-                },
-                ct
-            );
-        await _context.SaveChangesAsync(ct);
+        try
+        {
+            await _context
+                .Set<IdentityUserTokenEntity>()
+                .AddAsync(
+                    new()
+                    {
+                        LoginProvider = model.LoginProvider,
+                        ExpiredAt = model.ExpiredAt,
+                        UserId = model.UserId,
+                        Value = model.Value,
+                        Name = model.Name,
+                    },
+                    ct
+                );
+
+            return true;
+        }
+        catch (DbUpdateException)
+        {
+            await _context.SaveChangesAsync(ct);
+        }
+
+        return false;
     }
 
     public Task<bool> IsUserFoundByEmailAsync(string email, CancellationToken ct)

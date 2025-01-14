@@ -35,6 +35,11 @@ public static class F1Constant
             {
                 AppCode = AppCode.VALIDATION_FAILED,
             };
+
+            public static readonly F1AppResponseModel SERVER_ERROR = new()
+            {
+                AppCode = AppCode.SERVER_ERROR,
+            };
         }
 
         public static class Http
@@ -62,6 +67,12 @@ public static class F1Constant
                 HttpCode = StatusCodes.Status400BadRequest,
                 AppCode = AppCode.VALIDATION_FAILED,
             };
+
+            public static readonly F1Response SERVER_ERROR = new()
+            {
+                HttpCode = StatusCodes.Status500InternalServerError,
+                AppCode = AppCode.SERVER_ERROR,
+            };
         }
     }
 
@@ -76,5 +87,7 @@ public static class F1Constant
         public const int PASSWORD_IS_INCORRECT = 4;
 
         public const int VALIDATION_FAILED = 5;
+
+        public const int SERVER_ERROR = 6;
     }
 }
