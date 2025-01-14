@@ -1,5 +1,0 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <ItemGroup>
-    <ProjectReference Include="..\FA3.Src\FA3.Src.csproj" />
-  </ItemGroup>
-</Project>
