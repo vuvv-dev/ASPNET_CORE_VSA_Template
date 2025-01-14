@@ -6,6 +6,7 @@ public sealed class F1ValidationProfile : AbstractValidator<F1Request>
 {
     public F1ValidationProfile()
     {
+        ClassLevelCascadeMode = CascadeMode.Stop;
         RuleLevelCascadeMode = CascadeMode.Stop;
 
         RuleFor(prop => prop.Email).NotEmpty().EmailAddress();
