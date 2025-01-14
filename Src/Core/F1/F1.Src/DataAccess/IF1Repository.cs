@@ -14,5 +14,5 @@ public interface IF1Repository
         CancellationToken ct
     );
 
-    Task CreateRefreshTokenAsync(F1RefreshTokenModel model, CancellationToken ct);
+    Task<bool> CreateRefreshTokenAsync(F1RefreshTokenModel model, CancellationToken ct);
 }
