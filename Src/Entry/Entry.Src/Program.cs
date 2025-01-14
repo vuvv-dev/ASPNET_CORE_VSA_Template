@@ -1,7 +1,5 @@
-using System;
 using System.Threading;
 using Entry.Src.Register;
-using FCommon.Src.IdGeneration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
