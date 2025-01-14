@@ -1,8 +1,2 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <ItemGroup>
-    <ProjectReference Include="..\..\FCommon\FCommon.Src\FCommon.Src.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
-  </ItemGroup>
 </Project>

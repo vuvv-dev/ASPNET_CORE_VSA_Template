@@ -4,7 +4,4 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\FACommon\FACommon.Src\FACommon.Src.csproj" />
-  </ItemGroup>
 </Project>
