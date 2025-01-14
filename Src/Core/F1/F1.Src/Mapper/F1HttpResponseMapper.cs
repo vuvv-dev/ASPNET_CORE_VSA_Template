@@ -22,22 +22,12 @@ public static class F1HttpResponseMapper
 
             _httpResponseMapper.TryAdd(
                 F1Constant.AppCode.PASSWORD_IS_INCORRECT,
-                (appRequest, appResponse) =>
-                    new()
-                    {
-                        HttpCode = StatusCodes.Status401Unauthorized,
-                        AppCode = F1Constant.AppCode.PASSWORD_IS_INCORRECT,
-                    }
+                (appRequest, appResponse) => F1Constant.DefaultResponse.Http.PASSWORD_IS_INCORRECT
             );
 
             _httpResponseMapper.TryAdd(
                 F1Constant.AppCode.TEMPORARY_BANNED,
-                (appRequest, appResponse) =>
-                    new()
-                    {
-                        HttpCode = StatusCodes.Status429TooManyRequests,
-                        AppCode = F1Constant.AppCode.TEMPORARY_BANNED,
-                    }
+                (appRequest, appResponse) => F1Constant.DefaultResponse.Http.TEMPORARY_BANNED
             );
 
             _httpResponseMapper.TryAdd(
@@ -57,12 +47,7 @@ public static class F1HttpResponseMapper
 
             _httpResponseMapper.TryAdd(
                 F1Constant.AppCode.USER_NOT_FOUND,
-                (appRequest, appResponse) =>
-                    new()
-                    {
-                        HttpCode = StatusCodes.Status404NotFound,
-                        AppCode = F1Constant.AppCode.USER_NOT_FOUND,
-                    }
+                (appRequest, appResponse) => F1Constant.DefaultResponse.Http.USER_NOT_FOUND
             );
         }
     }

@@ -3,7 +3,6 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using F1.Src.Common;
 using FluentValidation;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -29,16 +28,12 @@ public sealed class F1ValidationFilter : IAsyncActionFilter
 
         if (!result.IsValid)
         {
-            var httpResponse = new F1Response
-            {
-                HttpCode = StatusCodes.Status400BadRequest,
-                AppCode = F1Constant.AppCode.VALIDATION_FAILED,
-            };
-
             context.Result = new ContentResult
             {
-                StatusCode = StatusCodes.Status400BadRequest,
-                Content = JsonSerializer.Serialize(httpResponse),
+                StatusCode = F1Constant.DefaultResponse.Http.VALIDATION_FAILED.HttpCode,
+                Content = JsonSerializer.Serialize(
+                    F1Constant.DefaultResponse.Http.VALIDATION_FAILED
+                ),
                 ContentType = MediaTypeNames.Application.Json,
             };
 

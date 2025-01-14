@@ -18,9 +18,12 @@ public sealed class F1Endpoint : ControllerBase
         _service = service;
     }
 
-    [HttpGet(F1Constant.ENDPOINT_PATH)]
+    [HttpPost(F1Constant.ENDPOINT_PATH)]
     [ServiceFilter<F1ValidationFilter>(Order = 1)]
-    public async Task<IActionResult> ExecuteAsync(F1Request request, CancellationToken ct)
+    public async Task<IActionResult> ExecuteAsync(
+        [FromBody] F1Request request,
+        CancellationToken ct
+    )
     {
         var appRequest = new F1AppRequestModel
         {

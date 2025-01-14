@@ -40,7 +40,7 @@ public sealed class F1Service : IServiceHandler<F1AppRequestModel, F1AppResponse
         var isUserFound = await _repository.Value.IsUserFoundByEmailAsync(request.Email, ct);
         if (!isUserFound)
         {
-            return new() { AppCode = F1Constant.AppCode.USER_NOT_FOUND };
+            return F1Constant.DefaultResponse.App.USER_NOT_FOUND;
         }
 
         var passwordSignInResult = await _repository.Value.CheckPasswordSignInAsync(
@@ -52,9 +52,9 @@ public sealed class F1Service : IServiceHandler<F1AppRequestModel, F1AppResponse
         {
             if (passwordSignInResult.IsLockedOut)
             {
-                return new() { AppCode = F1Constant.AppCode.TEMPORARY_BANNED };
+                return F1Constant.DefaultResponse.App.TEMPORARY_BANNED;
             }
-            return new() { AppCode = F1Constant.AppCode.PASSWORD_IS_INCORRECT };
+            return F1Constant.DefaultResponse.App.PASSWORD_IS_INCORRECT;
         }
 
         var tokenId = _idGenerator.Value.NextId().ToString();
