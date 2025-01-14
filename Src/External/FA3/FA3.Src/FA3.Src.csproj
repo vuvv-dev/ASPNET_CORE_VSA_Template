@@ -2,7 +2,4 @@
   <ItemGroup>
     <PackageReference Include="SnowflakeGenerator" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\FACommon\FACommon.Src\FACommon.Src.csproj" />
-  </ItemGroup>
 </Project>

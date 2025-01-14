@@ -1,4 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Custom">
+    <AppProjectName>FCommon</AppProjectName>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\..\External\FA1\FA1.Src\FA1.Src.csproj" />
     <ProjectReference Include="..\..\..\External\FA2\FA2.Src\FA2.Src.csproj" />

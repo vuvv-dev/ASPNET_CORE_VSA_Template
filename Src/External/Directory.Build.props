@@ -1,0 +1,9 @@
+<Project>
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+
+  <ItemGroup>
+    <ProjectReference 
+        Include="..\..\FACommon\FACommon.Src\FACommon.Src.csproj" 
+        Condition="'$(AppProjectName)' != 'FACommon'" />
+  </ItemGroup>
+</Project>
