@@ -1,10 +1,14 @@
 using System;
+using System.Collections.Generic;
+using System.Security.Claims;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using F4.Src.Common;
 using F4.Src.DataAccess;
 using F4.Src.Models;
+using FCommon.Src.AccessToken;
+using FCommon.Src.Constants;
 using FCommon.Src.FeatureService;
 using FCommon.Src.IdGeneration;
 using Microsoft.AspNetCore.WebUtilities;
@@ -15,11 +19,17 @@ public sealed class F4Service : IServiceHandler<F4AppRequestModel, F4AppResponse
 {
     private readonly Lazy<IF4Repository> _repository;
     private readonly Lazy<IAppIdGenerator> _idGenerator;
+    private readonly Lazy<IAppAccessTokenHandler> _accessTokenHandler;
 
-    public F4Service(Lazy<IF4Repository> repository, Lazy<IAppIdGenerator> idGenerator)
+    public F4Service(
+        Lazy<IF4Repository> repository,
+        Lazy<IAppIdGenerator> idGenerator,
+        Lazy<IAppAccessTokenHandler> accessTokenHandler
+    )
     {
         _repository = repository;
         _idGenerator = idGenerator;
+        _accessTokenHandler = accessTokenHandler;
     }
 
     public async Task<F4AppResponseModel> ExecuteAsync(
@@ -43,13 +53,19 @@ public sealed class F4Service : IServiceHandler<F4AppRequestModel, F4AppResponse
             return F4Constant.DefaultResponse.App.SERVER_ERROR;
         }
 
-        var tokenAsBytes = Encoding.UTF8.GetBytes(resetPasswordToken.Value);
-        var tokenAsBase64 = WebEncoders.Base64UrlEncode(tokenAsBytes);
+        var newAccessToken = _accessTokenHandler.Value.GenerateJWS(
+            [
+                new(AppConstants.JsonWebToken.ClaimType.JTI, resetPasswordToken.LoginProvider),
+                new(AppConstants.JsonWebToken.ClaimType.SUB, userId.ToString()),
+                new(AppConstants.JsonWebToken.ClaimType.RES_PASS, resetPasswordToken.Value),
+            ],
+            F4Constant.APP_USER_PASSWORD_RESET_TOKEN.DURATION_IN_MINUTES
+        );
 
         return new()
         {
             AppCode = F4Constant.AppCode.SUCCESS,
-            Body = new() { Token = tokenAsBase64 },
+            Body = new() { JWSToken = newAccessToken },
         };
     }
 
@@ -64,10 +80,12 @@ public sealed class F4Service : IServiceHandler<F4AppRequestModel, F4AppResponse
         return new()
         {
             LoginProvider = id.ToString(),
-            ExpiredAt = DateTime.UtcNow.AddMinutes(15),
+            ExpiredAt = DateTime.UtcNow.AddMinutes(
+                F4Constant.APP_USER_PASSWORD_RESET_TOKEN.DURATION_IN_MINUTES
+            ),
             UserId = userId,
             Value = value,
-            Name = F4Constant.APP_USER_PASSWORD_RESET_TOKEN_NAME,
+            Name = F4Constant.APP_USER_PASSWORD_RESET_TOKEN.NAME,
         };
     }
 }
