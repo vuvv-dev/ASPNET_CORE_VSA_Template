@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using F1.Src.Common;
@@ -76,11 +78,8 @@ public sealed class F1Service : IServiceHandler<F1AppRequestModel, F1AppResponse
                     AppConstants.JsonWebToken.ClaimType.SUB,
                     passwordSignInResult.UserId.ToString()
                 ),
-                new(
-                    AppConstants.JsonWebToken.ClaimType.EXP,
-                    DateTime.UtcNow.AddMinutes(60).ToString()
-                ),
-            ]
+            ],
+            F1Constant.APP_USER_ACCESS_TOKEN.DURATION_IN_MINUTES
         );
 
         return new()
@@ -95,10 +94,16 @@ public sealed class F1Service : IServiceHandler<F1AppRequestModel, F1AppResponse
         return new()
         {
             LoginProvider = tokenId,
-            ExpiredAt = isRememberMe ? DateTime.UtcNow.AddDays(365) : DateTime.UtcNow.AddDays(3),
+            ExpiredAt = isRememberMe
+                ? DateTime.UtcNow.AddDays(
+                    F1Constant.APP_USER_REFRESH_TOKEN.DURATION_IN_MINUTES.REMEMBER_ME
+                )
+                : DateTime.UtcNow.AddDays(
+                    F1Constant.APP_USER_REFRESH_TOKEN.DURATION_IN_MINUTES.NOT_REMEMBER_ME
+                ),
             UserId = userId,
             Value = _refreshTokenHandler.Value.Generate(),
-            Name = F1Constant.APP_USER_REFRESH_TOKEN_NAME,
+            Name = F1Constant.APP_USER_REFRESH_TOKEN.NAME,
         };
     }
 }

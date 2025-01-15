@@ -20,6 +20,8 @@ public static class AppConstants
             public const string EXP = JwtRegisteredClaimNames.Exp;
 
             public const string SUB = JwtRegisteredClaimNames.Sub;
+
+            public const string RES_PASS = "res_pass";
         }
     }
 }

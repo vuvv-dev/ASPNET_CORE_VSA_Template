@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using FCommon.Src.Constants;
 using Microsoft.IdentityModel.Tokens;
@@ -17,25 +16,23 @@ public sealed class AppAccessTokenHandler : IAppAccessTokenHandler
         _validationParameters = validationParameters;
     }
 
-    public string GenerateJWS(IEnumerable<Claim> claims)
+    public string GenerateJWS(IEnumerable<Claim> claims, int additionalMinutesFromNow)
     {
-        _ = DateTime.TryParse(
-            claims
-                .FirstOrDefault(claim => claim.Type == AppConstants.JsonWebToken.ClaimType.EXP)
-                .Value,
-            out var expiredTime
-        );
         var signingCredentials = new SigningCredentials(
             _validationParameters.IssuerSigningKey,
             SecurityAlgorithms.HmacSha256
         );
 
+        var currentTime = DateTime.UtcNow;
+        var expiredTime = currentTime.AddMinutes(additionalMinutesFromNow);
+
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Audience = _validationParameters.ValidAudience,
             Issuer = _validationParameters.ValidIssuer,
-            IssuedAt = DateTime.UtcNow,
+            IssuedAt = currentTime,
             Expires = expiredTime,
+            NotBefore = expiredTime - TimeSpan.FromSeconds(1),
             TokenType = AppConstants.JsonWebToken.Type.JWS,
             CompressionAlgorithm = CompressionAlgorithms.Deflate,
             SigningCredentials = signingCredentials,
