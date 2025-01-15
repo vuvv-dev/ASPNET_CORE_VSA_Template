@@ -10,7 +10,12 @@ public static class F4Constant
 
     public const string REQUEST_ARGUMENT_NAME = "request";
 
-    public const string APP_USER_PASSWORD_RESET_TOKEN_NAME = "AppUserPasswordResetToken";
+    public static class APP_USER_PASSWORD_RESET_TOKEN
+    {
+        public const string NAME = "AppUserPasswordResetToken";
+
+        public const int DURATION_IN_MINUTES = 15;
+    }
 
     public static class DefaultResponse
     {

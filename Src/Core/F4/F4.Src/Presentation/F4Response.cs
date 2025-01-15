@@ -13,6 +13,6 @@ public sealed class F4Response
 
     public sealed class BodyModel
     {
-        public string Token { get; set; }
+        public string JWSToken { get; set; }
     }
 }

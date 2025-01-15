@@ -8,9 +8,24 @@ public static class F1Constant
 {
     public const string ENDPOINT_PATH = "f1";
 
-    public const string APP_USER_REFRESH_TOKEN_NAME = "AppUserRefreshToken";
-
     public const string REQUEST_ARGUMENT_NAME = "request";
+
+    public static class APP_USER_REFRESH_TOKEN
+    {
+        public const string NAME = "AppUserRefreshToken";
+
+        public static class DURATION_IN_MINUTES
+        {
+            public const int REMEMBER_ME = 60 * 24 * 365;
+
+            public const int NOT_REMEMBER_ME = 60 * 24 * 7;
+        }
+    }
+
+    public static class APP_USER_ACCESS_TOKEN
+    {
+        public const int DURATION_IN_MINUTES = 60;
+    }
 
     public static class DefaultResponse
     {
