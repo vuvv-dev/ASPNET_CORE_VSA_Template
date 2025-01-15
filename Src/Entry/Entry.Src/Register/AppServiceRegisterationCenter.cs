@@ -5,6 +5,7 @@ using System.Reflection;
 using F1.Src;
 using F2.Src;
 using F3.Src;
+using F4.Src;
 using FA1.Src;
 using FA2.Src;
 using FA3.Src;
@@ -25,6 +26,7 @@ public static class AppServiceRegisterationCenter
         typeof(F1Register).Assembly,
         typeof(F2Register).Assembly,
         typeof(F3Register).Assembly,
+        typeof(F4Register).Assembly,
         // External
         typeof(FA1Register).Assembly,
         typeof(FA2Register).Assembly,

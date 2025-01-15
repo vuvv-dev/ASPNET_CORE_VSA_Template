@@ -11,5 +11,8 @@ public sealed class F4Response
 
     public BodyModel Body { get; set; }
 
-    public sealed class BodyModel { }
+    public sealed class BodyModel
+    {
+        public string Token { get; set; }
+    }
 }
