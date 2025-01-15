@@ -5,6 +5,7 @@
     <ProjectReference Include="..\..\Core\F1\F1.Test\F1.Test.csproj" />
     <ProjectReference Include="..\..\Core\F3\F3.Test\F3.Test.csproj" />
     <ProjectReference Include="..\..\Core\F4\F4.Test\F4.Test.csproj" />
+    <ProjectReference Include="..\..\Core\F5\F5.Test\F5.Test.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
