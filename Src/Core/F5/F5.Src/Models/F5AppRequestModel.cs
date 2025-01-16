@@ -4,5 +4,9 @@ namespace F5.Src.Models;
 
 public sealed class F5AppRequestModel : IServiceRequest<F5AppResponseModel>
 {
-    public string ResetPasswordToken { get; set; }
+    public long ResetPasswordTokenId { get; set; }
+
+    public long UserId { get; set; }
+
+    public string NewPassword { get; set; }
 }

@@ -4,9 +4,12 @@ using FA1.Src.DbContext;
 using FA1.Src.Entities;
 using FACommon.Src.DependencyInjection;
 using FCommon.Src.AccessToken;
+using FCommon.Src.Authorization.Default;
 using FCommon.Src.IdGeneration;
 using FCommon.Src.RefreshToken;
 using FConfig.Src;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,6 +32,7 @@ public sealed class CommonServiceRegister : IServiceRegister
         IConfiguration configuration
     )
     {
+        #region Core
         services
             .AddSingleton<IAppIdGenerator, SnowflakeIdGenerator>()
             .MakeSingletonLazy<IAppIdGenerator>()
@@ -40,6 +44,22 @@ public sealed class CommonServiceRegister : IServiceRegister
             .MakeScopedLazy<UserManager<IdentityUserEntity>>()
             .MakeScopedLazy<RoleManager<IdentityRoleEntity>>()
             .MakeScopedLazy<SignInManager<IdentityUserEntity>>();
+        #endregion
+
+        #region Authorization
+        services
+            .AddAuthorizationBuilder()
+            .AddDefaultPolicy(
+                nameof(DefaultAuthorizationRequirement),
+                policy =>
+                    policy
+                        .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                        .RequireAuthenticatedUser()
+                        .AddRequirements(new DefaultAuthorizationRequirement())
+            );
+
+        services.AddSingleton<IAuthorizationHandler, DefaultAuthorizationRequirementHandler>();
+        #endregion
     }
 
     public static void AddOptions(IServiceCollection services, IConfiguration configuration)

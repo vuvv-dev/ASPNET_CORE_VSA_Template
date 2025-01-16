@@ -4,13 +4,13 @@ namespace FCommon.Src.Constants;
 
 public static class AppConstants
 {
+    public const string STATE_BAG_NAME = "StateBag";
+
     public static class JsonWebToken
     {
         public static class Type
         {
-            public const string JWE = "JWE";
-
-            public const string JWS = "JWS";
+            public const string JWT = "JWT";
         }
 
         public static class ClaimType
@@ -21,7 +21,17 @@ public static class AppConstants
 
             public const string SUB = JwtRegisteredClaimNames.Sub;
 
-            public const string RES_PASS = "res_pass";
+            public static class PURPOSE
+            {
+                public const string Name = "purpose";
+
+                public static class Value
+                {
+                    public const string USER_PASSWORD_RESET = "user_password_reset";
+
+                    public const string USER_IN_APP = "user_in_app";
+                }
+            }
         }
     }
 }

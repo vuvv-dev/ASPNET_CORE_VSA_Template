@@ -33,7 +33,7 @@ public sealed class AppAccessTokenHandler : IAppAccessTokenHandler
             IssuedAt = currentTime,
             Expires = expiredTime,
             NotBefore = expiredTime - TimeSpan.FromSeconds(1),
-            TokenType = AppConstants.JsonWebToken.Type.JWS,
+            TokenType = AppConstants.JsonWebToken.Type.JWT,
             CompressionAlgorithm = CompressionAlgorithms.Deflate,
             SigningCredentials = signingCredentials,
             Subject = new(claims),
@@ -44,5 +44,24 @@ public sealed class AppAccessTokenHandler : IAppAccessTokenHandler
         var jws = tokenHandler.WriteToken(jwtDescriptor);
 
         return jws;
+    }
+
+    /// <summary>
+    ///     Is access token expired.
+    /// </summary>
+    /// <param name="context">
+    ///     The context containe user info.
+    /// </param>
+    /// <returns>
+    ///     True if token is expired.
+    ///     False if token is not expired.
+    /// </returns>
+    public static bool IsAccessTokenExpired(string expClaimValue)
+    {
+        var tokenExpireTime = DateTimeOffset
+            .FromUnixTimeSeconds(long.Parse(expClaimValue))
+            .UtcDateTime;
+
+        return tokenExpireTime <= DateTime.UtcNow;
     }
 }

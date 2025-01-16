@@ -1,7 +1,10 @@
 using F5.Src.BusinessLogic;
 using F5.Src.DataAccess;
+using F5.Src.Presentation.Filters.Authorization;
 using FACommon.Src.DependencyInjection;
 using FluentValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,6 +15,21 @@ public sealed class F5Register : IServiceRegister
     public IServiceCollection Register(IServiceCollection services, IConfiguration configuration)
     {
         var currentAssembly = typeof(F5Register).Assembly;
+
+        #region Authorization
+        services
+            .AddAuthorizationBuilder()
+            .AddPolicy(
+                nameof(F5AuthorizationRequirement),
+                policy =>
+                    policy
+                        .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                        .RequireAuthenticatedUser()
+                        .AddRequirements(new F5AuthorizationRequirement())
+            );
+
+        services.AddSingleton<IAuthorizationHandler, F5AuthorizationRequirementHandler>();
+        #endregion
 
         #region Filters
         services.RegisterFiltersFromAssembly(currentAssembly);

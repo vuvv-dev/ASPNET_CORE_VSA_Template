@@ -38,7 +38,7 @@ public static class F4HttpResponseMapper
                 {
                     HttpCode = StatusCodes.Status200OK,
                     AppCode = F4Constant.AppCode.SUCCESS,
-                    Body = new() { JWSToken = appResponse.Body.JWSToken },
+                    Body = new() { ResetPasswordToken = appResponse.Body.ResetPasswordToken },
                 }
         );
     }

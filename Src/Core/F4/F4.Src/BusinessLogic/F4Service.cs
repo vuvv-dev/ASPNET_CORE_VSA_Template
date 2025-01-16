@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using F4.Src.Common;
@@ -11,7 +8,6 @@ using FCommon.Src.AccessToken;
 using FCommon.Src.Constants;
 using FCommon.Src.FeatureService;
 using FCommon.Src.IdGeneration;
-using Microsoft.AspNetCore.WebUtilities;
 
 namespace F4.Src.BusinessLogic;
 
@@ -57,7 +53,10 @@ public sealed class F4Service : IServiceHandler<F4AppRequestModel, F4AppResponse
             [
                 new(AppConstants.JsonWebToken.ClaimType.JTI, resetPasswordToken.LoginProvider),
                 new(AppConstants.JsonWebToken.ClaimType.SUB, userId.ToString()),
-                new(AppConstants.JsonWebToken.ClaimType.RES_PASS, resetPasswordToken.Value),
+                new(
+                    AppConstants.JsonWebToken.ClaimType.PURPOSE.Name,
+                    AppConstants.JsonWebToken.ClaimType.PURPOSE.Value.USER_PASSWORD_RESET
+                ),
             ],
             F4Constant.APP_USER_PASSWORD_RESET_TOKEN.DURATION_IN_MINUTES
         );
@@ -65,7 +64,7 @@ public sealed class F4Service : IServiceHandler<F4AppRequestModel, F4AppResponse
         return new()
         {
             AppCode = F4Constant.AppCode.SUCCESS,
-            Body = new() { JWSToken = newAccessToken },
+            Body = new() { ResetPasswordToken = newAccessToken },
         };
     }
 
