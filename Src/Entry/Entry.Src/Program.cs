@@ -1,9 +1,20 @@
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
 using System.Threading;
 using Entry.Src.Register;
+using FACommon.Src.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.JsonWebTokens;
+
+// Global Configuration.
+Console.OutputEncoding = Encoding.UTF8;
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+JsonWebTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +33,8 @@ services.AddControllers(config =>
 {
     config.SuppressAsyncSuffixInActionNames = false;
 });
+
+services.AddHttpContextAccessor().MakeSingletonLazy<IHttpContextAccessor>();
 
 var app = builder.Build();
 

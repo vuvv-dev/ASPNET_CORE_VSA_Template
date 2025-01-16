@@ -39,7 +39,7 @@ public static class F3Constant
         {
             public static readonly F3Response PASSWORD_IS_INVALID = new()
             {
-                HttpCode = StatusCodes.Status401Unauthorized,
+                HttpCode = StatusCodes.Status422UnprocessableEntity,
                 AppCode = AppCode.PASSWORD_IS_INVALID,
             };
 

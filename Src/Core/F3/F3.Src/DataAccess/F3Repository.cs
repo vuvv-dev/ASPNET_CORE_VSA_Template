@@ -49,7 +49,7 @@ public sealed class F3Repository : IF3Repository
                     );
                     if (!result.Succeeded)
                     {
-                        throw new DbUpdateConcurrencyException();
+                        throw new DbUpdateException();
                     }
 
                     var additionalUserInfo = new AdditionalUserInfoEntity
@@ -67,7 +67,7 @@ public sealed class F3Repository : IF3Repository
 
                     await dbTransaction.CommitAsync(ct);
                 }
-                catch
+                catch (DbUpdateException)
                 {
                     await dbTransaction.RollbackAsync(ct);
 

@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using F1.Src.Common;
@@ -66,7 +64,7 @@ public sealed class F1Service : IServiceHandler<F1AppRequestModel, F1AppResponse
             request.RememberMe
         );
         var result = await _repository.Value.CreateRefreshTokenAsync(newRefreshToken, ct);
-        if (result)
+        if (!result)
         {
             return F1Constant.DefaultResponse.App.SERVER_ERROR;
         }
@@ -77,6 +75,10 @@ public sealed class F1Service : IServiceHandler<F1AppRequestModel, F1AppResponse
                 new(
                     AppConstants.JsonWebToken.ClaimType.SUB,
                     passwordSignInResult.UserId.ToString()
+                ),
+                new(
+                    AppConstants.JsonWebToken.ClaimType.PURPOSE.Name,
+                    AppConstants.JsonWebToken.ClaimType.PURPOSE.Value.USER_IN_APP
                 ),
             ],
             F1Constant.APP_USER_ACCESS_TOKEN.DURATION_IN_MINUTES

@@ -10,6 +10,6 @@ public sealed class F4AppResponseModel : IServiceResponse
 
     public sealed class BodyModel
     {
-        public string JWSToken { get; set; }
+        public string ResetPasswordToken { get; set; }
     }
 }

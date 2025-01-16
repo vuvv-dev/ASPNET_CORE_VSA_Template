@@ -46,10 +46,13 @@ public sealed class FA2Register : IServiceRegister
 
         services
             .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(config =>
-            {
-                config.TokenValidationParameters = tokenValidationParameters;
-            });
+            .AddJwtBearer(
+                JwtBearerDefaults.AuthenticationScheme,
+                config =>
+                {
+                    config.TokenValidationParameters = tokenValidationParameters;
+                }
+            );
 
         services.AddAuthorization();
     }
