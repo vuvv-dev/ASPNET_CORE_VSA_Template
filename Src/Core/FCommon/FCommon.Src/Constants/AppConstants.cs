@@ -6,6 +6,8 @@ public static class AppConstants
 {
     public const string STATE_BAG_NAME = "StateBag";
 
+    public const int REFRESH_TOKEN_LENGTH = 15;
+
     public static class JsonWebToken
     {
         public static class Type

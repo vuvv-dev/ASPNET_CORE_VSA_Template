@@ -86,5 +86,11 @@ public sealed class CommonServiceRegister : IServiceRegister
         };
 
         services.AddSingleton(tokenValidationParameters);
+
+        var aspNetCoreIdentityOption = configuration
+            .GetRequiredSection("AspNetCoreIdentity")
+            .Get<AspNetCoreIdentityOptions>();
+
+        services.AddSingleton(aspNetCoreIdentityOption);
     }
 }
