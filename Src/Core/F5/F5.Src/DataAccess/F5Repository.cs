@@ -94,9 +94,14 @@ public sealed class F5Repository : IF5Repository
                         .Where(token => token.LoginProvider.Equals(passwordResetTokenId))
                         .ExecuteDeleteAsync(ct);
 
+                    if (rowsAffected == 0)
+                    {
+                        throw new DbUpdateException();
+                    }
+
                     // Remove all user refresh tokens which
                     // haves the same id as access token id
-                    rowsAffected = await _appContext
+                    await _appContext
                         .Set<IdentityUserTokenEntity>()
                         .Where(token =>
                             token.UserId == userId

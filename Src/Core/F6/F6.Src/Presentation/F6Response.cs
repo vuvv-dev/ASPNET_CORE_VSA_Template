@@ -1,8 +1,8 @@
 using System.Text.Json.Serialization;
 
-namespace F4.Src.Presentation;
+namespace F6.Src.Presentation;
 
-public sealed class F4Response
+public sealed class F6Response
 {
     [JsonIgnore]
     public int HttpCode { get; set; }
@@ -13,6 +13,8 @@ public sealed class F4Response
 
     public sealed class BodyDto
     {
-        public string ResetPasswordToken { get; set; }
+        public string AccessToken { get; set; }
+
+        public string RefreshToken { get; set; }
     }
 }
