@@ -10,7 +10,7 @@ namespace F5.Src.Mapper;
 public static class F5HttpResponseMapper
 {
     private static ConcurrentDictionary<
-        int,
+        F5Constant.AppCode,
         Func<F5AppRequestModel, F5AppResponseModel, F5Response>
     > _httpResponseMapper;
 
@@ -34,7 +34,11 @@ public static class F5HttpResponseMapper
         _httpResponseMapper.TryAdd(
             F5Constant.AppCode.SUCCESS,
             (appRequest, appResponse) =>
-                new() { HttpCode = StatusCodes.Status200OK, AppCode = F5Constant.AppCode.SUCCESS }
+                new()
+                {
+                    HttpCode = StatusCodes.Status200OK,
+                    AppCode = (int)F5Constant.AppCode.SUCCESS,
+                }
         );
 
         _httpResponseMapper.TryAdd(
