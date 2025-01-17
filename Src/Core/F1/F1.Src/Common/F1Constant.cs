@@ -62,47 +62,47 @@ public static class F1Constant
             public static readonly F1Response PASSWORD_IS_INCORRECT = new()
             {
                 HttpCode = StatusCodes.Status401Unauthorized,
-                AppCode = AppCode.PASSWORD_IS_INCORRECT,
+                AppCode = (int)AppCode.PASSWORD_IS_INCORRECT,
             };
 
             public static readonly F1Response TEMPORARY_BANNED = new()
             {
                 HttpCode = StatusCodes.Status429TooManyRequests,
-                AppCode = AppCode.TEMPORARY_BANNED,
+                AppCode = (int)AppCode.TEMPORARY_BANNED,
             };
 
             public static readonly F1Response USER_NOT_FOUND = new()
             {
                 HttpCode = StatusCodes.Status404NotFound,
-                AppCode = AppCode.USER_NOT_FOUND,
+                AppCode = (int)AppCode.USER_NOT_FOUND,
             };
 
             public static readonly F1Response VALIDATION_FAILED = new()
             {
                 HttpCode = StatusCodes.Status400BadRequest,
-                AppCode = AppCode.VALIDATION_FAILED,
+                AppCode = (int)AppCode.VALIDATION_FAILED,
             };
 
             public static readonly F1Response SERVER_ERROR = new()
             {
                 HttpCode = StatusCodes.Status500InternalServerError,
-                AppCode = AppCode.SERVER_ERROR,
+                AppCode = (int)AppCode.SERVER_ERROR,
             };
         }
     }
 
-    public static class AppCode
+    public enum AppCode
     {
-        public const int SUCCESS = 1;
+        SUCCESS = 1,
 
-        public const int USER_NOT_FOUND = 2;
+        USER_NOT_FOUND,
 
-        public const int TEMPORARY_BANNED = 3;
+        TEMPORARY_BANNED,
 
-        public const int PASSWORD_IS_INCORRECT = 4;
+        PASSWORD_IS_INCORRECT,
 
-        public const int VALIDATION_FAILED = 5;
+        VALIDATION_FAILED,
 
-        public const int SERVER_ERROR = 6;
+        SERVER_ERROR,
     }
 }

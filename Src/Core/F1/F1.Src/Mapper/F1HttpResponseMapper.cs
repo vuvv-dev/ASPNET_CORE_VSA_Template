@@ -10,7 +10,7 @@ namespace F1.Src.Mapper;
 public static class F1HttpResponseMapper
 {
     private static ConcurrentDictionary<
-        int,
+        F1Constant.AppCode,
         Func<F1AppRequestModel, F1AppResponseModel, F1Response>
     > _httpResponseMapper;
 
@@ -36,7 +36,7 @@ public static class F1HttpResponseMapper
                     new()
                     {
                         HttpCode = StatusCodes.Status200OK,
-                        AppCode = F1Constant.AppCode.SUCCESS,
+                        AppCode = (int)F1Constant.AppCode.SUCCESS,
                         Body = new()
                         {
                             AccessToken = appResponse.Body.AccessToken,
