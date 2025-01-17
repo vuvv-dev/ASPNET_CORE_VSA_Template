@@ -36,32 +36,32 @@ public static class F4Constant
         {
             public static readonly F4Response VALIDATION_FAILED = new()
             {
-                AppCode = AppCode.VALIDATION_FAILED,
+                AppCode = (int)AppCode.VALIDATION_FAILED,
                 HttpCode = StatusCodes.Status400BadRequest,
             };
 
             public static readonly F4Response USER_NOT_FOUND = new()
             {
-                AppCode = AppCode.USER_NOT_FOUND,
+                AppCode = (int)AppCode.USER_NOT_FOUND,
                 HttpCode = StatusCodes.Status404NotFound,
             };
 
             public static readonly F4Response SERVER_ERROR = new()
             {
-                AppCode = AppCode.SERVER_ERROR,
+                AppCode = (int)AppCode.SERVER_ERROR,
                 HttpCode = StatusCodes.Status500InternalServerError,
             };
         }
     }
 
-    public static class AppCode
+    public enum AppCode
     {
-        public const int SUCCESS = 1;
+        SUCCESS = 1,
 
-        public const int VALIDATION_FAILED = 2;
+        VALIDATION_FAILED,
 
-        public const int SERVER_ERROR = 3;
+        SERVER_ERROR,
 
-        public const int USER_NOT_FOUND = 4;
+        USER_NOT_FOUND,
     }
 }
