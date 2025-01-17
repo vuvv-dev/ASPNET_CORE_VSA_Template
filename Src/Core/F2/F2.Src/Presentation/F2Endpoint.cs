@@ -5,6 +5,8 @@ using F2.Src.Common;
 using F2.Src.Mapper;
 using F2.Src.Models;
 using F2.Src.Presentation.Filters.Validation;
+using FCommon.Src.Authorization.Default;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace F2.Src.Presentation;
@@ -19,6 +21,7 @@ public sealed class F2Endpoint : ControllerBase
     }
 
     [HttpGet(F2Constant.ENDPOINT_PATH)]
+    [Authorize(Policy = nameof(DefaultAuthorizationRequirement))]
     [ServiceFilter<F2ValidationFilter>(Order = 1)]
     public async Task<IActionResult> ExecuteAsync(F2Request request, CancellationToken ct)
     {
