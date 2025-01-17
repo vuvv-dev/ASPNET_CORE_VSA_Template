@@ -11,7 +11,7 @@ namespace F2.Src.Mapper;
 public static class F2HttpResponseMapper
 {
     private static ConcurrentDictionary<
-        int,
+        F2Constant.AppCode,
         Func<F2AppRequestModel, F2AppResponseModel, F2Response>
     > _httpResponseMapper;
 
@@ -23,12 +23,7 @@ public static class F2HttpResponseMapper
 
             _httpResponseMapper.TryAdd(
                 F2Constant.AppCode.LIST_NOT_FOUND,
-                (appRequest, appResponse) =>
-                    new()
-                    {
-                        HttpCode = StatusCodes.Status404NotFound,
-                        AppCode = F2Constant.AppCode.LIST_NOT_FOUND,
-                    }
+                (appRequest, appResponse) => F2Constant.DefaultResponse.Http.LIST_NOT_FOUND
             );
 
             _httpResponseMapper.TryAdd(
@@ -37,7 +32,7 @@ public static class F2HttpResponseMapper
                     new()
                     {
                         HttpCode = StatusCodes.Status400BadRequest,
-                        AppCode = F2Constant.AppCode.SUCCESS,
+                        AppCode = (int)F2Constant.AppCode.SUCCESS,
                         Body = new()
                         {
                             TodoTaskList = new()
