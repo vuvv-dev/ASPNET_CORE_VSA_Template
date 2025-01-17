@@ -10,7 +10,7 @@ namespace F3.Src.Mapper;
 public static class F3HttpResponseMapper
 {
     private static ConcurrentDictionary<
-        int,
+        F3Constant.AppCode,
         Func<F3AppRequestModel, F3AppResponseModel, F3Response>
     > _httpResponseMapper;
 
