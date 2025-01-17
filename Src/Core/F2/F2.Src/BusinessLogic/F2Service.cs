@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using F2.Src.Common;
@@ -35,7 +36,15 @@ public sealed class F2Service : IServiceHandler<F2AppRequestModel, F2AppResponse
             {
                 Id = request.ListId,
                 Name = list.Name,
-                CreatedDate = list.CreatedDate,
+                TodoTasks = list.TodoTasks.Select(model => new F2AppResponseModel.BodyModel.TodoTaskModel
+                {
+                    Id = model.Id,
+                    Name = model.Name,
+                    DueDate = model.DueDate,
+                    IsInMyDay = model.IsInMyDay,
+                    IsImportant = model.IsImportant,
+                    IsFinished = model.IsFinished
+                }),
             },
         };
     }

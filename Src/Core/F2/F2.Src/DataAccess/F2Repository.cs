@@ -39,8 +39,7 @@ public sealed class F2Repository : IF2Repository
                         .Where(entity => entity.Id == listId)
                         .Select(entity => new TodoTaskListEntity
                         {
-                            Name = entity.Name,
-                            CreatedDate = entity.CreatedDate,
+                            Name = entity.Name
                         })
                         .FirstOrDefaultAsync(ct);
                     if (Equals(foundTodoTaskList, null))
@@ -60,6 +59,9 @@ public sealed class F2Repository : IF2Repository
                                 Id = entity.Id,
                                 Content = entity.Content,
                                 DueDate = entity.DueDate,
+                                IsFinished = entity.IsFinished,
+                                IsInMyDay = entity.IsInMyDay,
+                                IsImportant = entity.IsImportant
                             })
                             .OrderBy(entity => entity.Id)
                             .Skip(0)
@@ -83,13 +85,15 @@ public sealed class F2Repository : IF2Repository
         var todoTaskListModel = new F2TodoTaskListModel
         {
             Name = foundTodoTaskList.Name,
-            CreatedDate = foundTodoTaskList.CreatedDate,
             TodoTasks = foundTodoTaskList.TodoTasks.Select(
                 entity => new F2TodoTaskListModel.TodoTaskModel
                 {
                     Id = entity.Id,
                     Name = entity.Content,
                     DueDate = entity.DueDate,
+                    IsFinished = entity.IsFinished,
+                    IsInMyDay = entity.IsInMyDay,
+                    IsImportant = entity.IsImportant
                 }
             ),
         };

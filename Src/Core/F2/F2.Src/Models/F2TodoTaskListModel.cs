@@ -7,8 +7,6 @@ public sealed class F2TodoTaskListModel
 {
     public string Name { get; set; }
 
-    public DateTime CreatedDate { get; set; }
-
     public IEnumerable<TodoTaskModel> TodoTasks { get; set; }
 
     public sealed class TodoTaskModel
@@ -18,5 +16,11 @@ public sealed class F2TodoTaskListModel
         public string Name { get; set; }
 
         public DateTime DueDate { get; set; }
+
+        public bool IsInMyDay { get; set; }
+
+        public bool IsImportant { get; set; }
+
+        public bool IsFinished { get; set; }
     }
 }
