@@ -10,7 +10,7 @@ namespace F4.Src.Mapper;
 public static class F4HttpResponseMapper
 {
     private static ConcurrentDictionary<
-        int,
+        F4Constant.AppCode,
         Func<F4AppRequestModel, F4AppResponseModel, F4Response>
     > _httpResponseMapper;
 
@@ -37,7 +37,7 @@ public static class F4HttpResponseMapper
                 new()
                 {
                     HttpCode = StatusCodes.Status200OK,
-                    AppCode = F4Constant.AppCode.SUCCESS,
+                    AppCode = (int)F4Constant.AppCode.SUCCESS,
                     Body = new() { ResetPasswordToken = appResponse.Body.ResetPasswordToken },
                 }
         );
