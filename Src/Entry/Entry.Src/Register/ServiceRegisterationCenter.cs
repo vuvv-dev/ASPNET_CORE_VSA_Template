@@ -9,6 +9,7 @@ using F4.Src;
 using F5.Src;
 using F6.Src;
 using F7.Src;
+using F8.Src;
 using FA1.Src;
 using FA2.Src;
 using FA3.Src;
@@ -33,6 +34,7 @@ public static class ServiceRegisterationCenter
         typeof(F5Register).Assembly,
         typeof(F6Register).Assembly,
         typeof(F7Register).Assembly,
+        typeof(F8Register).Assembly,
         // External
         typeof(FA1Register).Assembly,
         typeof(FA2Register).Assembly,

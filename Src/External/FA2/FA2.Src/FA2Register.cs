@@ -53,7 +53,5 @@ public sealed class FA2Register : IServiceRegister
                     config.TokenValidationParameters = tokenValidationParameters;
                 }
             );
-
-        services.AddAuthorization();
     }
 }

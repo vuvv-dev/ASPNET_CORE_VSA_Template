@@ -8,7 +8,6 @@ using FCommon.Src.AccessToken;
 using FCommon.Src.Constants;
 using FCommon.Src.FeatureService;
 using FCommon.Src.IdGeneration;
-using FCommon.Src.RefreshToken;
 
 namespace F6.Src.BusinessLogic;
 
