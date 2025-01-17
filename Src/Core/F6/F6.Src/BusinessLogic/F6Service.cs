@@ -15,19 +15,16 @@ namespace F6.Src.BusinessLogic;
 public sealed class F6Service : IServiceHandler<F6AppRequestModel, F6AppResponseModel>
 {
     private readonly Lazy<IF6Repository> _repository;
-    private readonly Lazy<IAppRefreshTokenHandler> _refreshTokenHandler;
     private readonly Lazy<IAppAccessTokenHandler> _accessTokenHandler;
     private readonly Lazy<IAppIdGenerator> _idGenerator;
 
     public F6Service(
         Lazy<IF6Repository> repository,
-        Lazy<IAppRefreshTokenHandler> refreshTokenHandler,
         Lazy<IAppAccessTokenHandler> accessTokenHandler,
         Lazy<IAppIdGenerator> idGenerator
     )
     {
         _repository = repository;
-        _refreshTokenHandler = refreshTokenHandler;
         _accessTokenHandler = accessTokenHandler;
         _idGenerator = idGenerator;
     }
@@ -57,7 +54,6 @@ public sealed class F6Service : IServiceHandler<F6AppRequestModel, F6AppResponse
         {
             CurrentId = refreshTokenIdAsTring,
             NewId = _idGenerator.Value.NextId().ToString(),
-            NewValue = _refreshTokenHandler.Value.Generate(),
         };
 
         var result = await _repository.Value.UpdateRefreshTokenAsync(newRefreshToken, ct);
@@ -81,7 +77,7 @@ public sealed class F6Service : IServiceHandler<F6AppRequestModel, F6AppResponse
         return new()
         {
             AppCode = F6Constant.AppCode.SUCCESS,
-            Body = new() { AccessToken = newAccessToken, RefreshToken = newRefreshToken.NewValue },
+            Body = new() { AccessToken = newAccessToken, RefreshToken = request.RefreshToken },
         };
     }
 }

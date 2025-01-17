@@ -8,6 +8,7 @@ using F3.Src;
 using F4.Src;
 using F5.Src;
 using F6.Src;
+using F7.Src;
 using FA1.Src;
 using FA2.Src;
 using FA3.Src;
@@ -18,7 +19,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Entry.Src.Register;
 
-public static class AppServiceRegisterationCenter
+public static class ServiceRegisterationCenter
 {
     // Add assembly that you want to register HERE !!
     private static readonly List<Assembly> RegisterAssemblies =
@@ -31,6 +32,7 @@ public static class AppServiceRegisterationCenter
         typeof(F4Register).Assembly,
         typeof(F5Register).Assembly,
         typeof(F6Register).Assembly,
+        typeof(F7Register).Assembly,
         // External
         typeof(FA1Register).Assembly,
         typeof(FA2Register).Assembly,
