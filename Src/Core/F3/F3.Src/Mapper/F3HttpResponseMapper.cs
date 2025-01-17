@@ -36,7 +36,7 @@ public static class F3HttpResponseMapper
                     new()
                     {
                         HttpCode = StatusCodes.Status200OK,
-                        AppCode = F3Constant.AppCode.SUCCESS,
+                        AppCode = (int)F3Constant.AppCode.SUCCESS,
                     }
             );
 

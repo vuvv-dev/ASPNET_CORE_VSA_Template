@@ -40,39 +40,39 @@ public static class F3Constant
             public static readonly F3Response PASSWORD_IS_INVALID = new()
             {
                 HttpCode = StatusCodes.Status422UnprocessableEntity,
-                AppCode = AppCode.PASSWORD_IS_INVALID,
+                AppCode = (int)AppCode.PASSWORD_IS_INVALID,
             };
 
             public static readonly F3Response EMAIL_ALREADY_EXISTS = new()
             {
                 HttpCode = StatusCodes.Status409Conflict,
-                AppCode = AppCode.EMAIL_ALREADY_EXISTS,
+                AppCode = (int)AppCode.EMAIL_ALREADY_EXISTS,
             };
 
             public static readonly F3Response VALIDATION_FAILED = new()
             {
                 HttpCode = StatusCodes.Status400BadRequest,
-                AppCode = AppCode.VALIDATION_FAILED,
+                AppCode = (int)AppCode.VALIDATION_FAILED,
             };
 
             public static readonly F3Response SERVER_ERROR = new()
             {
                 HttpCode = StatusCodes.Status500InternalServerError,
-                AppCode = AppCode.SERVER_ERROR,
+                AppCode = (int)AppCode.SERVER_ERROR,
             };
         }
     }
 
-    public static class AppCode
+    public enum AppCode
     {
-        public const int SUCCESS = 1;
+        SUCCESS = 1,
 
-        public const int EMAIL_ALREADY_EXISTS = 2;
+        EMAIL_ALREADY_EXISTS,
 
-        public const int PASSWORD_IS_INVALID = 3;
+        PASSWORD_IS_INVALID,
 
-        public const int VALIDATION_FAILED = 4;
+        VALIDATION_FAILED,
 
-        public const int SERVER_ERROR = 5;
+        SERVER_ERROR,
     }
 }
