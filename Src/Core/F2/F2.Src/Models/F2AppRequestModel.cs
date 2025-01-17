@@ -4,5 +4,5 @@ namespace F2.Src.Models;
 
 public sealed class F2AppRequestModel : IServiceRequest<F2AppResponseModel>
 {
-    public long ListId { get; set; }
+    public long TodoTaskListId { get; set; }
 }

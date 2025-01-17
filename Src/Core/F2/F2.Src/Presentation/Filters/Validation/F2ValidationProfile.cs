@@ -8,6 +8,6 @@ public sealed class F2ValidationProfile : AbstractValidator<F2Request>
     {
         RuleLevelCascadeMode = CascadeMode.Stop;
 
-        RuleFor(prop => prop.ListId).Must(prop => prop > 0);
+        RuleFor(prop => prop.TodoTaskListId).Must(prop => prop > 0);
     }
 }
