@@ -10,7 +10,7 @@ namespace F8.Src.Mapper;
 public static class F8HttpResponseMapper
 {
     private static ConcurrentDictionary<
-        int,
+        F8Constant.AppCode,
         Func<F8AppRequestModel, F8AppResponseModel, F8Response>
     > _httpResponseMapper;
 
@@ -29,7 +29,16 @@ public static class F8HttpResponseMapper
         _httpResponseMapper.TryAdd(
             F8Constant.AppCode.SUCCESS,
             (appRequest, appResponse) =>
-                new() { AppCode = F8Constant.AppCode.SUCCESS, HttpCode = StatusCodes.Status200OK }
+                new()
+                {
+                    AppCode = (int)F8Constant.AppCode.SUCCESS,
+                    HttpCode = StatusCodes.Status200OK,
+                }
+        );
+
+        _httpResponseMapper.TryAdd(
+            F8Constant.AppCode.LIST_DOES_NOT_EXIST,
+            (appRequest, appResponse) => F8Constant.DefaultResponse.Http.LIST_DOES_NOT_EXIST
         );
     }
 

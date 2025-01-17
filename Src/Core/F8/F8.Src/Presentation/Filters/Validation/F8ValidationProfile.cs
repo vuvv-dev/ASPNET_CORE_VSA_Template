@@ -8,5 +8,7 @@ public sealed class F8ValidationProfile : AbstractValidator<F8Request>
     {
         ClassLevelCascadeMode = CascadeMode.Stop;
         RuleLevelCascadeMode = CascadeMode.Stop;
+
+        RuleFor(prop => prop.TodoTaskListId).NotEmpty();
     }
 }

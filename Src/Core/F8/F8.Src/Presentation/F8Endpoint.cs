@@ -20,15 +20,12 @@ public sealed class F8Endpoint : ControllerBase
         _service = service;
     }
 
-    [HttpPost(F8Constant.ENDPOINT_PATH)]
+    [HttpDelete(F8Constant.ENDPOINT_PATH)]
     [Authorize(Policy = nameof(DefaultAuthorizationRequirement))]
     [ServiceFilter<F8ValidationFilter>(Order = 1)]
-    public async Task<IActionResult> ExecuteAsync(
-        [FromBody] F8Request request,
-        CancellationToken ct
-    )
+    public async Task<IActionResult> ExecuteAsync(F8Request request, CancellationToken ct)
     {
-        var appRequest = new F8AppRequestModel { };
+        var appRequest = new F8AppRequestModel { TodoTaskListId = request.TodoTaskListId };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
         var httpResponse = F8HttpResponseMapper.Get(appRequest, appResponse);

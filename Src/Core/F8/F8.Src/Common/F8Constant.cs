@@ -6,7 +6,7 @@ namespace F8.Src.Common;
 
 public static class F8Constant
 {
-    public const string ENDPOINT_PATH = "f8";
+    public const string ENDPOINT_PATH = "f8/{TodoTaskListId:required}";
 
     public const string REQUEST_ARGUMENT_NAME = "request";
 
@@ -18,30 +18,43 @@ public static class F8Constant
             {
                 AppCode = AppCode.SERVER_ERROR,
             };
+
+            public static readonly F8AppResponseModel LIST_DOES_NOT_EXIST = new()
+            {
+                AppCode = AppCode.LIST_DOES_NOT_EXIST,
+            };
         }
 
         public static class Http
         {
             public static readonly F8Response VALIDATION_FAILED = new()
             {
-                AppCode = AppCode.VALIDATION_FAILED,
+                AppCode = (int)AppCode.VALIDATION_FAILED,
                 HttpCode = StatusCodes.Status400BadRequest,
             };
 
             public static readonly F8Response SERVER_ERROR = new()
             {
-                AppCode = AppCode.SERVER_ERROR,
+                AppCode = (int)AppCode.SERVER_ERROR,
                 HttpCode = StatusCodes.Status500InternalServerError,
+            };
+
+            public static readonly F8Response LIST_DOES_NOT_EXIST = new()
+            {
+                AppCode = (int)AppCode.LIST_DOES_NOT_EXIST,
+                HttpCode = StatusCodes.Status404NotFound,
             };
         }
     }
 
-    public static class AppCode
+    public enum AppCode
     {
-        public const int SUCCESS = 1;
+        SUCCESS = 1,
 
-        public const int VALIDATION_FAILED = 2;
+        VALIDATION_FAILED,
 
-        public const int SERVER_ERROR = 3;
+        SERVER_ERROR,
+
+        LIST_DOES_NOT_EXIST,
     }
 }
