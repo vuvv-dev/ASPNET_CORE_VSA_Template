@@ -1,7 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using F7.Src.Models;
-using FA1.Src.Common;
 using FA1.Src.DbContext;
 using FA1.Src.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -46,10 +45,8 @@ public sealed class F7Repository : IF7Repository
 
     public Task<bool> DoesTaskTodoListExistAsync(string taskTodoListName, CancellationToken ct)
     {
-        var upperTaskTodoListName = taskTodoListName.ToUpper();
-
         return _appContext
             .Set<TodoTaskListEntity>()
-            .AnyAsync(entity => entity.Name.ToUpper().Equals(upperTaskTodoListName), ct);
+            .AnyAsync(entity => EF.Functions.ILike(entity.Name, $"%{taskTodoListName}%"), ct);
     }
 }

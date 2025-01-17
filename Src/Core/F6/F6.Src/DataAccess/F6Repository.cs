@@ -66,9 +66,7 @@ public sealed class F6Repository : IF6Repository
                         .Where(token => token.LoginProvider.Equals(model.CurrentId))
                         .ExecuteUpdateAsync(
                             setProp =>
-                                setProp
-                                    .SetProperty(entity => entity.Value, model.NewValue)
-                                    .SetProperty(entity => entity.LoginProvider, model.NewId),
+                                setProp.SetProperty(entity => entity.LoginProvider, model.NewId),
                             ct
                         );
 
