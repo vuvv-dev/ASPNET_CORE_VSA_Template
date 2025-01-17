@@ -36,15 +36,17 @@ public sealed class F2Service : IServiceHandler<F2AppRequestModel, F2AppResponse
             {
                 Id = request.ListId,
                 Name = list.Name,
-                TodoTasks = list.TodoTasks.Select(model => new F2AppResponseModel.BodyModel.TodoTaskModel
-                {
-                    Id = model.Id,
-                    Name = model.Name,
-                    DueDate = model.DueDate,
-                    IsInMyDay = model.IsInMyDay,
-                    IsImportant = model.IsImportant,
-                    IsFinished = model.IsFinished
-                }),
+                TodoTasks = list.TodoTasks.Select(
+                    model => new F2AppResponseModel.BodyModel.TodoTaskModel
+                    {
+                        Id = model.Id,
+                        Name = model.Name,
+                        DueDate = model.DueDate,
+                        IsInMyDay = model.IsInMyDay,
+                        IsImportant = model.IsImportant,
+                        IsFinished = model.IsFinished,
+                    }
+                ),
             },
         };
     }

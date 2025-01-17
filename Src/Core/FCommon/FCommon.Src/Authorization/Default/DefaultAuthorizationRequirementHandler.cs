@@ -50,9 +50,8 @@ public sealed class DefaultAuthorizationRequirementHandler
         var httpContext = _httpContextAccessor.Value.HttpContext;
         httpContext.Items.Add(
             AppConstants.JsonWebToken.ClaimType.SUB,
-            long.Parse(
-                context.User.FindFirstValue(AppConstants.JsonWebToken.ClaimType.SUB)
-            ));
+            long.Parse(context.User.FindFirstValue(AppConstants.JsonWebToken.ClaimType.SUB))
+        );
 
         context.Succeed(requirement);
 

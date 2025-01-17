@@ -44,15 +44,17 @@ public static class F2HttpResponseMapper
                             {
                                 Id = appResponse.Body.Id,
                                 Name = appResponse.Body.Name,
-                                TodoTasks = appResponse.Body.TodoTasks.Select(model => new F2Response.BodyDto.TodoTaskListDto.TodoTaskDto
-                                {
-                                    Id = model.Id,
-                                    Name = model.Name,
-                                    DueDate = model.DueDate,
-                                    IsInMyDay = model.IsInMyDay,
-                                    IsImportant = model.IsImportant,
-                                    IsFinished = model.IsFinished
-                                }),
+                                TodoTasks = appResponse.Body.TodoTasks.Select(
+                                    model => new F2Response.BodyDto.TodoTaskListDto.TodoTaskDto
+                                    {
+                                        Id = model.Id,
+                                        Name = model.Name,
+                                        DueDate = model.DueDate,
+                                        IsInMyDay = model.IsInMyDay,
+                                        IsImportant = model.IsImportant,
+                                        IsFinished = model.IsFinished,
+                                    }
+                                ),
                             },
                         },
                     }
