@@ -25,23 +25,23 @@ public static class F2Constant
             public static readonly F2Response LIST_NOT_FOUND = new()
             {
                 HttpCode = StatusCodes.Status404NotFound,
-                AppCode = AppCode.LIST_NOT_FOUND,
+                AppCode = (int)AppCode.LIST_NOT_FOUND,
             };
 
             public static readonly F2Response VALIDATION_FAILED = new()
             {
                 HttpCode = StatusCodes.Status400BadRequest,
-                AppCode = AppCode.VALIDATION_FAILED,
+                AppCode = (int)AppCode.VALIDATION_FAILED,
             };
         }
     }
 
-    public static class AppCode
+    public enum AppCode
     {
-        public const int SUCCESS = 1;
+        SUCCESS = 1,
 
-        public const int LIST_NOT_FOUND = 2;
+        LIST_NOT_FOUND,
 
-        public const int VALIDATION_FAILED = 3;
+        VALIDATION_FAILED,
     }
 }

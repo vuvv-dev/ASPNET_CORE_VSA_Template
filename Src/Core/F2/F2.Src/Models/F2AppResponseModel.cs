@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using F2.Src.Common;
 using FCommon.Src.FeatureService;
 
 namespace F2.Src.Models;
 
 public sealed class F2AppResponseModel : IServiceResponse
 {
-    public int AppCode { get; set; }
+    public F2Constant.AppCode AppCode { get; set; }
 
     public BodyModel Body { get; set; }
 
