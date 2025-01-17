@@ -1,10 +1,11 @@
+using F6.Src.Common;
 using FCommon.Src.FeatureService;
 
 namespace F6.Src.Models;
 
 public sealed class F6AppResponseModel : IServiceResponse
 {
-    public int AppCode { get; set; }
+    public F6Constant.AppCode AppCode { get; set; }
 
     public BodyModel Body { get; set; }
 
