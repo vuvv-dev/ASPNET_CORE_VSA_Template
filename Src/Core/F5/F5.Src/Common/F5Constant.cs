@@ -47,40 +47,40 @@ public static class F5Constant
         {
             public static readonly F5Response VALIDATION_FAILED = new()
             {
-                AppCode = AppCode.VALIDATION_FAILED,
+                AppCode = (int)AppCode.VALIDATION_FAILED,
                 HttpCode = StatusCodes.Status400BadRequest,
             };
 
             public static readonly F5Response SERVER_ERROR = new()
             {
-                AppCode = AppCode.SERVER_ERROR,
+                AppCode = (int)AppCode.SERVER_ERROR,
                 HttpCode = StatusCodes.Status500InternalServerError,
             };
 
             public static readonly F5Response TOKEN_DOES_NOT_EXIST = new()
             {
-                AppCode = AppCode.TOKEN_DOES_NOT_EXIST,
+                AppCode = (int)AppCode.TOKEN_DOES_NOT_EXIST,
                 HttpCode = StatusCodes.Status404NotFound,
             };
 
             public static readonly F5Response PASSWORD_IS_INVALID = new()
             {
-                AppCode = AppCode.PASSWORD_IS_INVALID,
+                AppCode = (int)AppCode.PASSWORD_IS_INVALID,
                 HttpCode = StatusCodes.Status422UnprocessableEntity,
             };
         }
     }
 
-    public static class AppCode
+    public enum AppCode
     {
-        public const int SUCCESS = 1;
+        SUCCESS = 1,
 
-        public const int VALIDATION_FAILED = 2;
+        VALIDATION_FAILED,
 
-        public const int SERVER_ERROR = 3;
+        SERVER_ERROR,
 
-        public const int TOKEN_DOES_NOT_EXIST = 4;
+        TOKEN_DOES_NOT_EXIST,
 
-        public const int PASSWORD_IS_INVALID = 5;
+        PASSWORD_IS_INVALID,
     }
 }
