@@ -81,7 +81,7 @@ public sealed class F1Service : IServiceHandler<F1AppRequestModel, F1AppResponse
                     AppConstants.JsonWebToken.ClaimType.PURPOSE.Value.USER_IN_APP
                 ),
             ],
-            1
+            F1Constant.APP_USER_ACCESS_TOKEN.DURATION_IN_MINUTES
         );
 
         return new()
