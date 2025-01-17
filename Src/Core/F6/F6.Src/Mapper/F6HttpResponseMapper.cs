@@ -29,12 +29,27 @@ public static class F6HttpResponseMapper
         _httpResponseMapper.TryAdd(
             F6Constant.AppCode.SUCCESS,
             (appRequest, appResponse) =>
-                new() { HttpCode = StatusCodes.Status200OK, AppCode = F6Constant.AppCode.SUCCESS }
+                new()
+                {
+                    HttpCode = StatusCodes.Status200OK,
+                    AppCode = F6Constant.AppCode.SUCCESS,
+                    Body = new()
+                    {
+                        AccessToken = appResponse.Body.AccessToken,
+                        RefreshToken = appResponse.Body.RefreshToken,
+                    },
+                }
         );
 
         _httpResponseMapper.TryAdd(
-            F6Constant.AppCode.TOKEN_DOES_NOT_EXIST,
-            (appRequest, appResponse) => F6Constant.DefaultResponse.Http.TOKEN_DOES_NOT_EXIST
+            F6Constant.AppCode.REFRESH_TOKEN_DOES_NOT_EXIST,
+            (appRequest, appResponse) =>
+                F6Constant.DefaultResponse.Http.REFRESH_TOKEN_DOES_NOT_EXIST
+        );
+
+        _httpResponseMapper.TryAdd(
+            F6Constant.AppCode.REFRESH_TOKEN_EXPIRED,
+            (appRequest, appResponse) => F6Constant.DefaultResponse.Http.REFRESH_TOKEN_EXPIRED
         );
     }
 

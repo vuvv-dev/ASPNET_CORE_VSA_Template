@@ -9,7 +9,7 @@ public sealed class F3Response
 
     public int AppCode { get; set; }
 
-    public BodyModel Body { get; set; }
+    public BodyDto Body { get; set; }
 
-    public sealed class BodyModel { }
+    public sealed class BodyDto { }
 }

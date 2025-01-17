@@ -65,14 +65,14 @@ public sealed class F1Repository : IF1Repository
                     ct
                 );
 
+            await _context.SaveChangesAsync(ct);
+
             return true;
         }
         catch (DbUpdateException)
         {
-            await _context.SaveChangesAsync(ct);
+            return false;
         }
-
-        return false;
     }
 
     public Task<bool> IsUserFoundByEmailAsync(string email, CancellationToken ct)

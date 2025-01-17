@@ -35,6 +35,7 @@ public sealed class F6Endpoint : ControllerBase
         {
             AccessTokenId = stateBag.AccessTokenId,
             RefreshToken = request.RefreshToken,
+            UserId = stateBag.UserId,
         };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 

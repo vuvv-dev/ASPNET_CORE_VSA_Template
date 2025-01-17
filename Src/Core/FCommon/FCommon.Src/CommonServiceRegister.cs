@@ -23,6 +23,7 @@ public sealed class CommonServiceRegister : IServiceRegister
     {
         AddAppDefinedServices(services, configuration);
         AddOptions(services, configuration);
+        AddDefaultAuthorization(services, configuration);
 
         return services;
     }
@@ -45,7 +46,13 @@ public sealed class CommonServiceRegister : IServiceRegister
             .MakeScopedLazy<RoleManager<IdentityRoleEntity>>()
             .MakeScopedLazy<SignInManager<IdentityUserEntity>>();
         #endregion
+    }
 
+    public static void AddDefaultAuthorization(
+        IServiceCollection services,
+        IConfiguration configuration
+    )
+    {
         #region Authorization
         services
             .AddAuthorizationBuilder()

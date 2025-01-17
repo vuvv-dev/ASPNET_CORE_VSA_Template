@@ -10,6 +10,11 @@ public static class F6Constant
 
     public const string REQUEST_ARGUMENT_NAME = "request";
 
+    public static class APP_USER_ACCESS_TOKEN
+    {
+        public const int DURATION_IN_MINUTES = 60;
+    }
+
     public static class DefaultResponse
     {
         public static class App
@@ -19,9 +24,14 @@ public static class F6Constant
                 AppCode = AppCode.SERVER_ERROR,
             };
 
-            public static readonly F6AppResponseModel TOKEN_DOES_NOT_EXIST = new()
+            public static readonly F6AppResponseModel REFRESH_TOKEN_DOES_NOT_EXIST = new()
             {
-                AppCode = AppCode.TOKEN_DOES_NOT_EXIST,
+                AppCode = AppCode.REFRESH_TOKEN_DOES_NOT_EXIST,
+            };
+
+            public static readonly F6AppResponseModel REFRESH_TOKEN_EXPIRED = new()
+            {
+                AppCode = AppCode.REFRESH_TOKEN_EXPIRED,
             };
         }
 
@@ -39,10 +49,16 @@ public static class F6Constant
                 HttpCode = StatusCodes.Status500InternalServerError,
             };
 
-            public static readonly F6Response TOKEN_DOES_NOT_EXIST = new()
+            public static readonly F6Response REFRESH_TOKEN_DOES_NOT_EXIST = new()
             {
-                AppCode = AppCode.TOKEN_DOES_NOT_EXIST,
+                AppCode = AppCode.REFRESH_TOKEN_DOES_NOT_EXIST,
                 HttpCode = StatusCodes.Status404NotFound,
+            };
+
+            public static readonly F6Response REFRESH_TOKEN_EXPIRED = new()
+            {
+                AppCode = AppCode.REFRESH_TOKEN_EXPIRED,
+                HttpCode = StatusCodes.Status401Unauthorized,
             };
         }
     }
@@ -55,6 +71,8 @@ public static class F6Constant
 
         public const int SERVER_ERROR = 3;
 
-        public const int TOKEN_DOES_NOT_EXIST = 4;
+        public const int REFRESH_TOKEN_DOES_NOT_EXIST = 4;
+
+        public const int REFRESH_TOKEN_EXPIRED = 5;
     }
 }

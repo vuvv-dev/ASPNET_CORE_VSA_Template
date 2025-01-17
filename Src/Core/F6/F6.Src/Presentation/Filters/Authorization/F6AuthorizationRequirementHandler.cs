@@ -25,7 +25,7 @@ public sealed class F6AuthorizationRequirementHandler
     {
         var expClaimValue = context.User.FindFirstValue(AppConstants.JsonWebToken.ClaimType.EXP);
         var isTokenExpired = AppAccessTokenHandler.IsAccessTokenExpired(expClaimValue);
-        if (isTokenExpired)
+        if (!isTokenExpired)
         {
             context.Fail();
 
@@ -52,6 +52,9 @@ public sealed class F6AuthorizationRequirementHandler
         {
             AccessTokenId = long.Parse(
                 context.User.FindFirstValue(AppConstants.JsonWebToken.ClaimType.JTI)
+            ),
+            UserId = long.Parse(
+                context.User.FindFirstValue(AppConstants.JsonWebToken.ClaimType.SUB)
             ),
         };
         httpContext.Items.Add(AppConstants.STATE_BAG_NAME, stateBag);

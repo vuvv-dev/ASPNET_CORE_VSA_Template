@@ -9,7 +9,12 @@ public sealed class F6Response
 
     public int AppCode { get; set; }
 
-    public BodyModel Body { get; set; }
+    public BodyDto Body { get; set; }
 
-    public sealed class BodyModel { }
+    public sealed class BodyDto
+    {
+        public string AccessToken { get; set; }
+
+        public string RefreshToken { get; set; }
+    }
 }
