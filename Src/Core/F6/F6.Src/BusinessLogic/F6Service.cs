@@ -15,19 +15,16 @@ namespace F6.Src.BusinessLogic;
 public sealed class F6Service : IServiceHandler<F6AppRequestModel, F6AppResponseModel>
 {
     private readonly Lazy<IF6Repository> _repository;
-    private readonly Lazy<IAppRefreshTokenHandler> _refreshTokenHandler;
     private readonly Lazy<IAppAccessTokenHandler> _accessTokenHandler;
     private readonly Lazy<IAppIdGenerator> _idGenerator;
 
     public F6Service(
         Lazy<IF6Repository> repository,
-        Lazy<IAppRefreshTokenHandler> refreshTokenHandler,
         Lazy<IAppAccessTokenHandler> accessTokenHandler,
         Lazy<IAppIdGenerator> idGenerator
     )
     {
         _repository = repository;
-        _refreshTokenHandler = refreshTokenHandler;
         _accessTokenHandler = accessTokenHandler;
         _idGenerator = idGenerator;
     }
