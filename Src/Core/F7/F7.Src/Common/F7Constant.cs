@@ -29,32 +29,32 @@ public static class F7Constant
         {
             public static readonly F7Response VALIDATION_FAILED = new()
             {
-                AppCode = AppCode.VALIDATION_FAILED,
+                AppCode = (int)AppCode.VALIDATION_FAILED,
                 HttpCode = StatusCodes.Status400BadRequest,
             };
 
             public static readonly F7Response SERVER_ERROR = new()
             {
-                AppCode = AppCode.SERVER_ERROR,
+                AppCode = (int)AppCode.SERVER_ERROR,
                 HttpCode = StatusCodes.Status500InternalServerError,
             };
 
             public static readonly F7Response LIST_ALREADY_EXISTS = new()
             {
-                AppCode = AppCode.LIST_ALREADY_EXISTS,
+                AppCode = (int)AppCode.LIST_ALREADY_EXISTS,
                 HttpCode = StatusCodes.Status409Conflict,
             };
         }
     }
 
-    public static class AppCode
+    public enum AppCode
     {
-        public const int SUCCESS = 1;
+        SUCCESS = 1,
 
-        public const int VALIDATION_FAILED = 2;
+        VALIDATION_FAILED,
 
-        public const int SERVER_ERROR = 3;
+        SERVER_ERROR,
 
-        public const int LIST_ALREADY_EXISTS = 4;
+        LIST_ALREADY_EXISTS,
     }
 }
