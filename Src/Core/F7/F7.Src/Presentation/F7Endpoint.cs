@@ -6,6 +6,7 @@ using F7.Src.Mapper;
 using F7.Src.Models;
 using F7.Src.Presentation.Filters.Validation;
 using FCommon.Src.Authorization.Default;
+using FCommon.Src.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,7 +29,13 @@ public sealed class F7Endpoint : ControllerBase
         CancellationToken ct
     )
     {
-        var appRequest = new F7AppRequestModel { };
+        var appRequest = new F7AppRequestModel
+        {
+            TodoTaskListName = request.TodoTaskListName,
+            UserId = long.Parse(
+                HttpContext.Items[AppConstants.JsonWebToken.ClaimType.SUB] as string
+            ),
+        };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
         var httpResponse = F7HttpResponseMapper.Get(appRequest, appResponse);

@@ -11,5 +11,8 @@ public sealed class F7Response
 
     public BodyDto Body { get; set; }
 
-    public sealed class BodyDto { }
+    public sealed class BodyDto
+    {
+        public long ListId { get; set; }
+    }
 }

@@ -18,6 +18,11 @@ public static class F7Constant
             {
                 AppCode = AppCode.SERVER_ERROR,
             };
+
+            public static readonly F7AppResponseModel LIST_ALREADY_EXISTS = new()
+            {
+                AppCode = AppCode.LIST_ALREADY_EXISTS,
+            };
         }
 
         public static class Http
@@ -33,6 +38,12 @@ public static class F7Constant
                 AppCode = AppCode.SERVER_ERROR,
                 HttpCode = StatusCodes.Status500InternalServerError,
             };
+
+            public static readonly F7Response LIST_ALREADY_EXISTS = new()
+            {
+                AppCode = AppCode.LIST_ALREADY_EXISTS,
+                HttpCode = StatusCodes.Status409Conflict,
+            };
         }
     }
 
@@ -43,5 +54,7 @@ public static class F7Constant
         public const int VALIDATION_FAILED = 2;
 
         public const int SERVER_ERROR = 3;
+
+        public const int LIST_ALREADY_EXISTS = 4;
     }
 }

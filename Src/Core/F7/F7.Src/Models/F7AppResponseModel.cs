@@ -8,5 +8,8 @@ public sealed class F7AppResponseModel : IServiceResponse
 
     public BodyModel Body { get; set; }
 
-    public sealed class BodyModel { }
+    public sealed class BodyModel
+    {
+        public long ListId { get; set; }
+    }
 }
