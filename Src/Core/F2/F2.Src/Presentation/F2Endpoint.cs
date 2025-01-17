@@ -25,7 +25,7 @@ public sealed class F2Endpoint : ControllerBase
     [ServiceFilter<F2ValidationFilter>(Order = 1)]
     public async Task<IActionResult> ExecuteAsync(F2Request request, CancellationToken ct)
     {
-        var appRequest = new F2AppRequestModel { ListId = request.ListId };
+        var appRequest = new F2AppRequestModel { TodoTaskListId = request.TodoTaskListId };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
         var httpResponse = F2HttpResponseMapper.Get(appRequest, appResponse);

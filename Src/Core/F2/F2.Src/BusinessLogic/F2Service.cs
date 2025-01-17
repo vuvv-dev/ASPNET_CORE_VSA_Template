@@ -23,7 +23,7 @@ public sealed class F2Service : IServiceHandler<F2AppRequestModel, F2AppResponse
         CancellationToken ct
     )
     {
-        var list = await _repository.Value.GetTodoTaskListAsync(request.ListId, ct);
+        var list = await _repository.Value.GetTodoTaskListAsync(request.TodoTaskListId, ct);
         if (Equals(list, null))
         {
             return F2Constant.DefaultResponse.App.LIST_NOT_FOUND;
@@ -34,7 +34,7 @@ public sealed class F2Service : IServiceHandler<F2AppRequestModel, F2AppResponse
             AppCode = F2Constant.AppCode.SUCCESS,
             Body = new()
             {
-                Id = request.ListId,
+                Id = request.TodoTaskListId,
                 Name = list.Name,
                 TodoTasks = list.TodoTasks.Select(
                     model => new F2AppResponseModel.BodyModel.TodoTaskModel
