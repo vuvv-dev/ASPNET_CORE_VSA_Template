@@ -8,6 +8,7 @@
     <ProjectReference Include="..\..\Core\F6\F6.Src\F6.Src.csproj" />
     <ProjectReference Include="..\..\Core\F7\F7.Src\F7.Src.csproj" />
     <ProjectReference Include="..\..\Core\F8\F8.Src\F8.Src.csproj" />
+    <ProjectReference Include="..\..\Core\F9\F9.Src\F9.Src.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
