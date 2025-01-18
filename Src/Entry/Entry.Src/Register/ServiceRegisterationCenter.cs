@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using F1.Src;
+using F10.Src;
 using F2.Src;
 using F3.Src;
 using F4.Src;
@@ -37,6 +38,7 @@ public static class ServiceRegisterationCenter
         typeof(F7Register).Assembly,
         typeof(F8Register).Assembly,
         typeof(F9Register).Assembly,
+        typeof(F10Register).Assembly,
         // External
         typeof(FA1Register).Assembly,
         typeof(FA2Register).Assembly,
