@@ -25,15 +25,6 @@ public sealed class F7Service : IServiceHandler<F7AppRequestModel, F7AppResponse
         CancellationToken ct
     )
     {
-        var doesListExist = await _repository.Value.DoesTaskTodoListExistAsync(
-            request.TodoTaskListName,
-            ct
-        );
-        if (doesListExist)
-        {
-            return F7Constant.DefaultResponse.App.LIST_ALREADY_EXISTS;
-        }
-
         var newList = new F7TaskTodoListModel
         {
             Id = _idGenerator.Value.NextId(),

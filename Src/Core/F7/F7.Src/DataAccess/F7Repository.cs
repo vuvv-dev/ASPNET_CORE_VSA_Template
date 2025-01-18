@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F7.Src.DataAccess;
 
-public sealed class F7Repository : IF7Repository
+public sealed partial class F7Repository : IF7Repository
 {
     private readonly AppDbContext _appContext;
 
@@ -41,12 +41,5 @@ public sealed class F7Repository : IF7Repository
         {
             return false;
         }
-    }
-
-    public Task<bool> DoesTaskTodoListExistAsync(string taskTodoListName, CancellationToken ct)
-    {
-        return _appContext
-            .Set<TodoTaskListEntity>()
-            .AnyAsync(entity => EF.Functions.ILike(entity.Name, $"%{taskTodoListName}%"), ct);
     }
 }
