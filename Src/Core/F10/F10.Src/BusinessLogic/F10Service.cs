@@ -31,15 +31,6 @@ public sealed class F10Service : IServiceHandler<F10AppRequestModel, F10AppRespo
         );
 
         var listCount = foundTodoTaskLists.Count();
-        if (listCount == 0)
-        {
-            return new()
-            {
-                AppCode = F10Constant.AppCode.SUCCESS,
-                Body = new() { TodoTaskLists = [], NextCursor = 0 },
-            };
-        }
-
         if (listCount <= request.NumberOfRecord)
         {
             return new()
