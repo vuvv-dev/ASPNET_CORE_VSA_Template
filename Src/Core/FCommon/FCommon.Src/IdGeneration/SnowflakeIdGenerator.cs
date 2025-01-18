@@ -66,7 +66,7 @@ public sealed class SnowflakeIdGenerator : IAppIdGenerator
         }
         catch (SnowflakeException)
         {
-            return -1;
+            throw;
         }
     }
 }
