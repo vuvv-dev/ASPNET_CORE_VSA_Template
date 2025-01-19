@@ -9,6 +9,7 @@ $ErrorActionPreference = "Stop"
 
 # Constants
 $CURRENT_PATH = Get-Location
+$CONFIGURATION_MODE = 'Release'
 
 # Function to find the root directory containing the solution file
 function Find-ProjectRoot {
@@ -63,7 +64,7 @@ if ($LASTEXITCODE -ne 0) {
 Set-Location $CURRENT_PATH
 
 Write-Output "Run project..."
-dotnet run -c Release --project $projectRoot\Src\Entry\Entry.Src\
+dotnet run -c $CONFIGURATION_MODE --project $projectRoot\Src\Entry\
 if ($LASTEXITCODE -ne 0) {
     Write-Error "dotnet run failed"
     exit $LASTEXITCODE

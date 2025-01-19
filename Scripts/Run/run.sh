@@ -10,6 +10,7 @@ PROJECT_NAME="ASPNET_CORE_VSA_Template"
 set -e
 
 # Constants
+CONFIGURATION_MODE="Release"
 CURRENT_PATH=$(pwd)
 
 # Function to find the root directory containing the solution file
@@ -51,10 +52,10 @@ if [ $? -ne 0 ]; then
 fi
 
 # Go back to original directory
-cd "$CURRENT_PATH
+cd "$CURRENT_PATH"
 
 echo "Run project..."
-dotnet run -c Release --project "$project_root/Src/Entry/Entry.Src/"
+dotnet run -c "$CONFIGURATION_MODE" --project "$project_root/Src/Entry/"
 if [ $? -ne 0 ]; then
     echo "dotnet run failed"
     exit 1

@@ -54,7 +54,7 @@ Write-Output "Project root path determined: $projectRoot"
 Set-Location $projectRoot
 
 Write-Output "Clean project..."
-dotnet clean -c $CONFIGURATION_MODE .\SetupProject.sln
+dotnet clean -c $CONFIGURATION_MODE
 if ($LASTEXITCODE -ne 0) {
     Write-Error "dotnet format failed"
     exit $LASTEXITCODE

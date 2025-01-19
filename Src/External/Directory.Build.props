@@ -3,7 +3,7 @@
 
   <ItemGroup>
     <ProjectReference 
-        Include="..\..\FACommon\FACommon.Src\FACommon.Src.csproj" 
+        Include="..\FACommon\FACommon.csproj" 
         Condition="'$(AppProjectName)' != 'FACommon'" />
   </ItemGroup>
 </Project>
