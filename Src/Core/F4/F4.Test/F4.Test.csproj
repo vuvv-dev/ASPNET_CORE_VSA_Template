@@ -1,2 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\F4.Src\F4.Src.csproj" />
+  </ItemGroup>
 </Project>
