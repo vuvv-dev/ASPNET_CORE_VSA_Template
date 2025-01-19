@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <ProjectReference 
-        Include="..\..\FCommon\FCommon.Src\FCommon.Src.csproj" 
+        Include="..\FCommon\FCommon.csproj" 
         Condition="'$(AppProjectName)' != 'FCommon'" />
   </ItemGroup>
 </Project>

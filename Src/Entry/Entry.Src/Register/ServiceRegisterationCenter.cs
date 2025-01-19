@@ -2,21 +2,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using F1.Src;
-using F10.Src;
-using F2.Src;
-using F3.Src;
-using F4.Src;
-using F5.Src;
-using F6.Src;
-using F7.Src;
-using F8.Src;
-using F9.Src;
-using FA1.Src;
-using FA2.Src;
-using FA3.Src;
-using FACommon.Src.DependencyInjection;
-using FCommon.Src;
+using F1;
+using F2;
+using F3;
+using F4;
+using F5;
+using F6;
+using F7;
+using F8;
+using F9;
+using FA1;
+using FA2;
+using FA3;
+using FACommon.DependencyInjection;
+using FCommon;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -38,7 +37,7 @@ public static class ServiceRegisterationCenter
         typeof(F7Register).Assembly,
         typeof(F8Register).Assembly,
         typeof(F9Register).Assembly,
-        typeof(F10Register).Assembly,
+        //typeof(F10Register).Assembly,
         // External
         typeof(FA1Register).Assembly,
         typeof(FA2Register).Assembly,
