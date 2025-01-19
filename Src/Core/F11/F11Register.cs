@@ -1,17 +1,17 @@
-using F10.BusinessLogic;
-using F10.DataAccess;
+using F11.BusinessLogic;
+using F11.DataAccess;
 using FACommon.DependencyInjection;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace F10;
+namespace F11;
 
-public sealed class F10Register : IServiceRegister
+public sealed class F11Register : IServiceRegister
 {
     public IServiceCollection Register(IServiceCollection services, IConfiguration configuration)
     {
-        var currentAssembly = typeof(F10Register).Assembly;
+        var currentAssembly = typeof(F11Register).Assembly;
 
         #region Filters
         services.RegisterFiltersFromAssembly(currentAssembly);
@@ -23,9 +23,9 @@ public sealed class F10Register : IServiceRegister
 
         #region Core
         services
-            .AddScoped<IF10Repository, F10Repository>()
-            .MakeScopedLazy<IF10Repository>()
-            .AddScoped<F10Service>();
+            .AddScoped<IF11Repository, F11Repository>()
+            .MakeScopedLazy<IF11Repository>()
+            .AddScoped<F11Service>();
         #endregion
 
         return services;

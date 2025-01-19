@@ -1,20 +1,13 @@
-using F10.Presentation;
+using F11.Presentation;
 using Microsoft.AspNetCore.Http;
 
-namespace F10.Common;
+namespace F11.Common;
 
-public static class F10Constant
+public static class F11Constant
 {
-    public const string ENDPOINT_PATH = "f10";
+    public const string ENDPOINT_PATH = "f11";
 
     public const string REQUEST_ARGUMENT_NAME = "request";
-
-    public static class UrlQuery
-    {
-        public const string ListId = "listId";
-
-        public const string NumberOfRecord = "n";
-    }
 
     public static class DefaultResponse
     {
@@ -22,7 +15,7 @@ public static class F10Constant
 
         public static class Http
         {
-            public static readonly F10Response VALIDATION_FAILED = new()
+            public static readonly F11Response VALIDATION_FAILED = new()
             {
                 AppCode = (int)AppCode.VALIDATION_FAILED,
                 HttpCode = StatusCodes.Status400BadRequest,
