@@ -10,6 +10,7 @@ $ErrorActionPreference = "Stop"
 
 # Constants
 $CURRENT_PATH = Get-Location
+$CONFIGURATION_MODE = 'Release'
 
 # Function to find the root directory containing the solution file
 function Find-ProjectRoot {
@@ -55,7 +56,7 @@ Set-Location $projectRoot
 
 # Format the project
 Write-Output "Publish project..."
-dotnet publish -c Release --no-build --no-restore
+dotnet publish -c $CONFIGURATION_MODE
 if ($LASTEXITCODE -ne 0) {
     Write-Error "dotnet publish failed"
     exit $LASTEXITCODE

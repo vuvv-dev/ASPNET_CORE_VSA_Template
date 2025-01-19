@@ -11,6 +11,7 @@ PROJECT_NAME="ASPNET_CORE_VSA_Template"
 set -e
 
 # Constants
+CONFIGURATION_MODE="Release"
 CURRENT_PATH=$(pwd)
 
 # Function to find the root directory containing the solution file
@@ -46,7 +47,7 @@ cd "$project_root"
 
 # Format the project
 echo "Publish project..."
-if ! dotnet publish -c Release --no-build --no-restore; then
+if ! dotnet publish -c "$CONFIGURATION_MODE"; then
     echo "dotnet publish failed"
     exit 1
 fi
