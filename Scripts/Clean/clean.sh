@@ -45,7 +45,7 @@ echo "Project root path determined: $project_root"
 cd "$project_root"
 
 echo "Clean project..."
-dotnet clean -c "$CONFIGURATION_MODE" "./SetupProject.sln"
+dotnet clean -c "$CONFIGURATION_MODE"
 if [ $? -ne 0 ]; then
     echo "dotnet format failed"
     exit 1

@@ -19,7 +19,7 @@ using FCommon;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Entry.Src.Register;
+namespace Entry.Register;
 
 public static class ServiceRegisterationCenter
 {

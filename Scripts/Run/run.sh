@@ -54,7 +54,7 @@ fi
 cd "$CURRENT_PATH
 
 echo "Run project..."
-dotnet run -c Release --project "$project_root/Src/Entry/Entry.Src/"
+dotnet run -c Release --project "$project_root/Src/Entry/"
 if [ $? -ne 0 ]; then
     echo "dotnet run failed"
     exit 1
