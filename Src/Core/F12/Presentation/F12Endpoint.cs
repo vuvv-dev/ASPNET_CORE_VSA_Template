@@ -20,13 +20,10 @@ public sealed class F12Endpoint : ControllerBase
         _service = service;
     }
 
-    [HttpPost(F12Constant.ENDPOINT_PATH)]
+    [HttpDelete(F12Constant.ENDPOINT_PATH)]
     [Authorize(Policy = nameof(DefaultAuthorizationRequirement))]
     [ServiceFilter<F12ValidationFilter>(Order = 1)]
-    public async Task<IActionResult> ExecuteAsync(
-        [FromBody] F12Request request,
-        CancellationToken ct
-    )
+    public async Task<IActionResult> ExecuteAsync(F12Request request, CancellationToken ct)
     {
         var appRequest = new F12AppRequestModel { TodoTaskId = request.TodoTaskId };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);

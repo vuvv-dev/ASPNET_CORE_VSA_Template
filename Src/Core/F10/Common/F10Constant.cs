@@ -5,15 +5,16 @@ namespace F10.Common;
 
 public static class F10Constant
 {
-    public const string ENDPOINT_PATH = "f10";
+    public const string ENDPOINT_PATH = "f10/list/{TodoTaskListId:required}";
 
     public const string REQUEST_ARGUMENT_NAME = "request";
 
-    public static class UrlQuery
+    public static class Url
     {
-        public const string ListId = "listId";
-
-        public const string NumberOfRecord = "n";
+        public static class Query
+        {
+            public const string NumberOfRecord = "n";
+        }
     }
 
     public static class DefaultResponse

@@ -25,7 +25,12 @@ public sealed class F13Endpoint : ControllerBase
     [ServiceFilter<F13ValidationFilter>(Order = 1)]
     public async Task<IActionResult> ExecuteAsync(F13Request request, CancellationToken ct)
     {
-        var appRequest = new F13AppRequestModel();
+        var appRequest = new F13AppRequestModel
+        {
+            TodoTaskId = request.TodoTaskId,
+            TodoTaskListId = request.TodoTaskListId,
+            NumberOfRecord = request.NumberOfRecord,
+        };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
         var httpResponse = F13HttpResponseMapper.Get(appRequest, appResponse);

@@ -53,9 +53,9 @@ public sealed class F10Service : IServiceHandler<F10AppRequestModel, F10AppRespo
         var appResponseTodoTaskLists = new List<F10AppResponseModel.BodyModel.TodoTaskListModel>();
         for (var i = 0; i < listCount; i++)
         {
-            var element = foundTodoTaskLists.ElementAt(i);
+            var listDetail = foundTodoTaskLists.ElementAt(i);
 
-            appResponseTodoTaskLists.Add(new() { Id = element.Id, Name = element.Name });
+            appResponseTodoTaskLists.Add(new() { Id = listDetail.Id, Name = listDetail.Name });
         }
         var nextCursor = appResponseTodoTaskLists[^1].Id;
         appResponseTodoTaskLists.RemoveAt(appResponseTodoTaskLists.Count - 1);

@@ -6,7 +6,7 @@ namespace F12.Common;
 
 public static class F12Constant
 {
-    public const string ENDPOINT_PATH = "f12";
+    public const string ENDPOINT_PATH = "f12/task/{TodoTaskId:required}";
 
     public const string REQUEST_ARGUMENT_NAME = "request";
 
