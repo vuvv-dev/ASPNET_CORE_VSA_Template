@@ -20,7 +20,7 @@ public sealed class F11Endpoint : ControllerBase
         _service = service;
     }
 
-    [HttpGet(F11Constant.ENDPOINT_PATH)]
+    [HttpPost(F11Constant.ENDPOINT_PATH)]
     [Authorize(Policy = nameof(DefaultAuthorizationRequirement))]
     [ServiceFilter<F11ValidationFilter>(Order = 1)]
     public async Task<IActionResult> ExecuteAsync(
@@ -28,7 +28,11 @@ public sealed class F11Endpoint : ControllerBase
         CancellationToken ct
     )
     {
-        var appRequest = new F11AppRequestModel { };
+        var appRequest = new F11AppRequestModel
+        {
+            Content = request.Content,
+            TodoTaskListId = request.TodoTaskListId,
+        };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
         var httpResponse = F11HttpResponseMapper.Get(appRequest, appResponse);

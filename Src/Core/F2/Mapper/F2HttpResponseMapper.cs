@@ -31,7 +31,7 @@ public static class F2HttpResponseMapper
                 (appRequest, appResponse) =>
                     new()
                     {
-                        HttpCode = StatusCodes.Status400BadRequest,
+                        HttpCode = StatusCodes.Status200OK,
                         AppCode = (int)F2Constant.AppCode.SUCCESS,
                         Body = new()
                         {

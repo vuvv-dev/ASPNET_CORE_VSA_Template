@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace F11.Presentation;
@@ -12,5 +11,8 @@ public sealed class F11Response
 
     public BodyDto Body { get; set; }
 
-    public sealed class BodyDto { }
+    public sealed class BodyDto
+    {
+        public long TodoTaskId { get; set; }
+    }
 }

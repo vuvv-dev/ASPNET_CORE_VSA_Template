@@ -30,7 +30,6 @@ public static class ServiceRegisterationCenter
     [
         // Common
         typeof(CommonServiceRegister).Assembly,
-
         // Core
         typeof(F1Register).Assembly,
         typeof(F2Register).Assembly,
@@ -44,7 +43,6 @@ public static class ServiceRegisterationCenter
         typeof(F10Register).Assembly,
         typeof(F10Register).Assembly,
         typeof(F11Register).Assembly,
-
         // External
         typeof(FA1Register).Assembly,
         typeof(FA2Register).Assembly,

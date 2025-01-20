@@ -9,5 +9,8 @@ public sealed class F11AppResponseModel : IServiceResponse
 
     public BodyModel Body { get; set; }
 
-    public sealed class BodyModel { }
+    public sealed class BodyModel
+    {
+        public long TodoTaskId { get; set; }
+    }
 }
