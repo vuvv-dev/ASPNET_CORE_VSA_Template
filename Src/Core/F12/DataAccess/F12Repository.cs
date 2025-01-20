@@ -6,23 +6,23 @@ using FA1.DbContext;
 using FA1.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace F8.DataAccess;
+namespace F12.DataAccess;
 
-public sealed class F8Repository : IF8Repository
+public sealed class F12Repository : IF12Repository
 {
     private readonly AppDbContext _appContext;
 
-    public F8Repository(AppDbContext context)
+    public F12Repository(AppDbContext context)
     {
         _appContext = context;
     }
 
-    public Task<bool> DoesTaskTodoListExistAsync(long listId, CancellationToken ct)
+    public Task<bool> DoesTodoTaskExistAsync(long taskId, CancellationToken ct)
     {
-        return _appContext.Set<TodoTaskListEntity>().AnyAsync(entity => entity.Id == listId, ct);
+        return _appContext.Set<TodoTaskEntity>().AnyAsync(entity => entity.Id == taskId, ct);
     }
 
-    public async Task<bool> RemoveTaskTodoListAsync(long listId, CancellationToken ct)
+    public async Task<bool> RemoveTodoTaskAsync(long taskId, CancellationToken ct)
     {
         var dbResult = true;
 
@@ -38,8 +38,8 @@ public sealed class F8Repository : IF8Repository
                 try
                 {
                     var rowsAffected = await _appContext
-                        .Set<TodoTaskListEntity>()
-                        .Where(list => list.Id == listId)
+                        .Set<TodoTaskEntity>()
+                        .Where(task => task.Id == taskId)
                         .ExecuteDeleteAsync(ct);
 
                     if (rowsAffected == 0)
