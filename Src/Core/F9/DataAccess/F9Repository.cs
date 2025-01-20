@@ -41,17 +41,12 @@ public sealed class F9Repository : IF9Repository
 
                 try
                 {
-                    var rowsAffected = await _appContext
+                    await _appContext
                         .Set<TodoTaskListEntity>()
                         .Where(token => token.Id.Equals(taskTodoList.Id))
                         .ExecuteUpdateAsync(setProp =>
                             setProp.SetProperty(entity => entity.Name, taskTodoList.Name)
                         );
-
-                    if (rowsAffected == 0)
-                    {
-                        throw new DbUpdateException();
-                    }
 
                     await dbTransaction.CommitAsync(ct);
                 }
