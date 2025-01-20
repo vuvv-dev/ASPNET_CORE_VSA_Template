@@ -59,10 +59,6 @@ public sealed class F8Repository : IF8Repository
                                     .Set<TodoTaskStepEntity>()
                                     .Where(taskStep => taskStep.TodoTaskId == taskId)
                                     .ExecuteDeleteAsync(ct);
-                                if (rowsAffected == 0)
-                                {
-                                    throw new DbUpdateException();
-                                }
                             },
                             ct
                         );
@@ -72,10 +68,6 @@ public sealed class F8Repository : IF8Repository
                         .Set<TodoTaskEntity>()
                         .Where(task => task.TodoTaskListId == listId)
                         .ExecuteDeleteAsync(ct);
-                    if (rowsAffected == 0)
-                    {
-                        throw new DbUpdateException();
-                    }
 
                     await dbTransaction.CommitAsync(ct);
                 }
