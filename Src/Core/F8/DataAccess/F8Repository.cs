@@ -38,7 +38,7 @@ public sealed class F8Repository : IF8Repository
                 try
                 {
                     // Remove list
-                    var rowsAffected = await _appContext
+                    await _appContext
                         .Set<TodoTaskListEntity>()
                         .Where(list => list.Id == listId)
                         .ExecuteDeleteAsync(ct);
@@ -51,7 +51,7 @@ public sealed class F8Repository : IF8Repository
                         .ForEachAsync(
                             async taskId =>
                             {
-                                rowsAffected = await _appContext
+                                await _appContext
                                     .Set<TodoTaskStepEntity>()
                                     .Where(taskStep => taskStep.TodoTaskId == taskId)
                                     .ExecuteDeleteAsync(ct);
@@ -60,7 +60,7 @@ public sealed class F8Repository : IF8Repository
                         );
 
                     // Remove all tasks
-                    rowsAffected = await _appContext
+                    await _appContext
                         .Set<TodoTaskEntity>()
                         .Where(task => task.TodoTaskListId == listId)
                         .ExecuteDeleteAsync(ct);
