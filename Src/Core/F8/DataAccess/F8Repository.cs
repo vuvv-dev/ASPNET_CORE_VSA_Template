@@ -42,10 +42,6 @@ public sealed class F8Repository : IF8Repository
                         .Set<TodoTaskListEntity>()
                         .Where(list => list.Id == listId)
                         .ExecuteDeleteAsync(ct);
-                    if (rowsAffected == 0)
-                    {
-                        throw new DbUpdateException();
-                    }
 
                     // Remove all task steps
                     await _appContext
