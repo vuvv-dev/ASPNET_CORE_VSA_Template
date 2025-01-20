@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using F1;
+using F10;
+using F11;
 using F2;
 using F3;
 using F4;
@@ -26,8 +28,9 @@ public static class ServiceRegisterationCenter
     // Add assembly that you want to register HERE !!
     private static readonly List<Assembly> RegisterAssemblies =
     [
-        // Core
+        // Common
         typeof(CommonServiceRegister).Assembly,
+        // Core
         typeof(F1Register).Assembly,
         typeof(F2Register).Assembly,
         typeof(F3Register).Assembly,
@@ -37,7 +40,9 @@ public static class ServiceRegisterationCenter
         typeof(F7Register).Assembly,
         typeof(F8Register).Assembly,
         typeof(F9Register).Assembly,
-        //typeof(F10Register).Assembly,
+        typeof(F10Register).Assembly,
+        typeof(F10Register).Assembly,
+        typeof(F11Register).Assembly,
         // External
         typeof(FA1Register).Assembly,
         typeof(FA2Register).Assembly,
