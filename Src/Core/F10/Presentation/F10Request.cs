@@ -5,9 +5,9 @@ namespace F10.Presentation;
 
 public sealed class F10Request
 {
-    [FromQuery(Name = F10Constant.UrlQuery.ListId)]
+    [FromRoute]
     public long TodoTaskListId { get; set; }
 
-    [FromQuery(Name = F10Constant.UrlQuery.NumberOfRecord)]
+    [FromQuery(Name = F10Constant.Url.Query.NumberOfRecord)]
     public int NumberOfRecord { get; set; }
 }

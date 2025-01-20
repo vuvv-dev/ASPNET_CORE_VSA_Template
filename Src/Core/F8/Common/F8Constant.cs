@@ -6,7 +6,7 @@ namespace F8.Common;
 
 public static class F8Constant
 {
-    public const string ENDPOINT_PATH = "f8/{TodoTaskListId:required}";
+    public const string ENDPOINT_PATH = "f8/list/{TodoTaskListId:required}";
 
     public const string REQUEST_ARGUMENT_NAME = "request";
 
