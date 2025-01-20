@@ -22,23 +22,6 @@ public sealed class F2Response
             public long Id { get; set; }
 
             public string Name { get; set; }
-
-            public IEnumerable<TodoTaskDto> TodoTasks { get; set; }
-
-            public sealed class TodoTaskDto
-            {
-                public long Id { get; set; }
-
-                public string Name { get; set; }
-
-                public DateTime DueDate { get; set; }
-
-                public bool IsInMyDay { get; set; }
-
-                public bool IsImportant { get; set; }
-
-                public bool IsFinished { get; set; }
-            }
         }
     }
 }

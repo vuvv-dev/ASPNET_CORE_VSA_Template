@@ -13,25 +13,13 @@ public sealed class F2AppResponseModel : IServiceResponse
 
     public sealed class BodyModel
     {
-        public long Id { get; set; }
+        public TodoTaskListModel TodoTaskList { get; set; }
 
-        public string Name { get; set; }
-
-        public IEnumerable<TodoTaskModel> TodoTasks { get; set; }
-
-        public sealed class TodoTaskModel
+        public sealed class TodoTaskListModel
         {
             public long Id { get; set; }
 
             public string Name { get; set; }
-
-            public DateTime DueDate { get; set; }
-
-            public bool IsInMyDay { get; set; }
-
-            public bool IsImportant { get; set; }
-
-            public bool IsFinished { get; set; }
         }
     }
 }
