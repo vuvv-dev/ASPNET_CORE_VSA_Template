@@ -47,6 +47,16 @@ public sealed class F8Repository : IF8Repository
                         throw new DbUpdateException();
                     }
 
+                    rowsAffected = await _appContext
+                        .Set<TodoTaskEntity>()
+                        .Where(task => task.TodoTaskListId == listId)
+                        .ExecuteDeleteAsync(ct);
+
+                    if (rowsAffected == 0)
+                    {
+                        throw new DbUpdateException();
+                    }
+
                     await dbTransaction.CommitAsync(ct);
                 }
                 catch (DbUpdateException)
