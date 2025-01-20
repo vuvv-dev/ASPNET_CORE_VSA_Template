@@ -22,7 +22,17 @@ public sealed class F12Service : IServiceHandler<F12AppRequestModel, F12AppRespo
         CancellationToken ct
     )
     {
-        await Task.CompletedTask;
+        var doesTaskExist = await _repository.Value.DoesTodoTaskExistAsync(request.TodoTaskId, ct);
+        if (!doesTaskExist)
+        {
+            return F12Constant.DefaultResponse.App.TODO_TASK_NOT_FOUND;
+        }
+
+        var isRemoved = await _repository.Value.RemoveTodoTaskAsync(request.TodoTaskId, ct);
+        if (!isRemoved)
+        {
+            return F12Constant.DefaultResponse.App.SERVER_ERROR;
+        }
 
         return new() { AppCode = F12Constant.AppCode.SUCCESS };
     }

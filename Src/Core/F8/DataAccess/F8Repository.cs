@@ -39,7 +39,7 @@ public sealed class F8Repository : IF8Repository
                 {
                     var rowsAffected = await _appContext
                         .Set<TodoTaskListEntity>()
-                        .Where(token => token.Id.Equals(listId))
+                        .Where(list => list.Id == listId)
                         .ExecuteDeleteAsync(ct);
 
                     if (rowsAffected == 0)

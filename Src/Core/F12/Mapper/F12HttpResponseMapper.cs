@@ -38,8 +38,8 @@ public static class F12HttpResponseMapper
         );
 
         _httpResponseMapper.TryAdd(
-            F12Constant.AppCode.TODO_TASK_LIST_NOT_FOUND,
-            (appRequest, appResponse) => F12Constant.DefaultResponse.Http.TODO_TASK_LIST_NOT_FOUND
+            F12Constant.AppCode.TODO_TASK_NOT_FOUND,
+            (appRequest, appResponse) => F12Constant.DefaultResponse.Http.TODO_TASK_NOT_FOUND
         );
     }
 

@@ -19,9 +19,9 @@ public static class F12Constant
                 AppCode = AppCode.SERVER_ERROR,
             };
 
-            public static readonly F12AppResponseModel TODO_TASK_LIST_NOT_FOUND = new()
+            public static readonly F12AppResponseModel TODO_TASK_NOT_FOUND = new()
             {
-                AppCode = AppCode.TODO_TASK_LIST_NOT_FOUND,
+                AppCode = AppCode.TODO_TASK_NOT_FOUND,
             };
         }
 
@@ -39,9 +39,9 @@ public static class F12Constant
                 HttpCode = StatusCodes.Status500InternalServerError,
             };
 
-            public static readonly F12Response TODO_TASK_LIST_NOT_FOUND = new()
+            public static readonly F12Response TODO_TASK_NOT_FOUND = new()
             {
-                AppCode = (int)AppCode.TODO_TASK_LIST_NOT_FOUND,
+                AppCode = (int)AppCode.TODO_TASK_NOT_FOUND,
                 HttpCode = StatusCodes.Status404NotFound,
             };
         }
@@ -55,6 +55,6 @@ public static class F12Constant
 
         SERVER_ERROR,
 
-        TODO_TASK_LIST_NOT_FOUND,
+        TODO_TASK_NOT_FOUND,
     }
 }
