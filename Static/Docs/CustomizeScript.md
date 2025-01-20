@@ -16,6 +16,10 @@ The following `SCRIPTS` require changes:
 
 - `./Scripts/Run/run.sh` or `./Scripts/Run/run.ps1`
 
+- `./Scripts/PublishApp/publish.sh` or `./Scripts/PublishApp/publish.ps1`
+
+- `./Scripts/Test/test.sh` or `./Scripts/Test/test.ps1`
+
 You need to find and update the `PROJECT_NAME` variable. Below is the place of the variable in each script:
 
 #### 1. PowerShell Scripts (`.ps1`):
