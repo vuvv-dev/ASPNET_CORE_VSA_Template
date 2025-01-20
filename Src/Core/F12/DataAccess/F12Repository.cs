@@ -37,15 +37,14 @@ public sealed class F12Repository : IF12Repository
 
                 try
                 {
-                    var rowsAffected = await _appContext
+                    await _appContext
                         .Set<TodoTaskEntity>()
                         .Where(task => task.Id == taskId)
                         .ExecuteDeleteAsync(ct);
-
-                    if (rowsAffected == 0)
-                    {
-                        throw new DbUpdateException();
-                    }
+                    await _appContext
+                        .Set<TodoTaskStepEntity>()
+                        .Where(taskStep => taskStep.TodoTaskId == taskId)
+                        .ExecuteDeleteAsync(ct);
 
                     await dbTransaction.CommitAsync(ct);
                 }
