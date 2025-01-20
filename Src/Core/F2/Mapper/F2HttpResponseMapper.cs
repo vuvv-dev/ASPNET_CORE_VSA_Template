@@ -36,8 +36,8 @@ public static class F2HttpResponseMapper
                         {
                             TodoTaskList = new()
                             {
-                                Id = appResponse.Body.Id,
-                                Name = appResponse.Body.Name,
+                                Id = appResponse.Body.TodoTaskList.Id,
+                                Name = appResponse.Body.TodoTaskList.Name,
                             },
                         },
                     }

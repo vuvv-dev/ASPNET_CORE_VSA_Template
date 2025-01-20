@@ -37,15 +37,33 @@ public sealed class F8Repository : IF8Repository
 
                 try
                 {
-                    var rowsAffected = await _appContext
+                    // Remove list
+                    await _appContext
                         .Set<TodoTaskListEntity>()
                         .Where(list => list.Id == listId)
                         .ExecuteDeleteAsync(ct);
 
-                    if (rowsAffected == 0)
-                    {
-                        throw new DbUpdateException();
-                    }
+                    // Remove all task steps
+                    await _appContext
+                        .Set<TodoTaskEntity>()
+                        .Where(task => task.TodoTaskListId == listId)
+                        .Select(task => task.Id)
+                        .ForEachAsync(
+                            async taskId =>
+                            {
+                                await _appContext
+                                    .Set<TodoTaskStepEntity>()
+                                    .Where(taskStep => taskStep.TodoTaskId == taskId)
+                                    .ExecuteDeleteAsync(ct);
+                            },
+                            ct
+                        );
+
+                    // Remove all tasks
+                    await _appContext
+                        .Set<TodoTaskEntity>()
+                        .Where(task => task.TodoTaskListId == listId)
+                        .ExecuteDeleteAsync(ct);
 
                     await dbTransaction.CommitAsync(ct);
                 }

@@ -31,7 +31,10 @@ public sealed class F2Service : IServiceHandler<F2AppRequestModel, F2AppResponse
         return new()
         {
             AppCode = F2Constant.AppCode.SUCCESS,
-            Body = new() { Id = request.TodoTaskListId, Name = list.Name },
+            Body = new()
+            {
+                TodoTaskList = new() { Id = request.TodoTaskListId, Name = list.Name },
+            },
         };
     }
 }
