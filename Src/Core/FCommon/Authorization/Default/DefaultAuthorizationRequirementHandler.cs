@@ -23,6 +23,13 @@ public sealed class DefaultAuthorizationRequirementHandler
         DefaultAuthorizationRequirement requirement
     )
     {
+        if (!context.User.Identity.IsAuthenticated)
+        {
+            context.Fail();
+
+            return Task.CompletedTask;
+        }
+
         var expClaimValue = context.User.FindFirstValue(AppConstants.JsonWebToken.ClaimType.EXP);
         var tokenExpireTime = AppAccessTokenHandler.IsAccessTokenExpired(expClaimValue);
         if (tokenExpireTime)

@@ -23,6 +23,13 @@ public sealed class F6AuthorizationRequirementHandler
         F6AuthorizationRequirement requirement
     )
     {
+        if (!context.User.Identity.IsAuthenticated)
+        {
+            context.Fail();
+
+            return Task.CompletedTask;
+        }
+
         var expClaimValue = context.User.FindFirstValue(AppConstants.JsonWebToken.ClaimType.EXP);
         var isTokenExpired = AppAccessTokenHandler.IsAccessTokenExpired(expClaimValue);
         if (!isTokenExpired)

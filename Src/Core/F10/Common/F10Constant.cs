@@ -5,7 +5,7 @@ namespace F10.Common;
 
 public static class F10Constant
 {
-    public const string ENDPOINT_PATH = "f10/list/{TodoTaskListId:required}";
+    public const string ENDPOINT_PATH = "f10/list/cursor/{TodoTaskListId:required}";
 
     public const string REQUEST_ARGUMENT_NAME = "request";
 
