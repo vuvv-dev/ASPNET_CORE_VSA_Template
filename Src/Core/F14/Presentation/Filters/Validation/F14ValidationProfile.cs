@@ -1,10 +1,10 @@
 using FluentValidation;
 
-namespace F13.Presentation.Filters.Validation;
+namespace F14.Presentation.Filters.Validation;
 
-public sealed class F13ValidationProfile : AbstractValidator<F13Request>
+public sealed class F14ValidationProfile : AbstractValidator<F14Request>
 {
-    public F13ValidationProfile()
+    public F14ValidationProfile()
     {
         ClassLevelCascadeMode = CascadeMode.Stop;
         RuleLevelCascadeMode = CascadeMode.Stop;
