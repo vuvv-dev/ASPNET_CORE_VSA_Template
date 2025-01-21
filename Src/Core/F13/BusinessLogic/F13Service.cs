@@ -33,14 +33,17 @@ public sealed class F13Service : IServiceHandler<F13AppRequestModel, F13AppRespo
             return F13Constant.DefaultResponse.App.TODO_TASK_LIST_NOT_FOUND;
         }
 
-        var doesTaskExist = await _repository.Value.DoesTodoTaskExistAsync(
-            request.TodoTaskId,
-            request.TodoTaskListId,
-            ct
-        );
-        if (!doesTaskExist && request.TodoTaskId != 0)
+        if (request.TodoTaskId != 0)
         {
-            return F13Constant.DefaultResponse.App.TASK_NOT_FOUND;
+            var doesTaskExist = await _repository.Value.DoesTodoTaskExistAsync(
+                request.TodoTaskId,
+                request.TodoTaskListId,
+                ct
+            );
+            if (!doesTaskExist)
+            {
+                return F13Constant.DefaultResponse.App.TASK_NOT_FOUND;
+            }
         }
 
         var input = new F13GetTodoTasksInputModel
