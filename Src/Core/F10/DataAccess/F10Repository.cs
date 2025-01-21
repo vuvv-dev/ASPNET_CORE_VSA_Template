@@ -18,6 +18,11 @@ public sealed class F10Repository : IF10Repository
         _appContext = context;
     }
 
+    public Task<bool> DoesTodoTaskListExistAsync(long listId, CancellationToken ct)
+    {
+        return _appContext.Set<TodoTaskListEntity>().AnyAsync(entity => entity.Id == listId, ct);
+    }
+
     public async Task<IEnumerable<F10TodoTaskListModel>> GetTodoTaskListAsync(
         long todoTaskListId,
         int numberOfRecord,

@@ -42,6 +42,11 @@ public static class F10HttpResponseMapper
                     },
                 }
         );
+
+        _httpResponseMapper.TryAdd(
+            F10Constant.AppCode.TODO_TASK_LIST_NOT_FOUND,
+            (appRequest, appResponse) => F10Constant.DefaultResponse.Http.TODO_TASK_LIST_NOT_FOUND
+        );
     }
 
     public static F10Response Get(F10AppRequestModel appRequest, F10AppResponseModel appResponse)

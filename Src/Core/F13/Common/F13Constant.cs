@@ -26,13 +26,11 @@ public static class F13Constant
             public static readonly F13AppResponseModel TASK_NOT_FOUND = new()
             {
                 AppCode = AppCode.TASK_NOT_FOUND,
-                Body = new() { TodoTasks = [], NextCursor = 0 },
             };
 
             public static readonly F13AppResponseModel TODO_TASK_LIST_NOT_FOUND = new()
             {
                 AppCode = AppCode.TODO_TASK_LIST_NOT_FOUND,
-                Body = new() { TodoTasks = [], NextCursor = 0 },
             };
         }
 
@@ -48,14 +46,12 @@ public static class F13Constant
             {
                 AppCode = (int)AppCode.TASK_NOT_FOUND,
                 HttpCode = StatusCodes.Status404NotFound,
-                Body = new() { TodoTasks = [], NextCursor = 0 },
             };
 
             public static readonly F13Response TODO_TASK_LIST_NOT_FOUND = new()
             {
                 AppCode = (int)AppCode.TODO_TASK_LIST_NOT_FOUND,
                 HttpCode = StatusCodes.Status404NotFound,
-                Body = new() { TodoTasks = [], NextCursor = 0 },
             };
         }
     }

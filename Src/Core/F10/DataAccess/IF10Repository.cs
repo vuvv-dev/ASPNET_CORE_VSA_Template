@@ -12,4 +12,6 @@ public interface IF10Repository
         int numberOfRecord,
         CancellationToken ct
     );
+
+    Task<bool> DoesTodoTaskListExistAsync(long listId, CancellationToken ct);
 }

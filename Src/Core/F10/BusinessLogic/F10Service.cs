@@ -24,6 +24,18 @@ public sealed class F10Service : IServiceHandler<F10AppRequestModel, F10AppRespo
         CancellationToken ct
     )
     {
+        if (request.TodoTaskListId != 0)
+        {
+            var doesListExtst = await _repository.Value.DoesTodoTaskListExistAsync(
+                request.TodoTaskListId,
+                ct
+            );
+            if (!doesListExtst)
+            {
+                return F10Constant.DefaultResponse.App.TODO_TASK_LIST_NOT_FOUND;
+            }
+        }
+
         var foundTodoTaskLists = await _repository.Value.GetTodoTaskListAsync(
             request.TodoTaskListId,
             request.NumberOfRecord,
