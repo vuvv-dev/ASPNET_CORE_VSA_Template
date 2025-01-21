@@ -9,6 +9,7 @@ using F12;
 using F13;
 using F14;
 using F15;
+using F16;
 using F2;
 using F3;
 using F4;
@@ -51,6 +52,7 @@ public static class ServiceRegisterationCenter
         typeof(F13Register).Assembly,
         typeof(F14Register).Assembly,
         typeof(F15Register).Assembly,
+        typeof(F16Register).Assembly,
         // External
         typeof(FA1Register).Assembly,
         typeof(FA2Register).Assembly,
