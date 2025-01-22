@@ -28,7 +28,7 @@ public sealed class F15AppResponseModel : IServiceResponse
 
             public string Note { get; set; }
 
-            public bool IsFinished { get; set; }
+            public bool IsCompleted { get; set; }
         }
     }
 }

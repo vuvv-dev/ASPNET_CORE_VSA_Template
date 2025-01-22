@@ -16,5 +16,5 @@ public sealed class F15TodoTaskModel
 
     public string Note { get; set; }
 
-    public bool IsFinished { get; set; }
+    public bool IsCompleted { get; set; }
 }
