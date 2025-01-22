@@ -35,6 +35,7 @@ public static class F15HttpResponseMapper
                             Id = appResponse.Body.TodoTask.Id,
                             Content = appResponse.Body.TodoTask.Content,
                             DueDate = appResponse.Body.TodoTask.DueDate,
+                            IsExpired = appResponse.Body.TodoTask.IsExpired,
                             IsCompleted = appResponse.Body.TodoTask.IsCompleted,
                             IsImportant = appResponse.Body.TodoTask.IsImportant,
                             IsInMyDay = appResponse.Body.TodoTask.IsInMyDay,

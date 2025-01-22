@@ -10,6 +10,8 @@ public sealed class F15TodoTaskModel
 
     public DateTime DueDate { get; set; }
 
+    public bool IsExpired { get; set; }
+
     public bool IsInMyDay { get; set; }
 
     public bool IsImportant { get; set; }
