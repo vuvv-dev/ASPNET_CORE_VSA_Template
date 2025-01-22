@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Net.Mime;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -22,6 +23,24 @@ public sealed class F20ValidationFilter : IAsyncActionFilter
         ActionExecutionDelegate next
     )
     {
+        var doesRequestExist = context.ActionArguments.Any(argument =>
+            argument.Key.Equals(F20Constant.REQUEST_ARGUMENT_NAME)
+        );
+
+        if (!doesRequestExist)
+        {
+            context.Result = new ContentResult
+            {
+                StatusCode = F20Constant.DefaultResponse.Http.VALIDATION_FAILED.HttpCode,
+                Content = JsonSerializer.Serialize(
+                    F20Constant.DefaultResponse.Http.VALIDATION_FAILED
+                ),
+                ContentType = MediaTypeNames.Application.Json,
+            };
+
+            return;
+        }
+
         var request = context.ActionArguments[F20Constant.REQUEST_ARGUMENT_NAME] as F20Request;
 
         var result = await _validator.ValidateAsync(request);
