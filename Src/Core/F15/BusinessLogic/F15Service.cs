@@ -39,6 +39,7 @@ public sealed class F15Service : IServiceHandler<F15AppRequestModel, F15AppRespo
                     Id = request.TodoTaskId,
                     Content = taskDetail.Content,
                     DueDate = taskDetail.DueDate,
+                    IsExpired = taskDetail.IsExpired,
                     IsCompleted = taskDetail.IsCompleted,
                     IsImportant = taskDetail.IsImportant,
                     IsInMyDay = taskDetail.IsInMyDay,

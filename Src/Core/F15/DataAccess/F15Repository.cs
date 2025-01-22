@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,6 +32,7 @@ public sealed class F15Repository : IF15Repository
             {
                 Content = entity.Content,
                 DueDate = entity.DueDate,
+                IsExpired = DateTime.UtcNow > entity.DueDate && entity.DueDate != DateTime.MinValue,
                 IsInMyDay = entity.IsInMyDay,
                 IsImportant = entity.IsImportant,
                 Note = entity.Note,
