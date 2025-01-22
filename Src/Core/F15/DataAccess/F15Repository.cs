@@ -24,29 +24,18 @@ public sealed class F15Repository : IF15Repository
 
     public async Task<F15TodoTaskModel> GetTaskDetailByIdAsync(long taskId, CancellationToken ct)
     {
-        var foundTask = await _appContext
+        return await _appContext
             .Set<TodoTaskEntity>()
-            .AsNoTracking()
             .Where(entity => entity.Id == taskId)
-            .Select(entity => new TodoTaskEntity
+            .Select(entity => new F15TodoTaskModel
             {
                 Content = entity.Content,
                 DueDate = entity.DueDate,
                 IsInMyDay = entity.IsInMyDay,
                 IsImportant = entity.IsImportant,
                 Note = entity.Note,
-                IsFinished = entity.IsFinished,
+                IsCompleted = entity.IsFinished,
             })
             .FirstOrDefaultAsync(ct);
-
-        return new()
-        {
-            Content = foundTask.Content,
-            DueDate = foundTask.DueDate,
-            IsInMyDay = foundTask.IsInMyDay,
-            IsImportant = foundTask.IsImportant,
-            Note = foundTask.Note,
-            IsFinished = foundTask.IsFinished,
-        };
     }
 }
