@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -47,7 +48,6 @@ public sealed class F14Repository : IF14Repository
             {
                 Id = entity.Id,
                 Content = entity.Content,
-                IsCompleted = entity.IsFinished,
                 DueDate = entity.DueDate,
                 IsImportant = entity.IsImportant,
                 IsInMyDay = entity.IsInMyDay,

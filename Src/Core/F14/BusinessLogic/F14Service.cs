@@ -67,7 +67,6 @@ public sealed class F14Service : IServiceHandler<F14AppRequestModel, F14AppRespo
                         {
                             Id = taskDetail.Id,
                             Content = taskDetail.Content,
-                            IsCompleted = taskDetail.IsCompleted,
                             DueDate = taskDetail.DueDate,
                             IsImportant = taskDetail.IsImportant,
                             IsInMyDay = taskDetail.IsInMyDay,
@@ -91,7 +90,6 @@ public sealed class F14Service : IServiceHandler<F14AppRequestModel, F14AppRespo
                 {
                     Id = taskDetail.Id,
                     Content = taskDetail.Content,
-                    IsCompleted = taskDetail.IsCompleted,
                     DueDate = taskDetail.DueDate,
                     IsImportant = taskDetail.IsImportant,
                     IsInMyDay = taskDetail.IsInMyDay,

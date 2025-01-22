@@ -23,8 +23,6 @@ public sealed class F14AppResponseModel : IServiceResponse
 
             public string Content { get; set; }
 
-            public bool IsCompleted { get; set; }
-
             public DateTime DueDate { get; set; }
 
             public bool IsImportant { get; set; }

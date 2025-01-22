@@ -36,7 +36,6 @@ public static class F14HttpResponseMapper
                             {
                                 Id = taskDetail.Id,
                                 Content = taskDetail.Content,
-                                IsCompleted = taskDetail.IsCompleted,
                                 DueDate = taskDetail.DueDate,
                                 IsImportant = taskDetail.IsImportant,
                                 IsInMyDay = taskDetail.IsInMyDay,
