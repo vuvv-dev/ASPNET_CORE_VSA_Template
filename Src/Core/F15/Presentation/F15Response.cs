@@ -30,7 +30,7 @@ public sealed class F15Response
 
             public string Note { get; set; }
 
-            public bool IsFinished { get; set; }
+            public bool IsCompleted { get; set; }
         }
     }
 }
