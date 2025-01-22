@@ -32,16 +32,16 @@ public static class F14HttpResponseMapper
                     Body = new()
                     {
                         TodoTasks = appResponse.Body.TodoTasks.Select(
-                            model => new F14Response.BodyDto.TodoTaskDto
+                            taskDetail => new F14Response.BodyDto.TodoTaskDto
                             {
-                                Id = model.Id,
-                                Content = model.Content,
-                                DueDate = model.DueDate,
-                                IsImportant = model.IsImportant,
-                                IsInMyDay = model.IsInMyDay,
-                                HasNote = model.HasNote,
-                                HasSteps = model.HasSteps,
-                                IsRecurring = model.IsRecurring,
+                                Id = taskDetail.Id,
+                                Content = taskDetail.Content,
+                                DueDate = taskDetail.DueDate,
+                                IsImportant = taskDetail.IsImportant,
+                                IsInMyDay = taskDetail.IsInMyDay,
+                                HasNote = taskDetail.HasNote,
+                                HasSteps = taskDetail.HasSteps,
+                                IsRecurring = taskDetail.IsRecurring,
                             }
                         ),
                         NextCursor = appResponse.Body.NextCursor,
