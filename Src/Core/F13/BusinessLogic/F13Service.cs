@@ -63,16 +63,17 @@ public sealed class F13Service : IServiceHandler<F13AppRequestModel, F13AppRespo
                 Body = new()
                 {
                     TodoTasks = foundTodoTasks.Select(
-                        model => new F13AppResponseModel.BodyModel.TodoTaskModel
+                        taskDetail => new F13AppResponseModel.BodyModel.TodoTaskModel
                         {
-                            Id = model.Id,
-                            Content = model.Content,
-                            DueDate = model.DueDate,
-                            IsImportant = model.IsImportant,
-                            IsInMyDay = model.IsInMyDay,
-                            HasNote = model.HasNote,
-                            HasSteps = model.HasSteps,
-                            IsRecurring = model.IsRecurring,
+                            Id = taskDetail.Id,
+                            Content = taskDetail.Content,
+                            DueDate = taskDetail.DueDate,
+                            IsExpired = taskDetail.IsExpired,
+                            IsImportant = taskDetail.IsImportant,
+                            IsInMyDay = taskDetail.IsInMyDay,
+                            HasNote = taskDetail.HasNote,
+                            HasSteps = taskDetail.HasSteps,
+                            IsRecurring = taskDetail.IsRecurring,
                         }
                     ),
                     NextCursor = 0,
@@ -91,6 +92,7 @@ public sealed class F13Service : IServiceHandler<F13AppRequestModel, F13AppRespo
                     Id = taskDetail.Id,
                     Content = taskDetail.Content,
                     DueDate = taskDetail.DueDate,
+                    IsExpired = taskDetail.IsExpired,
                     IsImportant = taskDetail.IsImportant,
                     IsInMyDay = taskDetail.IsInMyDay,
                     HasNote = taskDetail.HasNote,

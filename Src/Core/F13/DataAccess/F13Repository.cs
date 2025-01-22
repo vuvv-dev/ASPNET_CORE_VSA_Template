@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -48,6 +49,7 @@ public sealed class F13Repository : IF13Repository
                 Id = entity.Id,
                 Content = entity.Content,
                 DueDate = entity.DueDate,
+                IsExpired = DateTime.UtcNow > entity.DueDate && entity.DueDate != DateTime.MinValue,
                 IsImportant = entity.IsImportant,
                 IsInMyDay = entity.IsInMyDay,
                 HasNote = !string.IsNullOrEmpty(entity.Note),
