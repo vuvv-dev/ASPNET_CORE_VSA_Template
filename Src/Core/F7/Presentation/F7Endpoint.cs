@@ -4,6 +4,7 @@ using F7.BusinessLogic;
 using F7.Common;
 using F7.Mapper;
 using F7.Models;
+using F7.Presentation.Filters.SetStateBag;
 using F7.Presentation.Filters.Validation;
 using FCommon.Authorization.Default;
 using FCommon.Constants;
@@ -23,7 +24,8 @@ public sealed class F7Endpoint : ControllerBase
 
     [HttpPost(F7Constant.ENDPOINT_PATH)]
     [Authorize(Policy = nameof(DefaultAuthorizationRequirement))]
-    [ServiceFilter<F7ValidationFilter>(Order = 1)]
+    [ServiceFilter<F7SetStateBagFilter>]
+    [ServiceFilter<F7ValidationFilter>]
     public async Task<IActionResult> ExecuteAsync(
         [FromBody] F7Request request,
         CancellationToken ct
@@ -38,7 +40,7 @@ public sealed class F7Endpoint : ControllerBase
         };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
-        var httpResponse = F7HttpResponseMapper.Get(appRequest, appResponse);
+        var httpResponse = F7HttpResponseMapper.Get(appRequest, appResponse, HttpContext);
 
         return StatusCode(httpResponse.HttpCode, httpResponse);
     }
