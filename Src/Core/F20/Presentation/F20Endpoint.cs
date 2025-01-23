@@ -4,6 +4,7 @@ using F20.BusinessLogic;
 using F20.Common;
 using F20.Mapper;
 using F20.Models;
+using F20.Presentation.Filters.SetStateBag;
 using F20.Presentation.Filters.Validation;
 using FCommon.Authorization.Default;
 using Microsoft.AspNetCore.Authorization;
@@ -22,7 +23,8 @@ public sealed class F20Endpoint : ControllerBase
 
     [HttpPost(F20Constant.ENDPOINT_PATH)]
     [Authorize(Policy = nameof(DefaultAuthorizationRequirement))]
-    [ServiceFilter<F20ValidationFilter>(Order = 1)]
+    [ServiceFilter<F20SetStateBagFilter>]
+    [ServiceFilter<F20ValidationFilter>]
     public async Task<IActionResult> ExecuteAsync(
         [FromBody] F20Request request,
         CancellationToken ct
@@ -35,7 +37,7 @@ public sealed class F20Endpoint : ControllerBase
         };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
-        var httpResponse = F20HttpResponseMapper.Get(appRequest, appResponse);
+        var httpResponse = F20HttpResponseMapper.Get(appRequest, appResponse, HttpContext);
 
         return StatusCode(httpResponse.HttpCode, httpResponse);
     }
