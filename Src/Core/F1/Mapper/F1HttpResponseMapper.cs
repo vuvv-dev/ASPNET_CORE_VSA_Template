@@ -82,7 +82,8 @@ public static class F1HttpResponseMapper
 
         var stateBag = httpContext.Items[nameof(F1StateBag)] as F1StateBag;
 
-        var httpResponse = _httpResponseMapper[appResponse.AppCode](appRequest, appResponse, httpContext);
+        var httpResponse = _httpResponseMapper[appResponse.AppCode]
+            (appRequest, appResponse, httpContext);
         stateBag.HttpResponse = httpResponse;
 
         return httpResponse;

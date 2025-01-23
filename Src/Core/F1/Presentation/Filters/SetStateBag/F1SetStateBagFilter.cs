@@ -35,7 +35,7 @@ public sealed class F1SetStateBagFilter : IAsyncActionFilter
 
         var stateBag = new F1StateBag
         {
-            HttpRequest = context.ActionArguments[F1Constant.REQUEST_ARGUMENT_NAME] as F1Request
+            HttpRequest = context.ActionArguments[F1Constant.REQUEST_ARGUMENT_NAME] as F1Request,
         };
 
         context.HttpContext.Items.Add(nameof(F1StateBag), stateBag);
