@@ -33,7 +33,7 @@ public sealed class F13Endpoint : ControllerBase
         };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
-        var httpResponse = F13HttpResponseMapper.Get(appRequest, appResponse);
+        var httpResponse = F13HttpResponseMapper.Get(appRequest, appResponse, HttpContext);
 
         return StatusCode(httpResponse.HttpCode, httpResponse);
     }
