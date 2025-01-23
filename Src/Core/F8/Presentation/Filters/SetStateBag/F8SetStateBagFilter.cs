@@ -3,32 +3,23 @@ using System.Net.Mime;
 using System.Text.Json;
 using System.Threading.Tasks;
 using F8.Common;
-using F8.Presentation.Filters.SetStateBag;
-using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace F8.Presentation.Filters.Validation;
+namespace F8.Presentation.Filters.SetStateBag;
 
-public sealed class F8ValidationFilter : IAsyncActionFilter
+public sealed class F8SetStateBagFilter : IAsyncActionFilter
 {
-    private readonly IValidator<F8Request> _validator;
-
-    public F8ValidationFilter(IValidator<F8Request> validator)
-    {
-        _validator = validator;
-    }
-
     public async Task OnActionExecutionAsync(
         ActionExecutingContext context,
         ActionExecutionDelegate next
     )
     {
-        var stateBag = context.HttpContext.Items[nameof(F8StateBag)] as F8StateBag;
-        var request = stateBag.HttpRequest;
+        var doesRequestExist = context.ActionArguments.Any(argument =>
+            argument.Key.Equals(F8Constant.REQUEST_ARGUMENT_NAME)
+        );
 
-        var result = await _validator.ValidateAsync(request);
-        if (!result.IsValid)
+        if (!doesRequestExist)
         {
             context.Result = new ContentResult
             {
@@ -41,6 +32,13 @@ public sealed class F8ValidationFilter : IAsyncActionFilter
 
             return;
         }
+
+        var stateBag = new F8StateBag
+        {
+            HttpRequest = context.ActionArguments[F8Constant.REQUEST_ARGUMENT_NAME] as F8Request,
+        };
+
+        context.HttpContext.Items.Add(nameof(F8StateBag), stateBag);
 
         await next();
     }
