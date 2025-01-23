@@ -4,6 +4,7 @@ using F21.BusinessLogic;
 using F21.Common;
 using F21.Mapper;
 using F21.Models;
+using F21.Presentation.Filters.SetStateBag;
 using F21.Presentation.Filters.Validation;
 using FCommon.Authorization.Default;
 using Microsoft.AspNetCore.Authorization;
@@ -22,7 +23,8 @@ public sealed class F21Endpoint : ControllerBase
 
     [HttpPost(F21Constant.ENDPOINT_PATH)]
     [Authorize(Policy = nameof(DefaultAuthorizationRequirement))]
-    [ServiceFilter<F21ValidationFilter>(Order = 1)]
+    [ServiceFilter<F21SetStateBagFilter>]
+    [ServiceFilter<F21ValidationFilter>]
     public async Task<IActionResult> ExecuteAsync(
         [FromBody] F21Request request,
         CancellationToken ct
@@ -35,7 +37,7 @@ public sealed class F21Endpoint : ControllerBase
         };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
-        var httpResponse = F21HttpResponseMapper.Get(appRequest, appResponse);
+        var httpResponse = F21HttpResponseMapper.Get(appRequest, appResponse, HttpContext);
 
         return StatusCode(httpResponse.HttpCode, httpResponse);
     }
