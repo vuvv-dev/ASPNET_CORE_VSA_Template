@@ -3,32 +3,23 @@ using System.Net.Mime;
 using System.Text.Json;
 using System.Threading.Tasks;
 using F9.Common;
-using F9.Presentation.Filters.SetStateBag;
-using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace F9.Presentation.Filters.Validation;
+namespace F9.Presentation.Filters.SetStateBag;
 
-public sealed class F9ValidationFilter : IAsyncActionFilter
+public sealed class F9SetStateBagFilter : IAsyncActionFilter
 {
-    private readonly IValidator<F9Request> _validator;
-
-    public F9ValidationFilter(IValidator<F9Request> validator)
-    {
-        _validator = validator;
-    }
-
     public async Task OnActionExecutionAsync(
         ActionExecutingContext context,
         ActionExecutionDelegate next
     )
     {
-        var stateBag = context.HttpContext.Items[nameof(F9StateBag)] as F9StateBag;
-        var request = stateBag.HttpRequest;
+        var doesRequestExist = context.ActionArguments.Any(argument =>
+            argument.Key.Equals(F9Constant.REQUEST_ARGUMENT_NAME)
+        );
 
-        var result = await _validator.ValidateAsync(request);
-        if (!result.IsValid)
+        if (!doesRequestExist)
         {
             context.Result = new ContentResult
             {
@@ -41,6 +32,13 @@ public sealed class F9ValidationFilter : IAsyncActionFilter
 
             return;
         }
+
+        var stateBag = new F9StateBag
+        {
+            HttpRequest = context.ActionArguments[F9Constant.REQUEST_ARGUMENT_NAME] as F9Request,
+        };
+
+        context.HttpContext.Items.Add(nameof(F9StateBag), stateBag);
 
         await next();
     }
