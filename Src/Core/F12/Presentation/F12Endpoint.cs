@@ -30,10 +30,7 @@ public sealed class F12Endpoint : ControllerBase
         var appRequest = new F12AppRequestModel { TodoTaskId = request.TodoTaskId };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
-        var httpResponse = F12HttpResponseMapper.Get(
-            appRequest,
-            appResponse,
-            HttpContext);
+        var httpResponse = F12HttpResponseMapper.Get(appRequest, appResponse, HttpContext);
 
         return StatusCode(httpResponse.HttpCode, httpResponse);
     }

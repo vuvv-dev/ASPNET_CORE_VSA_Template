@@ -32,27 +32,31 @@ public static class F12HttpResponseMapper
                     HttpCode = StatusCodes.Status200OK,
                     Body = new(),
                 };
-            });
+            }
+        );
 
         _httpResponseMapper.TryAdd(
             F12Constant.AppCode.SERVER_ERROR,
             (appRequest, appResponse, httpContext) =>
             {
                 return F12Constant.DefaultResponse.Http.SERVER_ERROR;
-            });
+            }
+        );
 
         _httpResponseMapper.TryAdd(
             F12Constant.AppCode.TODO_TASK_NOT_FOUND,
             (appRequest, appResponse, httpContext) =>
             {
                 return F12Constant.DefaultResponse.Http.TODO_TASK_NOT_FOUND;
-            });
+            }
+        );
     }
 
     public static F12Response Get(
         F12AppRequestModel appRequest,
         F12AppResponseModel appResponse,
-        HttpContext httpContext)
+        HttpContext httpContext
+    )
     {
         Init();
 
