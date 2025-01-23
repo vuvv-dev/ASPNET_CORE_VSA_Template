@@ -5,6 +5,7 @@ using F6.Common;
 using F6.Mapper;
 using F6.Models;
 using F6.Presentation.Filters.Authorization;
+using F6.Presentation.Filters.SetStateBag;
 using F6.Presentation.Filters.Validation;
 using FCommon.Constants;
 using Microsoft.AspNetCore.Authorization;
@@ -23,7 +24,8 @@ public sealed class F6Endpoint : ControllerBase
 
     [HttpPost(F6Constant.ENDPOINT_PATH)]
     [Authorize(Policy = nameof(F6AuthorizationRequirement))]
-    [ServiceFilter<F6ValidationFilter>(Order = 1)]
+    [ServiceFilter<F6SetStateBagFilter>]
+    [ServiceFilter<F6ValidationFilter>]
     public async Task<IActionResult> ExecuteAsync(
         [FromBody] F6Request request,
         CancellationToken ct
@@ -39,7 +41,7 @@ public sealed class F6Endpoint : ControllerBase
         };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
-        var httpResponse = F6HttpResponseMapper.Get(appRequest, appResponse);
+        var httpResponse = F6HttpResponseMapper.Get(appRequest, appResponse, HttpContext);
 
         return StatusCode(httpResponse.HttpCode, httpResponse);
     }
