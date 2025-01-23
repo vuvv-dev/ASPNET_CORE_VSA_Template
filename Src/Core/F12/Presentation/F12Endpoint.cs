@@ -4,6 +4,7 @@ using F12.BusinessLogic;
 using F12.Common;
 using F12.Mapper;
 using F12.Models;
+using F12.Presentation.Filters.SetStateBag;
 using F12.Presentation.Filters.Validation;
 using FCommon.Authorization.Default;
 using Microsoft.AspNetCore.Authorization;
@@ -22,13 +23,17 @@ public sealed class F12Endpoint : ControllerBase
 
     [HttpDelete(F12Constant.ENDPOINT_PATH)]
     [Authorize(Policy = nameof(DefaultAuthorizationRequirement))]
-    [ServiceFilter<F12ValidationFilter>(Order = 1)]
+    [ServiceFilter<F12SetStateBagFilter>]
+    [ServiceFilter<F12ValidationFilter>]
     public async Task<IActionResult> ExecuteAsync(F12Request request, CancellationToken ct)
     {
         var appRequest = new F12AppRequestModel { TodoTaskId = request.TodoTaskId };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
-        var httpResponse = F12HttpResponseMapper.Get(appRequest, appResponse);
+        var httpResponse = F12HttpResponseMapper.Get(
+            appRequest,
+            appResponse,
+            HttpContext);
 
         return StatusCode(httpResponse.HttpCode, httpResponse);
     }
