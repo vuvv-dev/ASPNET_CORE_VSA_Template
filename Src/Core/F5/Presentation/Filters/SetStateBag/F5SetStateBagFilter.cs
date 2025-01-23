@@ -1,33 +1,25 @@
+using System.Linq;
 using System.Net.Mime;
 using System.Text.Json;
 using System.Threading.Tasks;
 using F5.Common;
-using F5.Presentation.Filters.SetStateBag;
-using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace F5.Presentation.Filters.Validation;
+namespace F5.Presentation.Filters.SetStateBag;
 
-public sealed class F5ValidationFilter : IAsyncActionFilter
+public sealed class F5SetStateBagFilter : IAsyncActionFilter
 {
-    private readonly IValidator<F5Request> _validator;
-
-    public F5ValidationFilter(IValidator<F5Request> validator)
-    {
-        _validator = validator;
-    }
-
     public async Task OnActionExecutionAsync(
         ActionExecutingContext context,
         ActionExecutionDelegate next
     )
     {
-        var stateBag = context.HttpContext.Items[nameof(F5StateBag)] as F5StateBag;
-        var request = stateBag.HttpRequest;
+        var doesRequestExist = context.ActionArguments.Any(argument =>
+            argument.Key.Equals(F5Constant.REQUEST_ARGUMENT_NAME)
+        );
 
-        var result = await _validator.ValidateAsync(request);
-        if (!result.IsValid)
+        if (!doesRequestExist)
         {
             context.Result = new ContentResult
             {
@@ -40,6 +32,10 @@ public sealed class F5ValidationFilter : IAsyncActionFilter
 
             return;
         }
+
+        var stateBag = context.HttpContext.Items[nameof(F5StateBag)] as F5StateBag;
+        stateBag.HttpRequest =
+            context.ActionArguments[F5Constant.REQUEST_ARGUMENT_NAME] as F5Request;
 
         await next();
     }

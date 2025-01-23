@@ -5,6 +5,7 @@ using F5.Common;
 using F5.Mapper;
 using F5.Models;
 using F5.Presentation.Filters.Authorization;
+using F5.Presentation.Filters.SetStateBag;
 using F5.Presentation.Filters.Validation;
 using FCommon.Constants;
 using Microsoft.AspNetCore.Authorization;
@@ -23,13 +24,14 @@ public sealed class F5Endpoint : ControllerBase
 
     [HttpPost(F5Constant.ENDPOINT_PATH)]
     [Authorize(Policy = nameof(F5AuthorizationRequirement))]
-    [ServiceFilter<F5ValidationFilter>(Order = 1)]
+    [ServiceFilter<F5SetStateBagFilter>]
+    [ServiceFilter<F5ValidationFilter>]
     public async Task<IActionResult> ExecuteAsync(
         [FromBody] F5Request request,
         CancellationToken ct
     )
     {
-        var stateBag = HttpContext.Items[AppConstants.STATE_BAG_NAME] as F5StateBag;
+        var stateBag = HttpContext.Items[nameof(F5StateBag)] as F5StateBag;
 
         var appRequest = new F5AppRequestModel
         {
@@ -39,7 +41,7 @@ public sealed class F5Endpoint : ControllerBase
         };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
-        var httpResponse = F5HttpResponseMapper.Get(appRequest, appResponse);
+        var httpResponse = F5HttpResponseMapper.Get(appRequest, appResponse, HttpContext);
 
         return StatusCode(httpResponse.HttpCode, httpResponse);
     }
