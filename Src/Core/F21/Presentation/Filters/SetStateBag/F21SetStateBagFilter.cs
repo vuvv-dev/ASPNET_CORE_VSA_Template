@@ -1,33 +1,25 @@
+using System.Linq;
 using System.Net.Mime;
 using System.Text.Json;
 using System.Threading.Tasks;
 using F21.Common;
-using F21.Presentation.Filters.SetStateBag;
-using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace F21.Presentation.Filters.Validation;
+namespace F21.Presentation.Filters.SetStateBag;
 
-public sealed class F21ValidationFilter : IAsyncActionFilter
+public sealed class F21SetStateBagFilter : IAsyncActionFilter
 {
-    private readonly IValidator<F21Request> _validator;
-
-    public F21ValidationFilter(IValidator<F21Request> validator)
-    {
-        _validator = validator;
-    }
-
     public async Task OnActionExecutionAsync(
         ActionExecutingContext context,
         ActionExecutionDelegate next
     )
     {
-        var stateBag = context.HttpContext.Items[nameof(F21StateBag)] as F21StateBag;
-        var request = stateBag.HttpRequest;
+        var doesRequestExist = context.ActionArguments.Any(argument =>
+            argument.Key.Equals(F21Constant.REQUEST_ARGUMENT_NAME)
+        );
 
-        var result = await _validator.ValidateAsync(request);
-        if (!result.IsValid)
+        if (!doesRequestExist)
         {
             context.Result = new ContentResult
             {
@@ -40,6 +32,13 @@ public sealed class F21ValidationFilter : IAsyncActionFilter
 
             return;
         }
+
+        var stateBag = new F21StateBag
+        {
+            HttpRequest = context.ActionArguments[F21Constant.REQUEST_ARGUMENT_NAME] as F21Request,
+        };
+
+        context.HttpContext.Items.Add(nameof(F21StateBag), stateBag);
 
         await next();
     }
