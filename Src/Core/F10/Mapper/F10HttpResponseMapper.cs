@@ -4,6 +4,7 @@ using System.Linq;
 using F10.Common;
 using F10.Models;
 using F10.Presentation;
+using F10.Presentation.Filters.SetStateBag;
 using Microsoft.AspNetCore.Http;
 
 namespace F10.Mapper;
@@ -12,7 +13,7 @@ public static class F10HttpResponseMapper
 {
     private static ConcurrentDictionary<
         F10Constant.AppCode,
-        Func<F10AppRequestModel, F10AppResponseModel, F10Response>
+        Func<F10AppRequestModel, F10AppResponseModel, HttpContext, F10Response>
     > _httpResponseMapper;
 
     private static void Init()
@@ -24,8 +25,9 @@ public static class F10HttpResponseMapper
 
         _httpResponseMapper.TryAdd(
             F10Constant.AppCode.SUCCESS,
-            (appRequest, appResponse) =>
-                new()
+            (appRequest, appResponse, httpContext) =>
+            {
+                return new()
                 {
                     AppCode = (int)F10Constant.AppCode.SUCCESS,
                     HttpCode = StatusCodes.Status200OK,
@@ -40,19 +42,33 @@ public static class F10HttpResponseMapper
                         ),
                         NextCursor = appResponse.Body.NextCursor,
                     },
-                }
+                };
+            }
         );
 
         _httpResponseMapper.TryAdd(
             F10Constant.AppCode.TODO_TASK_LIST_NOT_FOUND,
-            (appRequest, appResponse) => F10Constant.DefaultResponse.Http.TODO_TASK_LIST_NOT_FOUND
+            (appRequest, appResponse, httpContext) =>
+            {
+                return F10Constant.DefaultResponse.Http.TODO_TASK_LIST_NOT_FOUND;
+            }
         );
     }
 
-    public static F10Response Get(F10AppRequestModel appRequest, F10AppResponseModel appResponse)
+    public static F10Response Get(
+        F10AppRequestModel appRequest,
+        F10AppResponseModel appResponse,
+        HttpContext httpContext
+    )
     {
         Init();
 
-        return _httpResponseMapper[appResponse.AppCode](appRequest, appResponse);
+        var stateBag = httpContext.Items[nameof(F10StateBag)] as F10StateBag;
+
+        var httpResponse = _httpResponseMapper[appResponse.AppCode]
+            (appRequest, appResponse, httpContext);
+        stateBag.HttpResponse = httpResponse;
+
+        return httpResponse;
     }
 }
