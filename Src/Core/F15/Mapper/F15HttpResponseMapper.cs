@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using F15.Common;
 using F15.Models;
 using F15.Presentation;
+using F15.Presentation.Filters.SetStateBag;
 using Microsoft.AspNetCore.Http;
 
 namespace F15.Mapper;
@@ -11,7 +12,7 @@ public static class F15HttpResponseMapper
 {
     private static ConcurrentDictionary<
         F15Constant.AppCode,
-        Func<F15AppRequestModel, F15AppResponseModel, F15Response>
+        Func<F15AppRequestModel, F15AppResponseModel, HttpContext, F15Response>
     > _httpResponseMapper;
 
     private static void Init()
@@ -23,8 +24,9 @@ public static class F15HttpResponseMapper
 
         _httpResponseMapper.TryAdd(
             F15Constant.AppCode.SUCCESS,
-            (appRequest, appResponse) =>
-                new()
+            (appRequest, appResponse, httpContex) =>
+            {
+                return new()
                 {
                     AppCode = (int)F15Constant.AppCode.SUCCESS,
                     HttpCode = StatusCodes.Status200OK,
@@ -42,19 +44,33 @@ public static class F15HttpResponseMapper
                             Note = appResponse.Body.TodoTask.Note,
                         },
                     },
-                }
+                };
+            }
         );
 
         _httpResponseMapper.TryAdd(
             F15Constant.AppCode.TASK_NOT_FOUND,
-            (appRequest, appResponse) => F15Constant.DefaultResponse.Http.TASK_NOT_FOUND
+            (appRequest, appResponse, httpContex) =>
+            {
+                return F15Constant.DefaultResponse.Http.TASK_NOT_FOUND;
+            }
         );
     }
 
-    public static F15Response Get(F15AppRequestModel appRequest, F15AppResponseModel appResponse)
+    public static F15Response Get(
+        F15AppRequestModel appRequest,
+        F15AppResponseModel appResponse,
+        HttpContext httpContext
+    )
     {
         Init();
 
-        return _httpResponseMapper[appResponse.AppCode](appRequest, appResponse);
+        var stateBag = httpContext.Items[nameof(F15StateBag)] as F15StateBag;
+
+        var httpResponse = _httpResponseMapper[appResponse.AppCode]
+            (appRequest, appResponse, httpContext);
+        stateBag.HttpResponse = httpResponse;
+
+        return httpResponse;
     }
 }
