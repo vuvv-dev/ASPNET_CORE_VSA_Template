@@ -1,6 +1,7 @@
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using F6.Presentation.Filters.SetStateBag;
 using FCommon.AccessToken;
 using FCommon.Constants;
 using Microsoft.AspNetCore.Authorization;
@@ -64,7 +65,7 @@ public sealed class F6AuthorizationRequirementHandler
                 context.User.FindFirstValue(AppConstants.JsonWebToken.ClaimType.SUB)
             ),
         };
-        httpContext.Items.Add(AppConstants.STATE_BAG_NAME, stateBag);
+        httpContext.Items.Add(nameof(F6StateBag), stateBag);
 
         context.Succeed(requirement);
 

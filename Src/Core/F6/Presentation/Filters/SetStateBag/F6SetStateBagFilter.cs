@@ -1,33 +1,25 @@
+using System.Linq;
 using System.Net.Mime;
 using System.Text.Json;
 using System.Threading.Tasks;
 using F6.Common;
-using F6.Presentation.Filters.SetStateBag;
-using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace F6.Presentation.Filters.Validation;
+namespace F6.Presentation.Filters.SetStateBag;
 
-public sealed class F6ValidationFilter : IAsyncActionFilter
+public sealed class F6SetStateBagFilter : IAsyncActionFilter
 {
-    private readonly IValidator<F6Request> _validator;
-
-    public F6ValidationFilter(IValidator<F6Request> validator)
-    {
-        _validator = validator;
-    }
-
     public async Task OnActionExecutionAsync(
         ActionExecutingContext context,
         ActionExecutionDelegate next
     )
     {
-        var stateBag = context.HttpContext.Items[nameof(F6StateBag)] as F6StateBag;
-        var request = stateBag.HttpRequest;
+        var doesRequestExist = context.ActionArguments.Any(argument =>
+            argument.Key.Equals(F6Constant.REQUEST_ARGUMENT_NAME)
+        );
 
-        var result = await _validator.ValidateAsync(request);
-        if (!result.IsValid)
+        if (!doesRequestExist)
         {
             context.Result = new ContentResult
             {
@@ -40,6 +32,10 @@ public sealed class F6ValidationFilter : IAsyncActionFilter
 
             return;
         }
+
+        var stateBag = context.HttpContext.Items[nameof(F6StateBag)] as F6StateBag;
+        stateBag.HttpRequest =
+            context.ActionArguments[F6Constant.REQUEST_ARGUMENT_NAME] as F6Request;
 
         await next();
     }
