@@ -4,6 +4,7 @@ using F10.BusinessLogic;
 using F10.Common;
 using F10.Mapper;
 using F10.Models;
+using F10.Presentation.Filters.SetStateBag;
 using F10.Presentation.Filters.Validation;
 using FCommon.Authorization.Default;
 using Microsoft.AspNetCore.Authorization;
@@ -22,7 +23,8 @@ public sealed class F10Endpoint : ControllerBase
 
     [HttpGet(F10Constant.ENDPOINT_PATH)]
     [Authorize(Policy = nameof(DefaultAuthorizationRequirement))]
-    [ServiceFilter<F10ValidationFilter>(Order = 1)]
+    [ServiceFilter<F10SetStateBagFilter>]
+    [ServiceFilter<F10ValidationFilter>]
     public async Task<IActionResult> ExecuteAsync(F10Request request, CancellationToken ct)
     {
         var appRequest = new F10AppRequestModel
@@ -32,7 +34,7 @@ public sealed class F10Endpoint : ControllerBase
         };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
-        var httpResponse = F10HttpResponseMapper.Get(appRequest, appResponse);
+        var httpResponse = F10HttpResponseMapper.Get(appRequest, appResponse, HttpContext);
 
         return StatusCode(httpResponse.HttpCode, httpResponse);
     }
