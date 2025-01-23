@@ -3,32 +3,23 @@ using System.Net.Mime;
 using System.Text.Json;
 using System.Threading.Tasks;
 using F3.Common;
-using F3.Presentation.Filters.SetStateBag;
-using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace F3.Presentation.Filters.Validation;
+namespace F3.Presentation.Filters.SetStateBag;
 
-public sealed class F3ValidationFilter : IAsyncActionFilter
+public sealed class F3SetStateBagFilter : IAsyncActionFilter
 {
-    private readonly IValidator<F3Request> _validator;
-
-    public F3ValidationFilter(IValidator<F3Request> validator)
-    {
-        _validator = validator;
-    }
-
     public async Task OnActionExecutionAsync(
         ActionExecutingContext context,
         ActionExecutionDelegate next
     )
     {
-        var stateBag = context.HttpContext.Items[nameof(F3StateBag)] as F3StateBag;
-        var request = stateBag.HttpRequest;
+        var doesRequestExist = context.ActionArguments.Any(argument =>
+            argument.Key.Equals(F3Constant.REQUEST_ARGUMENT_NAME)
+        );
 
-        var result = await _validator.ValidateAsync(request);
-        if (!result.IsValid)
+        if (!doesRequestExist)
         {
             context.Result = new ContentResult
             {
@@ -41,6 +32,13 @@ public sealed class F3ValidationFilter : IAsyncActionFilter
 
             return;
         }
+
+        var stateBag = new F3StateBag
+        {
+            HttpRequest = context.ActionArguments[F3Constant.REQUEST_ARGUMENT_NAME] as F3Request,
+        };
+
+        context.HttpContext.Items.Add(nameof(F3StateBag), stateBag);
 
         await next();
     }

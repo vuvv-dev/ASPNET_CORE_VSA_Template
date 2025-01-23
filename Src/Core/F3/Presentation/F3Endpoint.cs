@@ -4,6 +4,7 @@ using F3.BusinessLogic;
 using F3.Common;
 using F3.Mapper;
 using F3.Models;
+using F3.Presentation.Filters.SetStateBag;
 using F3.Presentation.Filters.Validation;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +20,8 @@ public sealed class F3Endpoint : ControllerBase
     }
 
     [HttpPost(F3Constant.ENDPOINT_PATH)]
-    [ServiceFilter<F3ValidationFilter>(Order = 1)]
+    [ServiceFilter<F3SetStateBagFilter>]
+    [ServiceFilter<F3ValidationFilter>]
     public async Task<IActionResult> ExecuteAsync(
         [FromBody] F3Request request,
         CancellationToken ct
@@ -32,7 +34,7 @@ public sealed class F3Endpoint : ControllerBase
         };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
-        var httpResponse = F3HttpResponseMapper.Get(appRequest, appResponse);
+        var httpResponse = F3HttpResponseMapper.Get(appRequest, appResponse, HttpContext);
 
         return StatusCode(httpResponse.HttpCode, httpResponse);
     }
