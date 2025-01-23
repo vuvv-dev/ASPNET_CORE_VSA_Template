@@ -1,33 +1,25 @@
+using System.Linq;
 using System.Net.Mime;
 using System.Text.Json;
 using System.Threading.Tasks;
 using F17.Common;
-using F17.Presentation.Filters.SetStateBag;
-using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace F17.Presentation.Filters.Validation;
+namespace F17.Presentation.Filters.SetStateBag;
 
-public sealed class F17ValidationFilter : IAsyncActionFilter
+public sealed class F17SetStateBagFilter : IAsyncActionFilter
 {
-    private readonly IValidator<F17Request> _validator;
-
-    public F17ValidationFilter(IValidator<F17Request> validator)
-    {
-        _validator = validator;
-    }
-
     public async Task OnActionExecutionAsync(
         ActionExecutingContext context,
         ActionExecutionDelegate next
     )
     {
-        var stateBag = context.HttpContext.Items[nameof(F17StateBag)] as F17StateBag;
-        var request = stateBag.HttpRequest;
+        var doesRequestExist = context.ActionArguments.Any(argument =>
+            argument.Key.Equals(F17Constant.REQUEST_ARGUMENT_NAME)
+        );
 
-        var result = await _validator.ValidateAsync(request);
-        if (!result.IsValid)
+        if (!doesRequestExist)
         {
             context.Result = new ContentResult
             {
@@ -40,6 +32,13 @@ public sealed class F17ValidationFilter : IAsyncActionFilter
 
             return;
         }
+
+        var stateBag = new F17StateBag
+        {
+            HttpRequest = context.ActionArguments[F17Constant.REQUEST_ARGUMENT_NAME] as F17Request,
+        };
+
+        context.HttpContext.Items.Add(nameof(F17StateBag), stateBag);
 
         await next();
     }
