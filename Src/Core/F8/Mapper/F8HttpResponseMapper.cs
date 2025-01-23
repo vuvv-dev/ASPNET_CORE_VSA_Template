@@ -27,7 +27,8 @@ public static class F8HttpResponseMapper
             (appRequest, appResponse, httpContext) =>
             {
                 return F8Constant.DefaultResponse.Http.SERVER_ERROR;
-            });
+            }
+        );
 
         _httpResponseMapper.TryAdd(
             F8Constant.AppCode.SUCCESS,
@@ -38,20 +39,23 @@ public static class F8HttpResponseMapper
                     AppCode = (int)F8Constant.AppCode.SUCCESS,
                     HttpCode = StatusCodes.Status200OK,
                 };
-            });
+            }
+        );
 
         _httpResponseMapper.TryAdd(
             F8Constant.AppCode.LIST_DOES_NOT_EXIST,
             (appRequest, appResponse, httpContext) =>
             {
                 return F8Constant.DefaultResponse.Http.LIST_DOES_NOT_EXIST;
-            });
+            }
+        );
     }
 
     public static F8Response Get(
         F8AppRequestModel appRequest,
         F8AppResponseModel appResponse,
-        HttpContext httpContext)
+        HttpContext httpContext
+    )
     {
         Init();
 

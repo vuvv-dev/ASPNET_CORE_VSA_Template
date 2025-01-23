@@ -30,10 +30,7 @@ public sealed class F8Endpoint : ControllerBase
         var appRequest = new F8AppRequestModel { TodoTaskListId = request.TodoTaskListId };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
-        var httpResponse = F8HttpResponseMapper.Get(
-            appRequest,
-            appResponse,
-            HttpContext);
+        var httpResponse = F8HttpResponseMapper.Get(appRequest, appResponse, HttpContext);
 
         return StatusCode(httpResponse.HttpCode, httpResponse);
     }
