@@ -4,6 +4,7 @@ using F19.BusinessLogic;
 using F19.Common;
 using F19.Mapper;
 using F19.Models;
+using F19.Presentation.Filters.SetStateBag;
 using F19.Presentation.Filters.Validation;
 using FCommon.Authorization.Default;
 using Microsoft.AspNetCore.Authorization;
@@ -22,7 +23,8 @@ public sealed class F19Endpoint : ControllerBase
 
     [HttpPost(F19Constant.ENDPOINT_PATH)]
     [Authorize(Policy = nameof(DefaultAuthorizationRequirement))]
-    [ServiceFilter<F19ValidationFilter>(Order = 1)]
+    [ServiceFilter<F19SetStateBagFilter>]
+    [ServiceFilter<F19ValidationFilter>]
     public async Task<IActionResult> ExecuteAsync(
         [FromBody] F19Request request,
         CancellationToken ct
@@ -35,7 +37,7 @@ public sealed class F19Endpoint : ControllerBase
         };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
-        var httpResponse = F19HttpResponseMapper.Get(appRequest, appResponse);
+        var httpResponse = F19HttpResponseMapper.Get(appRequest, appResponse, HttpContext);
 
         return StatusCode(httpResponse.HttpCode, httpResponse);
     }
