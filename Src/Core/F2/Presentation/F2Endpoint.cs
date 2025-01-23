@@ -4,6 +4,7 @@ using F2.BusinessLogic;
 using F2.Common;
 using F2.Mapper;
 using F2.Models;
+using F2.Presentation.Filters.SetStateBag;
 using F2.Presentation.Filters.Validation;
 using FCommon.Authorization.Default;
 using Microsoft.AspNetCore.Authorization;
@@ -22,13 +23,14 @@ public sealed class F2Endpoint : ControllerBase
 
     [HttpGet(F2Constant.ENDPOINT_PATH)]
     [Authorize(Policy = nameof(DefaultAuthorizationRequirement))]
-    [ServiceFilter<F2ValidationFilter>(Order = 1)]
+    [ServiceFilter<F2SetStateBagFilter>]
+    [ServiceFilter<F2ValidationFilter>]
     public async Task<IActionResult> ExecuteAsync(F2Request request, CancellationToken ct)
     {
         var appRequest = new F2AppRequestModel { TodoTaskListId = request.TodoTaskListId };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
-        var httpResponse = F2HttpResponseMapper.Get(appRequest, appResponse);
+        var httpResponse = F2HttpResponseMapper.Get(appRequest, appResponse, HttpContext);
 
         return StatusCode(httpResponse.HttpCode, httpResponse);
     }
