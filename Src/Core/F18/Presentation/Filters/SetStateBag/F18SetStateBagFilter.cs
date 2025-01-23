@@ -1,33 +1,25 @@
+using System.Linq;
 using System.Net.Mime;
 using System.Text.Json;
 using System.Threading.Tasks;
 using F18.Common;
-using F18.Presentation.Filters.SetStateBag;
-using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace F18.Presentation.Filters.Validation;
+namespace F18.Presentation.Filters.SetStateBag;
 
-public sealed class F18ValidationFilter : IAsyncActionFilter
+public sealed class F18SetStateBagFilter : IAsyncActionFilter
 {
-    private readonly IValidator<F18Request> _validator;
-
-    public F18ValidationFilter(IValidator<F18Request> validator)
-    {
-        _validator = validator;
-    }
-
     public async Task OnActionExecutionAsync(
         ActionExecutingContext context,
         ActionExecutionDelegate next
     )
     {
-        var stateBag = context.HttpContext.Items[nameof(F18StateBag)] as F18StateBag;
-        var request = stateBag.HttpRequest;
+        var doesRequestExist = context.ActionArguments.Any(argument =>
+            argument.Key.Equals(F18Constant.REQUEST_ARGUMENT_NAME)
+        );
 
-        var result = await _validator.ValidateAsync(request);
-        if (!result.IsValid)
+        if (!doesRequestExist)
         {
             context.Result = new ContentResult
             {
@@ -40,6 +32,13 @@ public sealed class F18ValidationFilter : IAsyncActionFilter
 
             return;
         }
+
+        var stateBag = new F18StateBag
+        {
+            HttpRequest = context.ActionArguments[F18Constant.REQUEST_ARGUMENT_NAME] as F18Request,
+        };
+
+        context.HttpContext.Items.Add(nameof(F18StateBag), stateBag);
 
         await next();
     }
