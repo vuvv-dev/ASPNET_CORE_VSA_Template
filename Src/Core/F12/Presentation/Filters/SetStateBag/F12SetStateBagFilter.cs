@@ -3,32 +3,23 @@ using System.Net.Mime;
 using System.Text.Json;
 using System.Threading.Tasks;
 using F12.Common;
-using F12.Presentation.Filters.SetStateBag;
-using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace F12.Presentation.Filters.Validation;
+namespace F12.Presentation.Filters.SetStateBag;
 
-public sealed class F12ValidationFilter : IAsyncActionFilter
+public sealed class F12SetStateBagFilter : IAsyncActionFilter
 {
-    private readonly IValidator<F12Request> _validator;
-
-    public F12ValidationFilter(IValidator<F12Request> validator)
-    {
-        _validator = validator;
-    }
-
     public async Task OnActionExecutionAsync(
         ActionExecutingContext context,
         ActionExecutionDelegate next
     )
     {
-        var stateBag = context.HttpContext.Items[nameof(F12StateBag)] as F12StateBag;
-        var request = stateBag.HttpRequest;
+        var doesRequestExist = context.ActionArguments.Any(argument =>
+            argument.Key.Equals(F12Constant.REQUEST_ARGUMENT_NAME)
+        );
 
-        var result = await _validator.ValidateAsync(request);
-        if (!result.IsValid)
+        if (!doesRequestExist)
         {
             context.Result = new ContentResult
             {
@@ -41,6 +32,13 @@ public sealed class F12ValidationFilter : IAsyncActionFilter
 
             return;
         }
+
+        var stateBag = new F12StateBag
+        {
+            HttpRequest = context.ActionArguments[F12Constant.REQUEST_ARGUMENT_NAME] as F12Request,
+        };
+
+        context.HttpContext.Items.Add(nameof(F12StateBag), stateBag);
 
         await next();
     }
