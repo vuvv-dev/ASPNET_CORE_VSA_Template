@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using F1.Common;
 using F1.Models;
 using F1.Presentation;
+using F1.Presentation.Filters.SetStateBag;
 using Microsoft.AspNetCore.Http;
 
 namespace F1.Mapper;
@@ -79,6 +80,11 @@ public static class F1HttpResponseMapper
     {
         Init();
 
-        return _httpResponseMapper[appResponse.AppCode](appRequest, appResponse, httpContext);
+        var stateBag = httpContext.Items[nameof(F1StateBag)] as F1StateBag;
+
+        var httpResponse = _httpResponseMapper[appResponse.AppCode](appRequest, appResponse, httpContext);
+        stateBag.HttpResponse = httpResponse;
+
+        return httpResponse;
     }
 }
