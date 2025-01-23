@@ -4,6 +4,7 @@ using F14.BusinessLogic;
 using F14.Common;
 using F14.Mapper;
 using F14.Models;
+using F14.Presentation.Filters.SetStateBag;
 using F14.Presentation.Filters.Validation;
 using FCommon.Authorization.Default;
 using Microsoft.AspNetCore.Authorization;
@@ -22,7 +23,8 @@ public sealed class F14Endpoint : ControllerBase
 
     [HttpGet(F14Constant.ENDPOINT_PATH)]
     [Authorize(Policy = nameof(DefaultAuthorizationRequirement))]
-    [ServiceFilter<F14ValidationFilter>(Order = 1)]
+    [ServiceFilter<F14SetStateBagFilter>]
+    [ServiceFilter<F14ValidationFilter>]
     public async Task<IActionResult> ExecuteAsync(F14Request request, CancellationToken ct)
     {
         var appRequest = new F14AppRequestModel
@@ -33,7 +35,7 @@ public sealed class F14Endpoint : ControllerBase
         };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
-        var httpResponse = F14HttpResponseMapper.Get(appRequest, appResponse);
+        var httpResponse = F14HttpResponseMapper.Get(appRequest, appResponse, HttpContext);
 
         return StatusCode(httpResponse.HttpCode, httpResponse);
     }

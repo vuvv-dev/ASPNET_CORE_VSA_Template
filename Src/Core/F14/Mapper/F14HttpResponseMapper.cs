@@ -4,6 +4,7 @@ using System.Linq;
 using F14.Common;
 using F14.Models;
 using F14.Presentation;
+using F14.Presentation.Filters.SetStateBag;
 using Microsoft.AspNetCore.Http;
 
 namespace F14.Mapper;
@@ -12,7 +13,7 @@ public static class F14HttpResponseMapper
 {
     private static ConcurrentDictionary<
         F14Constant.AppCode,
-        Func<F14AppRequestModel, F14AppResponseModel, F14Response>
+        Func<F14AppRequestModel, F14AppResponseModel, HttpContext, F14Response>
     > _httpResponseMapper;
 
     private static void Init()
@@ -24,8 +25,9 @@ public static class F14HttpResponseMapper
 
         _httpResponseMapper.TryAdd(
             F14Constant.AppCode.SUCCESS,
-            (appRequest, appResponse) =>
-                new()
+            (appRequest, appResponse, httpContext) =>
+            {
+                return new()
                 {
                     AppCode = (int)F14Constant.AppCode.SUCCESS,
                     HttpCode = StatusCodes.Status200OK,
@@ -46,24 +48,41 @@ public static class F14HttpResponseMapper
                         ),
                         NextCursor = appResponse.Body.NextCursor,
                     },
-                }
+                };
+            }
         );
 
         _httpResponseMapper.TryAdd(
             F14Constant.AppCode.TASK_NOT_FOUND,
-            (appRequest, appResponse) => F14Constant.DefaultResponse.Http.TASK_NOT_FOUND
+            (appRequest, appResponse, httpContext) =>
+            {
+                return F14Constant.DefaultResponse.Http.TASK_NOT_FOUND;
+            }
         );
 
         _httpResponseMapper.TryAdd(
             F14Constant.AppCode.TODO_TASK_LIST_NOT_FOUND,
-            (appRequest, appResponse) => F14Constant.DefaultResponse.Http.TODO_TASK_LIST_NOT_FOUND
+            (appRequest, appResponse, httpContext) =>
+            {
+                return F14Constant.DefaultResponse.Http.TODO_TASK_LIST_NOT_FOUND;
+            }
         );
     }
 
-    public static F14Response Get(F14AppRequestModel appRequest, F14AppResponseModel appResponse)
+    public static F14Response Get(
+        F14AppRequestModel appRequest,
+        F14AppResponseModel appResponse,
+        HttpContext httpContext
+    )
     {
         Init();
 
-        return _httpResponseMapper[appResponse.AppCode](appRequest, appResponse);
+        var stateBag = httpContext.Items[nameof(F14StateBag)] as F14StateBag;
+
+        var httpResponse = _httpResponseMapper[appResponse.AppCode]
+            (appRequest, appResponse, httpContext);
+        stateBag.HttpResponse = httpResponse;
+
+        return httpResponse;
     }
 }
