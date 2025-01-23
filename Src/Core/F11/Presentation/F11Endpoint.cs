@@ -4,6 +4,7 @@ using F11.BusinessLogic;
 using F11.Common;
 using F11.Mapper;
 using F11.Models;
+using F11.Presentation.Filters.SetStateBag;
 using F11.Presentation.Filters.Validation;
 using FCommon.Authorization.Default;
 using Microsoft.AspNetCore.Authorization;
@@ -22,7 +23,8 @@ public sealed class F11Endpoint : ControllerBase
 
     [HttpPost(F11Constant.ENDPOINT_PATH)]
     [Authorize(Policy = nameof(DefaultAuthorizationRequirement))]
-    [ServiceFilter<F11ValidationFilter>(Order = 1)]
+    [ServiceFilter<F11ValidationFilter>]
+    [ServiceFilter<F11SetStateBagFilter>]
     public async Task<IActionResult> ExecuteAsync(
         [FromBody] F11Request request,
         CancellationToken ct
@@ -35,7 +37,7 @@ public sealed class F11Endpoint : ControllerBase
         };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
-        var httpResponse = F11HttpResponseMapper.Get(appRequest, appResponse);
+        var httpResponse = F11HttpResponseMapper.Get(appRequest, appResponse, HttpContext);
 
         return StatusCode(httpResponse.HttpCode, httpResponse);
     }
