@@ -4,6 +4,7 @@ using F16.BusinessLogic;
 using F16.Common;
 using F16.Mapper;
 using F16.Models;
+using F16.Presentation.Filters.SetStateBag;
 using F16.Presentation.Filters.Validation;
 using FCommon.Authorization.Default;
 using Microsoft.AspNetCore.Authorization;
@@ -22,7 +23,8 @@ public sealed class F16Endpoint : ControllerBase
 
     [HttpPost(F16Constant.ENDPOINT_PATH)]
     [Authorize(Policy = nameof(DefaultAuthorizationRequirement))]
-    [ServiceFilter<F16ValidationFilter>(Order = 1)]
+    [ServiceFilter<F16SetStateBagFilter>]
+    [ServiceFilter<F16ValidationFilter>]
     public async Task<IActionResult> ExecuteAsync(
         [FromBody] F16Request request,
         CancellationToken ct
@@ -35,7 +37,7 @@ public sealed class F16Endpoint : ControllerBase
         };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
-        var httpResponse = F16HttpResponseMapper.Get(appRequest, appResponse);
+        var httpResponse = F16HttpResponseMapper.Get(appRequest, appResponse, HttpContext);
 
         return StatusCode(httpResponse.HttpCode, httpResponse);
     }
