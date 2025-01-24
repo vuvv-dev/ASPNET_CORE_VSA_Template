@@ -45,7 +45,7 @@ public static class F7HttpResponseMapper
                 return new()
                 {
                     AppCode = (int)F7Constant.AppCode.SUCCESS,
-                    HttpCode = StatusCodes.Status201Created,
+                    HttpCode = StatusCodes.Status200OK,
                     Body = new() { ListId = appResponse.Body.ListId },
                 };
             }

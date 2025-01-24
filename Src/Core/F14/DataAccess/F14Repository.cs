@@ -31,7 +31,7 @@ public sealed class F14Repository : IF14Repository
         return _appContext.Set<TodoTaskListEntity>().AnyAsync(entity => entity.Id == listId, ct);
     }
 
-    public async Task<IEnumerable<F14TodoTaskModel>> GetTodoTasksAsync(
+    public async Task<IEnumerable<F14TodoTaskModel>> GetCompletedTodoTasksAsync(
         F14GetTodoTasksInputModel input,
         CancellationToken ct
     )

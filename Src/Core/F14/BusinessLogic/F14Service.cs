@@ -52,7 +52,7 @@ public sealed class F14Service : IServiceHandler<F14AppRequestModel, F14AppRespo
             TodoTaskListId = request.TodoTaskListId,
             NumberOfRecord = request.NumberOfRecord,
         };
-        var foundTodoTasks = await _repository.Value.GetTodoTasksAsync(input, ct);
+        var foundTodoTasks = await _repository.Value.GetCompletedTodoTasksAsync(input, ct);
 
         var taskCount = foundTodoTasks.Count();
         if (taskCount <= request.NumberOfRecord)
