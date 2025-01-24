@@ -1,33 +1,11 @@
 using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
-using F1;
-using F10;
-using F11;
-using F12;
-using F13;
-using F14;
-using F15;
-using F16;
-using F17;
-using F18;
-using F19;
-using F2;
-using F20;
-using F21;
-using F3;
-using F4;
-using F5;
-using F6;
-using F7;
-using F8;
-using F9;
-using FA1;
-using FA2;
-using FA3;
+using System.Text.Json;
+using System.Threading.Tasks;
+using Entry.Models;
 using FACommon.DependencyInjection;
-using FCommon;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -35,48 +13,30 @@ namespace Entry.Register;
 
 public static class ServiceRegisterationCenter
 {
-    // Add assembly that you want to register HERE !!
-    private static readonly List<Assembly> RegisterAssemblies =
-    [
-        // Common
-        typeof(CommonServiceRegister).Assembly,
-        // Core
-        typeof(F1Register).Assembly,
-        typeof(F2Register).Assembly,
-        typeof(F3Register).Assembly,
-        typeof(F4Register).Assembly,
-        typeof(F5Register).Assembly,
-        typeof(F6Register).Assembly,
-        typeof(F7Register).Assembly,
-        typeof(F8Register).Assembly,
-        typeof(F9Register).Assembly,
-        typeof(F10Register).Assembly,
-        typeof(F10Register).Assembly,
-        typeof(F11Register).Assembly,
-        typeof(F12Register).Assembly,
-        typeof(F13Register).Assembly,
-        typeof(F14Register).Assembly,
-        typeof(F15Register).Assembly,
-        typeof(F16Register).Assembly,
-        typeof(F17Register).Assembly,
-        typeof(F18Register).Assembly,
-        typeof(F19Register).Assembly,
-        typeof(F20Register).Assembly,
-        typeof(F21Register).Assembly,
-        // External
-        typeof(FA1Register).Assembly,
-        typeof(FA2Register).Assembly,
-        typeof(FA3Register).Assembly,
-    ];
     private static readonly Type ServiceRegisterType = typeof(IServiceRegister);
 
-    public static IServiceCollection RegisterRequiredServices(
+    public static async Task<IServiceCollection> RegisterRequiredServices(
         this IServiceCollection services,
         IConfiguration configuration
     )
     {
-        foreach (var assembly in RegisterAssemblies)
+        var registerAssemblyNames = await GetListOfRegisteredAssemblyNameAsync();
+
+        foreach (var assemblyName in registerAssemblyNames.Assemblies)
         {
+            Assembly assembly;
+
+            try
+            {
+                assembly = Assembly.Load(assemblyName);
+            }
+            catch (FileNotFoundException)
+            {
+                throw new ApplicationException(
+                    $"No assembly {assemblyName} is found, please check !!"
+                );
+            }
+
             var allTypes = assembly.GetTypes();
 
             var isRegisterTypeFound = allTypes.Count(type =>
@@ -108,5 +68,26 @@ public static class ServiceRegisterationCenter
         }
 
         return services;
+    }
+
+    private static async Task<RegisteredAssemblyModel> GetListOfRegisteredAssemblyNameAsync()
+    {
+        const string AssemblyFileName = "app-assembly.json";
+
+        var fullFilePath = Path.GetFullPath(
+            Path.Combine(Environment.CurrentDirectory, "..", "..", AssemblyFileName)
+        );
+        var doesFileExist = File.Exists(fullFilePath);
+        if (!doesFileExist)
+        {
+            throw new ApplicationException(
+                $"No assembly file name {AssemblyFileName} is found in the current directory, please check !!"
+            );
+        }
+
+        var json = await File.ReadAllTextAsync(fullFilePath);
+        var result = JsonSerializer.Deserialize<RegisteredAssemblyModel>(json);
+
+        return result;
     }
 }

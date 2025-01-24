@@ -5,7 +5,7 @@ namespace F3.Presentation.Filters.Validation;
 
 public sealed class F3ValidationProfile : AbstractValidator<F3Request>
 {
-    public F3ValidationProfile(AspNetCoreIdentityOptions aspNetCoreIdentityOptions)
+    public F3ValidationProfile(AspNetCoreIdentityOption aspNetCoreIdentityOptions)
     {
         ClassLevelCascadeMode = CascadeMode.Stop;
         RuleLevelCascadeMode = CascadeMode.Stop;

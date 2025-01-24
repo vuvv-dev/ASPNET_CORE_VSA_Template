@@ -1,6 +1,6 @@
 namespace FConfig;
 
-public sealed class AspNetCoreIdentityOptions
+public sealed class AspNetCoreIdentityOption
 {
     public PasswordOption Password { get; } = new();
 

@@ -96,7 +96,7 @@ public sealed class CommonServiceRegister : IServiceRegister
 
         var aspNetCoreIdentityOption = configuration
             .GetRequiredSection("AspNetCoreIdentity")
-            .Get<AspNetCoreIdentityOptions>();
+            .Get<AspNetCoreIdentityOption>();
 
         services.AddSingleton(aspNetCoreIdentityOption);
     }

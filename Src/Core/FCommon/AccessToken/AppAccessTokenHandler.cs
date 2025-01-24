@@ -49,8 +49,8 @@ public sealed class AppAccessTokenHandler : IAppAccessTokenHandler
     /// <summary>
     ///     Is access token expired.
     /// </summary>
-    /// <param name="context">
-    ///     The context containe user info.
+    /// <param name="expClaimValue">
+    ///     Claim represent expiration time.
     /// </param>
     /// <returns>
     ///     True if token is expired.
