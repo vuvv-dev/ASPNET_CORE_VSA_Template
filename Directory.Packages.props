@@ -13,6 +13,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageVersion>
     <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.2" />
+    <PackageVersion Include="NSwag.AspNetCore" Version="14.2.0" />
     <PackageVersion Include="SnowflakeGenerator" Version="2.0.0" />
   </ItemGroup>
 </Project>

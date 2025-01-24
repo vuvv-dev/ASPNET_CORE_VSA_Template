@@ -63,7 +63,7 @@ public sealed class FA1Register : IServiceRegister
             {
                 var configOption = configuration
                     .GetRequiredSection("AspNetCoreIdentity")
-                    .Get<AspNetCoreIdentityOptions>();
+                    .Get<AspNetCoreIdentityOption>();
 
                 // Password configuration.
                 config.Password.RequireDigit = configOption.Password.RequireDigit;
@@ -77,7 +77,7 @@ public sealed class FA1Register : IServiceRegister
 
                 // Lockout configuration.
                 config.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromSeconds(
-                    value: configOption.Lockout.DefaultLockoutTimeSpanInSecond
+                    configOption.Lockout.DefaultLockoutTimeSpanInSecond
                 );
                 config.Lockout.MaxFailedAccessAttempts = configOption
                     .Lockout

@@ -22,7 +22,7 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 var configuration = builder.Configuration;
 
-services.RegisterRequiredServices(configuration);
+await services.RegisterRequiredServices(configuration);
 
 services.AddLogging(config =>
 {
@@ -41,21 +41,45 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseRouting().UseAuthentication().UseAuthorization();
+    app.UseRouting()
+        .UseAuthentication()
+        .UseAuthorization()
+        .UseOpenApi()
+        .UseSwaggerUi(options =>
+        {
+            options.Path = string.Empty;
+            options.DefaultModelsExpandDepth = -1;
+        });
 
     app.MapControllers();
 }
 
 if (app.Environment.IsStaging())
 {
-    app.UseRouting().UseAuthentication().UseAuthorization();
+    app.UseRouting()
+        .UseAuthentication()
+        .UseAuthorization()
+        .UseOpenApi()
+        .UseSwaggerUi(options =>
+        {
+            options.Path = string.Empty;
+            options.DefaultModelsExpandDepth = -1;
+        });
 
     app.MapControllers();
 }
 
 if (app.Environment.IsProduction())
 {
-    app.UseRouting().UseAuthentication().UseAuthorization();
+    app.UseRouting()
+        .UseAuthentication()
+        .UseAuthorization()
+        .UseOpenApi()
+        .UseSwaggerUi(options =>
+        {
+            options.Path = string.Empty;
+            options.DefaultModelsExpandDepth = -1;
+        });
 
     app.MapControllers();
 }

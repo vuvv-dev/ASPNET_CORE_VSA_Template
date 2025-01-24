@@ -11,6 +11,7 @@ set -e
 
 # Constants
 CONFIGURATION_MODE="Release"
+LAUNCH_PROFILE="Production"
 CURRENT_PATH=$(pwd)
 
 # Function to find the root directory containing the solution file
@@ -55,7 +56,7 @@ fi
 cd "$CURRENT_PATH"
 
 echo "Run project..."
-dotnet run -c "$CONFIGURATION_MODE" --project "$project_root/Src/Entry/"
+dotnet run -c "$CONFIGURATION_MODE" --launch-profile "$LAUNCH_PROFILE" --project "$project_root/Src/Entry/"
 if [ $? -ne 0 ]; then
     echo "dotnet run failed"
     exit 1
