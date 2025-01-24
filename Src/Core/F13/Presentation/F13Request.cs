@@ -1,8 +1,10 @@
 using F13.Common;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace F13.Presentation;
 
+[ValidateNever]
 public sealed class F13Request
 {
     [FromRoute]

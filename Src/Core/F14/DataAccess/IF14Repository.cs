@@ -7,7 +7,7 @@ namespace F14.DataAccess;
 
 public interface IF14Repository
 {
-    Task<IEnumerable<F14TodoTaskModel>> GetTodoTasksAsync(
+    Task<IEnumerable<F14TodoTaskModel>> GetCompletedTodoTasksAsync(
         F14GetTodoTasksInputModel input,
         CancellationToken ct
     );

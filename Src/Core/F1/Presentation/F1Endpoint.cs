@@ -26,7 +26,7 @@ public sealed class F1Endpoint : ControllerBase
     ///     Endpoint for user login.
     /// </summary>
     /// <param name="request">
-    ///     Class contains user credentials.
+    ///     Incoming request.
     /// </param>
     /// <response code="429">TEMPORARY_BANNED</response>
     /// <response code="401">PASSWORD_IS_INCORRECT</response>
@@ -48,8 +48,8 @@ public sealed class F1Endpoint : ControllerBase
     [HttpPost(F1Constant.ENDPOINT_PATH)]
     [ServiceFilter<F1SetStateBagFilter>]
     [ServiceFilter<F1ValidationFilter>]
-    public async Task<IActionResult> ExecuteAsync(
-        [FromBody][Required] F1Request request,
+    public async Task<IActionResult> ExecuteF1Async(
+        [FromBody] [Required] F1Request request,
         CancellationToken ct
     )
     {
