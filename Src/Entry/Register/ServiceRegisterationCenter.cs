@@ -1,10 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Entry.Models;
 using FACommon.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,7 +22,55 @@ public static class ServiceRegisterationCenter
     {
         var registerAssemblyNames = await GetListOfRegisteredAssemblyNameAsync();
 
-        foreach (var assemblyName in registerAssemblyNames.Assemblies)
+        services = RegisterAssemblyByName(
+            registerAssemblyNames.Assembly.External,
+            services,
+            configuration
+        );
+
+        services = RegisterAssemblyByName(
+            registerAssemblyNames.Assembly.Core,
+            services,
+            configuration
+        );
+
+        services = RegisterAssemblyByName(
+            registerAssemblyNames.Assembly.Entry,
+            services,
+            configuration
+        );
+
+        return services;
+    }
+
+    private static async Task<RegisteredAssemblyModel> GetListOfRegisteredAssemblyNameAsync()
+    {
+        const string AssemblyFileName = "app-assembly.json";
+
+        var fullFilePath = Path.GetFullPath(
+            Path.Combine(Environment.CurrentDirectory, "..", "..", AssemblyFileName)
+        );
+        var doesFileExist = File.Exists(fullFilePath);
+        if (!doesFileExist)
+        {
+            throw new ApplicationException(
+                $"No assembly file name {AssemblyFileName} is found in the current directory, please check !!"
+            );
+        }
+
+        var json = await File.ReadAllTextAsync(fullFilePath);
+        var result = JsonSerializer.Deserialize<RegisteredAssemblyModel>(json);
+
+        return result;
+    }
+
+    private static IServiceCollection RegisterAssemblyByName(
+        IEnumerable<string> assemblyNames,
+        IServiceCollection services,
+        IConfiguration configuration
+    )
+    {
+        foreach (var assemblyName in assemblyNames)
         {
             Assembly assembly;
 
@@ -68,26 +116,5 @@ public static class ServiceRegisterationCenter
         }
 
         return services;
-    }
-
-    private static async Task<RegisteredAssemblyModel> GetListOfRegisteredAssemblyNameAsync()
-    {
-        const string AssemblyFileName = "app-assembly.json";
-
-        var fullFilePath = Path.GetFullPath(
-            Path.Combine(Environment.CurrentDirectory, "..", "..", AssemblyFileName)
-        );
-        var doesFileExist = File.Exists(fullFilePath);
-        if (!doesFileExist)
-        {
-            throw new ApplicationException(
-                $"No assembly file name {AssemblyFileName} is found in the current directory, please check !!"
-            );
-        }
-
-        var json = await File.ReadAllTextAsync(fullFilePath);
-        var result = JsonSerializer.Deserialize<RegisteredAssemblyModel>(json);
-
-        return result;
     }
 }

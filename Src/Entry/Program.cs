@@ -3,12 +3,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Threading;
 using Entry.Register;
-using FACommon.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.JsonWebTokens;
 
 // Global Configuration.
@@ -23,18 +19,6 @@ var services = builder.Services;
 var configuration = builder.Configuration;
 
 await services.RegisterRequiredServices(configuration);
-
-services.AddLogging(config =>
-{
-    config.ClearProviders().AddConsole();
-});
-
-services.AddControllers(config =>
-{
-    config.SuppressAsyncSuffixInActionNames = false;
-});
-
-services.AddHttpContextAccessor().MakeSingletonLazy<IHttpContextAccessor>();
 
 var app = builder.Build();
 
