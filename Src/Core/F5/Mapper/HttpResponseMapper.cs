@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Http;
 
 namespace F5.Mapper;
 
-public static class F5HttpResponseMapper
+public static class HttpResponseMapper
 {
     private static ConcurrentDictionary<
-        F5Constant.AppCode,
-        Func<F5AppRequestModel, F5AppResponseModel, HttpContext, F5Response>
+        Constant.AppCode,
+        Func<AppRequestModel, AppResponseModel, HttpContext, Response>
     > _httpResponseMapper;
 
     private static void Init()
@@ -23,51 +23,51 @@ public static class F5HttpResponseMapper
         }
 
         _httpResponseMapper.TryAdd(
-            F5Constant.AppCode.PASSWORD_IS_INVALID,
+            Constant.AppCode.PASSWORD_IS_INVALID,
             (appRequest, appResponse, httpContext) =>
             {
-                return F5Constant.DefaultResponse.Http.PASSWORD_IS_INVALID;
+                return Constant.DefaultResponse.Http.PASSWORD_IS_INVALID;
             }
         );
 
         _httpResponseMapper.TryAdd(
-            F5Constant.AppCode.SERVER_ERROR,
+            Constant.AppCode.SERVER_ERROR,
             (appRequest, appResponse, httpContext) =>
             {
-                return F5Constant.DefaultResponse.Http.SERVER_ERROR;
+                return Constant.DefaultResponse.Http.SERVER_ERROR;
             }
         );
 
         _httpResponseMapper.TryAdd(
-            F5Constant.AppCode.SUCCESS,
+            Constant.AppCode.SUCCESS,
             (appRequest, appResponse, httpContext) =>
             {
                 return new()
                 {
                     HttpCode = StatusCodes.Status200OK,
-                    AppCode = (int)F5Constant.AppCode.SUCCESS,
+                    AppCode = (int)Constant.AppCode.SUCCESS,
                 };
             }
         );
 
         _httpResponseMapper.TryAdd(
-            F5Constant.AppCode.TOKEN_DOES_NOT_EXIST,
+            Constant.AppCode.TOKEN_DOES_NOT_EXIST,
             (appRequest, appResponse, httpContext) =>
             {
-                return F5Constant.DefaultResponse.Http.TOKEN_DOES_NOT_EXIST;
+                return Constant.DefaultResponse.Http.TOKEN_DOES_NOT_EXIST;
             }
         );
     }
 
-    public static F5Response Get(
-        F5AppRequestModel appRequest,
-        F5AppResponseModel appResponse,
+    public static Response Get(
+        AppRequestModel appRequest,
+        AppResponseModel appResponse,
         HttpContext httpContext
     )
     {
         Init();
 
-        var stateBag = httpContext.Items[nameof(F5StateBag)] as F5StateBag;
+        var stateBag = httpContext.Items[nameof(StateBag)] as StateBag;
 
         var httpResponse = _httpResponseMapper[appResponse.AppCode]
             (appRequest, appResponse, httpContext);

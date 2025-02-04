@@ -9,19 +9,18 @@ using Microsoft.AspNetCore.Http;
 
 namespace F5.Presentation.Filters.Authorization;
 
-public sealed class F5AuthorizationRequirementHandler
-    : AuthorizationHandler<F5AuthorizationRequirement>
+public sealed class AuthorizationRequirementHandler : AuthorizationHandler<AuthorizationRequirement>
 {
     private readonly Lazy<IHttpContextAccessor> _httpContextAccessor;
 
-    public F5AuthorizationRequirementHandler(Lazy<IHttpContextAccessor> httpContextAccessor)
+    public AuthorizationRequirementHandler(Lazy<IHttpContextAccessor> httpContextAccessor)
     {
         _httpContextAccessor = httpContextAccessor;
     }
 
     protected override Task HandleRequirementAsync(
         AuthorizationHandlerContext context,
-        F5AuthorizationRequirement requirement
+        AuthorizationRequirement requirement
     )
     {
         if (!context.User.Identity.IsAuthenticated)
@@ -56,7 +55,7 @@ public sealed class F5AuthorizationRequirementHandler
         }
 
         var httpContext = _httpContextAccessor.Value.HttpContext;
-        var stateBag = new F5StateBag
+        var stateBag = new StateBag
         {
             ResetPasswordTokenId = long.Parse(
                 context.User.FindFirstValue(AppConstant.JsonWebToken.ClaimType.JTI)
@@ -65,7 +64,7 @@ public sealed class F5AuthorizationRequirementHandler
                 context.User.FindFirstValue(AppConstant.JsonWebToken.ClaimType.SUB)
             ),
         };
-        httpContext.Items.Add(nameof(F5StateBag), stateBag);
+        httpContext.Items.Add(nameof(StateBag), stateBag);
 
         context.Succeed(requirement);
 

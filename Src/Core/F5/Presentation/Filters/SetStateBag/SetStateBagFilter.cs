@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace F5.Presentation.Filters.SetStateBag;
 
-public sealed class F5SetStateBagFilter : IAsyncActionFilter
+public sealed class SetStateBagFilter : IAsyncActionFilter
 {
     public async Task OnActionExecutionAsync(
         ActionExecutingContext context,
@@ -16,26 +16,23 @@ public sealed class F5SetStateBagFilter : IAsyncActionFilter
     )
     {
         var doesRequestExist = context.ActionArguments.Any(argument =>
-            argument.Key.Equals(F5Constant.REQUEST_ARGUMENT_NAME)
+            argument.Key.Equals(Constant.REQUEST_ARGUMENT_NAME)
         );
 
         if (!doesRequestExist)
         {
             context.Result = new ContentResult
             {
-                StatusCode = F5Constant.DefaultResponse.Http.VALIDATION_FAILED.HttpCode,
-                Content = JsonSerializer.Serialize(
-                    F5Constant.DefaultResponse.Http.VALIDATION_FAILED
-                ),
+                StatusCode = Constant.DefaultResponse.Http.VALIDATION_FAILED.HttpCode,
+                Content = JsonSerializer.Serialize(Constant.DefaultResponse.Http.VALIDATION_FAILED),
                 ContentType = MediaTypeNames.Application.Json,
             };
 
             return;
         }
 
-        var stateBag = context.HttpContext.Items[nameof(F5StateBag)] as F5StateBag;
-        stateBag.HttpRequest =
-            context.ActionArguments[F5Constant.REQUEST_ARGUMENT_NAME] as F5Request;
+        var stateBag = context.HttpContext.Items[nameof(StateBag)] as StateBag;
+        stateBag.HttpRequest = context.ActionArguments[Constant.REQUEST_ARGUMENT_NAME] as Request;
 
         await next();
     }

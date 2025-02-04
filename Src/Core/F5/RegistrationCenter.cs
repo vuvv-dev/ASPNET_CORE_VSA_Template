@@ -10,25 +10,25 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace F5;
 
-public sealed class F5Register : IServiceRegister
+public sealed class RegistrationCenter : IServiceRegister
 {
     public IServiceCollection Register(IServiceCollection services, IConfiguration configuration)
     {
-        var currentAssembly = typeof(F5Register).Assembly;
+        var currentAssembly = typeof(RegistrationCenter).Assembly;
 
         #region Authorization
         services
             .AddAuthorizationBuilder()
             .AddPolicy(
-                nameof(F5AuthorizationRequirement),
+                nameof(AuthorizationRequirement),
                 policy =>
                     policy
                         .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
                         .RequireAuthenticatedUser()
-                        .AddRequirements(new F5AuthorizationRequirement())
+                        .AddRequirements(new AuthorizationRequirement())
             );
 
-        services.AddSingleton<IAuthorizationHandler, F5AuthorizationRequirementHandler>();
+        services.AddSingleton<IAuthorizationHandler, AuthorizationRequirementHandler>();
         #endregion
 
         #region Filters
@@ -41,9 +41,9 @@ public sealed class F5Register : IServiceRegister
 
         #region Core
         services
-            .AddScoped<IF5Repository, F5Repository>()
-            .MakeScopedLazy<IF5Repository>()
-            .AddScoped<F5Service>();
+            .AddScoped<IRepository, Repository>()
+            .MakeScopedLazy<IRepository>()
+            .AddScoped<Service>();
         #endregion
 
         return services;

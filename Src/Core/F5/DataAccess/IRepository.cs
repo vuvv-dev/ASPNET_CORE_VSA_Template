@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace F5.DataAccess;
 
-public interface IF5Repository
+public interface IRepository
 {
     Task<bool> ResetPasswordAsync(
         long userId,

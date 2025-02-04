@@ -8,19 +8,16 @@ using FCommon.FeatureService;
 
 namespace F5.BusinessLogic;
 
-public sealed class F5Service : IServiceHandler<F5AppRequestModel, F5AppResponseModel>
+public sealed class Service : IServiceHandler<AppRequestModel, AppResponseModel>
 {
-    private readonly Lazy<IF5Repository> _repository;
+    private readonly Lazy<IRepository> _repository;
 
-    public F5Service(Lazy<IF5Repository> repository)
+    public Service(Lazy<IRepository> repository)
     {
         _repository = repository;
     }
 
-    public async Task<F5AppResponseModel> ExecuteAsync(
-        F5AppRequestModel request,
-        CancellationToken ct
-    )
+    public async Task<AppResponseModel> ExecuteAsync(AppRequestModel request, CancellationToken ct)
     {
         var tokenIdAsString = request.ResetPasswordTokenId.ToString();
 
@@ -30,13 +27,13 @@ public sealed class F5Service : IServiceHandler<F5AppRequestModel, F5AppResponse
         );
         if (Equals(tokenValue, null))
         {
-            return F5Constant.DefaultResponse.App.TOKEN_DOES_NOT_EXIST;
+            return Constant.DefaultResponse.App.TOKEN_DOES_NOT_EXIST;
         }
 
         var isPasswordValid = await _repository.Value.IsPasswordValidAsync(request.NewPassword, ct);
         if (!isPasswordValid)
         {
-            return F5Constant.DefaultResponse.App.PASSWORD_IS_INVALID;
+            return Constant.DefaultResponse.App.PASSWORD_IS_INVALID;
         }
 
         var isPasswordResetSuccessfully = await _repository.Value.ResetPasswordAsync(
@@ -48,9 +45,9 @@ public sealed class F5Service : IServiceHandler<F5AppRequestModel, F5AppResponse
         );
         if (!isPasswordResetSuccessfully)
         {
-            return F5Constant.DefaultResponse.App.SERVER_ERROR;
+            return Constant.DefaultResponse.App.SERVER_ERROR;
         }
 
-        return new() { AppCode = F5Constant.AppCode.SUCCESS };
+        return new() { AppCode = Constant.AppCode.SUCCESS };
     }
 }
