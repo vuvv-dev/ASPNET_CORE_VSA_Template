@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Http;
 
 namespace F1.Common;
 
-public static class F1Constant
+public static class Constant
 {
+    public const string CONTROLLER_NAME = "F1Endpoint";
+
     public const string ENDPOINT_PATH = "f1";
 
     public const string REQUEST_ARGUMENT_NAME = "request";
@@ -31,27 +33,27 @@ public static class F1Constant
     {
         public static class App
         {
-            public static readonly F1AppResponseModel USER_NOT_FOUND = new()
+            public static readonly AppResponseModel USER_NOT_FOUND = new()
             {
                 AppCode = AppCode.USER_NOT_FOUND,
             };
 
-            public static readonly F1AppResponseModel TEMPORARY_BANNED = new()
+            public static readonly AppResponseModel TEMPORARY_BANNED = new()
             {
                 AppCode = AppCode.TEMPORARY_BANNED,
             };
 
-            public static readonly F1AppResponseModel PASSWORD_IS_INCORRECT = new()
+            public static readonly AppResponseModel PASSWORD_IS_INCORRECT = new()
             {
                 AppCode = AppCode.PASSWORD_IS_INCORRECT,
             };
 
-            public static readonly F1AppResponseModel VALIDATION_FAILED = new()
+            public static readonly AppResponseModel VALIDATION_FAILED = new()
             {
                 AppCode = AppCode.VALIDATION_FAILED,
             };
 
-            public static readonly F1AppResponseModel SERVER_ERROR = new()
+            public static readonly AppResponseModel SERVER_ERROR = new()
             {
                 AppCode = AppCode.SERVER_ERROR,
             };
@@ -59,31 +61,31 @@ public static class F1Constant
 
         public static class Http
         {
-            public static readonly F1Response PASSWORD_IS_INCORRECT = new()
+            public static readonly Response PASSWORD_IS_INCORRECT = new()
             {
                 HttpCode = StatusCodes.Status401Unauthorized,
                 AppCode = (int)AppCode.PASSWORD_IS_INCORRECT,
             };
 
-            public static readonly F1Response TEMPORARY_BANNED = new()
+            public static readonly Response TEMPORARY_BANNED = new()
             {
                 HttpCode = StatusCodes.Status429TooManyRequests,
                 AppCode = (int)AppCode.TEMPORARY_BANNED,
             };
 
-            public static readonly F1Response USER_NOT_FOUND = new()
+            public static readonly Response USER_NOT_FOUND = new()
             {
                 HttpCode = StatusCodes.Status404NotFound,
                 AppCode = (int)AppCode.USER_NOT_FOUND,
             };
 
-            public static readonly F1Response VALIDATION_FAILED = new()
+            public static readonly Response VALIDATION_FAILED = new()
             {
                 HttpCode = StatusCodes.Status400BadRequest,
                 AppCode = (int)AppCode.VALIDATION_FAILED,
             };
 
-            public static readonly F1Response SERVER_ERROR = new()
+            public static readonly Response SERVER_ERROR = new()
             {
                 HttpCode = StatusCodes.Status500InternalServerError,
                 AppCode = (int)AppCode.SERVER_ERROR,

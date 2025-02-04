@@ -9,13 +9,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F1.DataAccess;
 
-public sealed class F1Repository : IF1Repository
+public sealed class Repository : IRepository
 {
     private readonly AppDbContext _context;
     private readonly Lazy<UserManager<IdentityUserEntity>> _userManager;
     private readonly Lazy<SignInManager<IdentityUserEntity>> _signInManager;
 
-    public F1Repository(
+    public Repository(
         AppDbContext context,
         Lazy<UserManager<IdentityUserEntity>> userManager,
         Lazy<SignInManager<IdentityUserEntity>> signInManager
@@ -26,7 +26,7 @@ public sealed class F1Repository : IF1Repository
         _signInManager = signInManager;
     }
 
-    public async Task<F1PasswordSignInResultModel> CheckPasswordSignInAsync(
+    public async Task<PasswordSignInResultModel> CheckPasswordSignInAsync(
         string email,
         string password,
         CancellationToken ct
@@ -47,7 +47,7 @@ public sealed class F1Repository : IF1Repository
         };
     }
 
-    public async Task<bool> CreateRefreshTokenAsync(F1RefreshTokenModel model, CancellationToken ct)
+    public async Task<bool> CreateRefreshTokenAsync(RefreshTokenModel model, CancellationToken ct)
     {
         try
         {

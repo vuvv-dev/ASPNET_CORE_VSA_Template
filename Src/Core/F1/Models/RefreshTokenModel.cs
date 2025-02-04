@@ -2,7 +2,7 @@ using System;
 
 namespace F1.Models;
 
-public sealed class F1RefreshTokenModel
+public sealed class RefreshTokenModel
 {
     public string LoginProvider { get; set; }
 

@@ -4,15 +4,15 @@ using F1.Models;
 
 namespace F1.DataAccess;
 
-public interface IF1Repository
+public interface IRepository
 {
     Task<bool> IsUserFoundByEmailAsync(string email, CancellationToken ct);
 
-    Task<F1PasswordSignInResultModel> CheckPasswordSignInAsync(
+    Task<PasswordSignInResultModel> CheckPasswordSignInAsync(
         string email,
         string password,
         CancellationToken ct
     );
 
-    Task<bool> CreateRefreshTokenAsync(F1RefreshTokenModel model, CancellationToken ct);
+    Task<bool> CreateRefreshTokenAsync(RefreshTokenModel model, CancellationToken ct);
 }

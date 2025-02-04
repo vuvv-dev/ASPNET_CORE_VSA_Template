@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace F1.Presentation.Filters.Validation;
 
-public sealed class F1ValidationProfile : AbstractValidator<F1Request>
+public sealed class ValidationProfile : AbstractValidator<Request>
 {
-    public F1ValidationProfile(AspNetCoreIdentityOption aspNetCoreIdentityOptions)
+    public ValidationProfile(AspNetCoreIdentityOption aspNetCoreIdentityOptions)
     {
         ClassLevelCascadeMode = CascadeMode.Stop;
         RuleLevelCascadeMode = CascadeMode.Stop;
