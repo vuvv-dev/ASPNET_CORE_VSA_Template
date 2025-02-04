@@ -6,26 +6,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core\F1\F1.csproj" />
-    <ProjectReference Include="..\Core\F2\F2.csproj" />
-    <ProjectReference Include="..\Core\F3\F3.csproj" />
-    <ProjectReference Include="..\Core\F4\F4.csproj" />
-    <ProjectReference Include="..\Core\F5\F5.csproj" />
-    <ProjectReference Include="..\Core\F6\F6.csproj" />
-    <ProjectReference Include="..\Core\F7\F7.csproj" />
-    <ProjectReference Include="..\Core\F8\F8.csproj" />
-    <ProjectReference Include="..\Core\F9\F9.csproj" />
-    <ProjectReference Include="..\Core\F10\F10.csproj" />
-    <ProjectReference Include="..\Core\F11\F11.csproj" />
-    <ProjectReference Include="..\Core\F12\F12.csproj" />
-    <ProjectReference Include="..\Core\F13\F13.csproj" />
-    <ProjectReference Include="..\Core\F14\F14.csproj" />
-    <ProjectReference Include="..\Core\F15\F15.csproj" />
-    <ProjectReference Include="..\Core\F16\F16.csproj" />
-    <ProjectReference Include="..\Core\F17\F17.csproj" />
-    <ProjectReference Include="..\Core\F18\F18.csproj" />
-    <ProjectReference Include="..\Core\F19\F19.csproj" />
-    <ProjectReference Include="..\Core\F20\F20.csproj" />
-    <ProjectReference Include="..\Core\F21\F21.csproj" />
+    <ProjectReference Include="..\Core\**\*.csproj" />
   </ItemGroup>
 </Project>  

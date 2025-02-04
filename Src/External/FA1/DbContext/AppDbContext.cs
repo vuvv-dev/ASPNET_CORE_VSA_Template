@@ -29,11 +29,6 @@ public sealed class AppDbContext : IdentityDbContext<IdentityUserEntity, Identit
     /// </param>
     private static void InitCaseInsensitiveCollation(ModelBuilder builder)
     {
-        builder.HasCollation(
-            Constant.Collation.CASE_INSENSITIVE,
-            "en-u-ks-primary",
-            "icu",
-            false
-        );
+        builder.HasCollation(Constant.Collation.CASE_INSENSITIVE, "en-u-ks-primary", "icu", false);
     }
 }
