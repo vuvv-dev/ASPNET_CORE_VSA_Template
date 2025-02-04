@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Http;
 
 namespace F1.Mapper;
 
-public static class F1HttpResponseMapper
+public static class HttpResponseMapper
 {
     private static ConcurrentDictionary<
-        F1Constant.AppCode,
-        Func<F1AppRequestModel, F1AppResponseModel, HttpContext, F1Response>
+        Constant.AppCode,
+        Func<AppRequestModel, AppResponseModel, HttpContext, Response>
     > _httpResponseMapper;
 
     private static void Init()
@@ -22,29 +22,29 @@ public static class F1HttpResponseMapper
             _httpResponseMapper = new();
 
             _httpResponseMapper.TryAdd(
-                F1Constant.AppCode.PASSWORD_IS_INCORRECT,
+                Constant.AppCode.PASSWORD_IS_INCORRECT,
                 (appRequest, appResponse, httpContext) =>
                 {
-                    return F1Constant.DefaultResponse.Http.PASSWORD_IS_INCORRECT;
+                    return Constant.DefaultResponse.Http.PASSWORD_IS_INCORRECT;
                 }
             );
 
             _httpResponseMapper.TryAdd(
-                F1Constant.AppCode.TEMPORARY_BANNED,
+                Constant.AppCode.TEMPORARY_BANNED,
                 (appRequest, appResponse, httpContext) =>
                 {
-                    return F1Constant.DefaultResponse.Http.TEMPORARY_BANNED;
+                    return Constant.DefaultResponse.Http.TEMPORARY_BANNED;
                 }
             );
 
             _httpResponseMapper.TryAdd(
-                F1Constant.AppCode.SUCCESS,
+                Constant.AppCode.SUCCESS,
                 (appRequest, appResponse, httpContext) =>
                 {
                     return new()
                     {
                         HttpCode = StatusCodes.Status200OK,
-                        AppCode = (int)F1Constant.AppCode.SUCCESS,
+                        AppCode = (int)Constant.AppCode.SUCCESS,
                         Body = new()
                         {
                             AccessToken = appResponse.Body.AccessToken,
@@ -55,32 +55,32 @@ public static class F1HttpResponseMapper
             );
 
             _httpResponseMapper.TryAdd(
-                F1Constant.AppCode.USER_NOT_FOUND,
+                Constant.AppCode.USER_NOT_FOUND,
                 (appRequest, appResponse, httpContext) =>
                 {
-                    return F1Constant.DefaultResponse.Http.USER_NOT_FOUND;
+                    return Constant.DefaultResponse.Http.USER_NOT_FOUND;
                 }
             );
 
             _httpResponseMapper.TryAdd(
-                F1Constant.AppCode.SERVER_ERROR,
+                Constant.AppCode.SERVER_ERROR,
                 (appRequest, appResponse, httpContext) =>
                 {
-                    return F1Constant.DefaultResponse.Http.SERVER_ERROR;
+                    return Constant.DefaultResponse.Http.SERVER_ERROR;
                 }
             );
         }
     }
 
-    public static F1Response Get(
-        F1AppRequestModel appRequest,
-        F1AppResponseModel appResponse,
+    public static Response Get(
+        AppRequestModel appRequest,
+        AppResponseModel appResponse,
         HttpContext httpContext
     )
     {
         Init();
 
-        var stateBag = httpContext.Items[nameof(F1StateBag)] as F1StateBag;
+        var stateBag = httpContext.Items[nameof(StateBag)] as StateBag;
 
         var httpResponse = _httpResponseMapper[appResponse.AppCode]
             (appRequest, appResponse, httpContext);

@@ -17,20 +17,20 @@ public sealed class TodoTaskListEntityConfiguration : IEntityTypeConfiguration<T
             .Property(entity => entity.Name)
             .HasColumnName(TodoTaskListEntity.Metadata.Properties.Name.ColumnName)
             .HasColumnType(
-                $"{FA1Constant.DatabaseType.VARCHAR}({TodoTaskListEntity.Metadata.Properties.Name.MaxLength})"
+                $"{Constant.DatabaseType.VARCHAR}({TodoTaskListEntity.Metadata.Properties.Name.MaxLength})"
             )
             .IsRequired(TodoTaskListEntity.Metadata.Properties.Name.IsNotNull);
 
         builder
             .Property(entity => entity.CreatedDate)
             .HasColumnName(TodoTaskListEntity.Metadata.Properties.CreatedDate.ColumnName)
-            .HasColumnType(FA1Constant.DatabaseType.TIMESTAMPZ)
+            .HasColumnType(Constant.DatabaseType.TIMESTAMPZ)
             .IsRequired(TodoTaskListEntity.Metadata.Properties.CreatedDate.IsNotNull);
 
         builder
             .Property(entity => entity.UserId)
             .HasColumnName(TodoTaskListEntity.Metadata.Properties.UserId.ColumnName)
-            .HasColumnType(FA1Constant.DatabaseType.LONG)
+            .HasColumnType(Constant.DatabaseType.LONG)
             .IsRequired(TodoTaskListEntity.Metadata.Properties.UserId.IsNotNull);
 
         builder

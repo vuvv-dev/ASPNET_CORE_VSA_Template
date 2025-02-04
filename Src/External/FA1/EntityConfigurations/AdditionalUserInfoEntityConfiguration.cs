@@ -18,7 +18,7 @@ public sealed class AdditionalUserInfoEntityConfiguration
             .Property(entity => entity.FirstName)
             .HasColumnName(AdditionalUserInfoEntity.Metadata.Properties.FirstName.ColumnName)
             .HasColumnType(
-                $"{FA1Constant.DatabaseType.VARCHAR}({AdditionalUserInfoEntity.Metadata.Properties.FirstName.MaxLength})"
+                $"{Constant.DatabaseType.VARCHAR}({AdditionalUserInfoEntity.Metadata.Properties.FirstName.MaxLength})"
             )
             .IsRequired(AdditionalUserInfoEntity.Metadata.Properties.FirstName.IsNotNull);
 
@@ -26,7 +26,7 @@ public sealed class AdditionalUserInfoEntityConfiguration
             .Property(entity => entity.LastName)
             .HasColumnName(AdditionalUserInfoEntity.Metadata.Properties.LastName.ColumnName)
             .HasColumnType(
-                $"{FA1Constant.DatabaseType.VARCHAR}({AdditionalUserInfoEntity.Metadata.Properties.LastName.MaxLength})"
+                $"{Constant.DatabaseType.VARCHAR}({AdditionalUserInfoEntity.Metadata.Properties.LastName.MaxLength})"
             )
             .IsRequired(AdditionalUserInfoEntity.Metadata.Properties.LastName.IsNotNull);
 
@@ -34,7 +34,7 @@ public sealed class AdditionalUserInfoEntityConfiguration
             .Property(entity => entity.Description)
             .HasColumnName(AdditionalUserInfoEntity.Metadata.Properties.Description.ColumnName)
             .HasColumnType(
-                $"{FA1Constant.DatabaseType.VARCHAR}({AdditionalUserInfoEntity.Metadata.Properties.Description.MaxLength})"
+                $"{Constant.DatabaseType.VARCHAR}({AdditionalUserInfoEntity.Metadata.Properties.Description.MaxLength})"
             )
             .IsRequired(AdditionalUserInfoEntity.Metadata.Properties.Description.IsNotNull);
     }

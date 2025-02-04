@@ -16,7 +16,7 @@ public sealed class AppDbContext : IdentityDbContext<IdentityUserEntity, Identit
 
         builder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
 
-        builder.HasDefaultSchema(FA1Constant.DatabaseSchema);
+        builder.HasDefaultSchema(Constant.DatabaseSchema);
 
         InitCaseInsensitiveCollation(builder);
     }
@@ -29,11 +29,6 @@ public sealed class AppDbContext : IdentityDbContext<IdentityUserEntity, Identit
     /// </param>
     private static void InitCaseInsensitiveCollation(ModelBuilder builder)
     {
-        builder.HasCollation(
-            FA1Constant.Collation.CASE_INSENSITIVE,
-            "en-u-ks-primary",
-            "icu",
-            false
-        );
+        builder.HasCollation(Constant.Collation.CASE_INSENSITIVE, "en-u-ks-primary", "icu", false);
     }
 }

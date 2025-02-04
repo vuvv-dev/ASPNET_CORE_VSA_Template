@@ -1,6 +1,6 @@
 namespace F1.Models;
 
-public sealed class F1PasswordSignInResultModel
+public sealed class PasswordSignInResultModel
 {
     public bool IsSuccessful { get; set; }
 

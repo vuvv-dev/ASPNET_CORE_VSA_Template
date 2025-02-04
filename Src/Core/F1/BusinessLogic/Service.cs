@@ -12,15 +12,15 @@ using FCommon.RefreshToken;
 
 namespace F1.BusinessLogic;
 
-public sealed class F1Service : IServiceHandler<F1AppRequestModel, F1AppResponseModel>
+public sealed class Service : IServiceHandler<AppRequestModel, AppResponseModel>
 {
-    private readonly Lazy<IF1Repository> _repository;
+    private readonly Lazy<IRepository> _repository;
     private readonly Lazy<IAppRefreshTokenHandler> _refreshTokenHandler;
     private readonly Lazy<IAppAccessTokenHandler> _accessTokenHandler;
     private readonly Lazy<IAppIdGenerator> _idGenerator;
 
-    public F1Service(
-        Lazy<IF1Repository> repository,
+    public Service(
+        Lazy<IRepository> repository,
         Lazy<IAppAccessTokenHandler> accessTokenHandler,
         Lazy<IAppRefreshTokenHandler> refreshTokenHandler,
         Lazy<IAppIdGenerator> idGenerator
@@ -32,15 +32,12 @@ public sealed class F1Service : IServiceHandler<F1AppRequestModel, F1AppResponse
         _idGenerator = idGenerator;
     }
 
-    public async Task<F1AppResponseModel> ExecuteAsync(
-        F1AppRequestModel request,
-        CancellationToken ct
-    )
+    public async Task<AppResponseModel> ExecuteAsync(AppRequestModel request, CancellationToken ct)
     {
         var isUserFound = await _repository.Value.IsUserFoundByEmailAsync(request.Email, ct);
         if (!isUserFound)
         {
-            return F1Constant.DefaultResponse.App.USER_NOT_FOUND;
+            return Constant.DefaultResponse.App.USER_NOT_FOUND;
         }
 
         var passwordSignInResult = await _repository.Value.CheckPasswordSignInAsync(
@@ -52,9 +49,9 @@ public sealed class F1Service : IServiceHandler<F1AppRequestModel, F1AppResponse
         {
             if (passwordSignInResult.IsLockedOut)
             {
-                return F1Constant.DefaultResponse.App.TEMPORARY_BANNED;
+                return Constant.DefaultResponse.App.TEMPORARY_BANNED;
             }
-            return F1Constant.DefaultResponse.App.PASSWORD_IS_INCORRECT;
+            return Constant.DefaultResponse.App.PASSWORD_IS_INCORRECT;
         }
 
         var tokenId = _idGenerator.Value.NextId().ToString();
@@ -66,7 +63,7 @@ public sealed class F1Service : IServiceHandler<F1AppRequestModel, F1AppResponse
         var result = await _repository.Value.CreateRefreshTokenAsync(newRefreshToken, ct);
         if (!result)
         {
-            return F1Constant.DefaultResponse.App.SERVER_ERROR;
+            return Constant.DefaultResponse.App.SERVER_ERROR;
         }
 
         var newAccessToken = _accessTokenHandler.Value.GenerateJWS(
@@ -81,31 +78,31 @@ public sealed class F1Service : IServiceHandler<F1AppRequestModel, F1AppResponse
                     AppConstants.JsonWebToken.ClaimType.PURPOSE.Value.USER_IN_APP
                 ),
             ],
-            F1Constant.APP_USER_ACCESS_TOKEN.DURATION_IN_MINUTES
+            Constant.APP_USER_ACCESS_TOKEN.DURATION_IN_MINUTES
         );
 
         return new()
         {
-            AppCode = F1Constant.AppCode.SUCCESS,
+            AppCode = Constant.AppCode.SUCCESS,
             Body = new() { AccessToken = newAccessToken, RefreshToken = newRefreshToken.Value },
         };
     }
 
-    private F1RefreshTokenModel InitNewRefreshToken(long userId, string tokenId, bool isRememberMe)
+    private RefreshTokenModel InitNewRefreshToken(long userId, string tokenId, bool isRememberMe)
     {
         return new()
         {
             LoginProvider = tokenId,
             ExpiredAt = isRememberMe
                 ? DateTime.UtcNow.AddDays(
-                    F1Constant.APP_USER_REFRESH_TOKEN.DURATION_IN_MINUTES.REMEMBER_ME
+                    Constant.APP_USER_REFRESH_TOKEN.DURATION_IN_MINUTES.REMEMBER_ME
                 )
                 : DateTime.UtcNow.AddDays(
-                    F1Constant.APP_USER_REFRESH_TOKEN.DURATION_IN_MINUTES.NOT_REMEMBER_ME
+                    Constant.APP_USER_REFRESH_TOKEN.DURATION_IN_MINUTES.NOT_REMEMBER_ME
                 ),
             UserId = userId,
             Value = _refreshTokenHandler.Value.Generate(),
-            Name = F1Constant.APP_USER_REFRESH_TOKEN.NAME,
+            Name = Constant.APP_USER_REFRESH_TOKEN.NAME,
         };
     }
 }

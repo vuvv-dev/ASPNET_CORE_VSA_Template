@@ -17,20 +17,20 @@ public sealed class TodoTaskStepEntityConfiguration : IEntityTypeConfiguration<T
             .Property(entity => entity.Content)
             .HasColumnName(TodoTaskStepEntity.Metadata.Properties.Content.ColumnName)
             .HasColumnType(
-                $"{FA1Constant.DatabaseType.VARCHAR}({TodoTaskStepEntity.Metadata.Properties.Content.MaxLength})"
+                $"{Constant.DatabaseType.VARCHAR}({TodoTaskStepEntity.Metadata.Properties.Content.MaxLength})"
             )
             .IsRequired(TodoTaskStepEntity.Metadata.Properties.Content.IsNotNull);
 
         builder
             .Property(entity => entity.CreatedDate)
             .HasColumnName(TodoTaskStepEntity.Metadata.Properties.CreatedDate.ColumnName)
-            .HasColumnType(FA1Constant.DatabaseType.TIMESTAMPZ)
+            .HasColumnType(Constant.DatabaseType.TIMESTAMPZ)
             .IsRequired(TodoTaskStepEntity.Metadata.Properties.CreatedDate.IsNotNull);
 
         builder
             .Property(entity => entity.TodoTaskId)
             .HasColumnName(TodoTaskStepEntity.Metadata.Properties.TodoTaskId.ColumnName)
-            .HasColumnType(FA1Constant.DatabaseType.LONG)
+            .HasColumnType(Constant.DatabaseType.LONG)
             .IsRequired(TodoTaskStepEntity.Metadata.Properties.TodoTaskId.IsNotNull);
 
         builder
