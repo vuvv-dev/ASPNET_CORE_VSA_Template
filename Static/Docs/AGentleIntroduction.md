@@ -50,10 +50,6 @@ Read more [**here**](GlobalJson.md).
 
 It is a solution file that organizes and groups multiple related .NET projects (such as webapi, classlib, etc.) into a single workspace. This file is essential for managing the structure and dependencies of a multi-project solution in .NET.
 
-## 🐳 Dockerfile
-
-Just some config to work with docker. Since it's assumed you are familiar with Docker, there's no need to explain its details here. You can build docker images by command `docker build` from this file and run it with `docker run` command.
-
 ## 📦 Directory.Packages.props ([more](DirectoryPackagesProps.md))
 
 It is used to centralize and manage NuGet package references for the entire project. By consolidating package definitions in this file:
@@ -89,10 +85,6 @@ Every project should have a `.gitignore` file to prevent unnecessary files from 
 
 Just use it for defining behavior for file in git, like how line end should be.
 
-## 🐳 .dockerignore
-
-You can use this file to ignore files in docker. it make the bundle much smaller because when you accidently copy these files/folders into docker image, it ignores them. Just like how `.gitignore` is used to ignore files in git.
-
 ## 🔧 .csharpierrc.json
 
 It is used to configure the behavior of the C# format tool (CSharpier), like how many tabs, how many spaces, etc. Just like how prettier works.
@@ -112,3 +104,11 @@ Place for workflows that run in github, maybe after commit or pull request or ma
 This file contains metadata about the dotnet tool that the project use like csharpier, dotnet-ef,...
 
 Read more [**here**](DotnetToolConfig.md).
+
+## ⚙️ app-assembly.json
+
+- Place for assembly that have its own services, and these assemblies require these services to be registered.
+
+- The entry point can scan the list of assembly names in this file and check for services that need to registered of each module and add them to the service collection.
+
+- Basically, you want to leave this file alone, unless you introduces new c# module like classlib, web api or other project and these module may have services that need to be **REGISTERED**, you may want to modify this file to include the name of new module.
