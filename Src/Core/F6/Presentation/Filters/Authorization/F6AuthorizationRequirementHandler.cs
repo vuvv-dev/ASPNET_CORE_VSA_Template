@@ -31,7 +31,7 @@ public sealed class F6AuthorizationRequirementHandler
             return Task.CompletedTask;
         }
 
-        var expClaimValue = context.User.FindFirstValue(AppConstants.JsonWebToken.ClaimType.EXP);
+        var expClaimValue = context.User.FindFirstValue(AppConstant.JsonWebToken.ClaimType.EXP);
         var isTokenExpired = AppAccessTokenHandler.IsAccessTokenExpired(expClaimValue);
         if (!isTokenExpired)
         {
@@ -41,13 +41,10 @@ public sealed class F6AuthorizationRequirementHandler
         }
 
         var purposeClaimValue = context.User.FindFirstValue(
-            AppConstants.JsonWebToken.ClaimType.PURPOSE.Name
+            AppConstant.JsonWebToken.ClaimType.PURPOSE.Name
         );
         if (
-            !Equals(
-                purposeClaimValue,
-                AppConstants.JsonWebToken.ClaimType.PURPOSE.Value.USER_IN_APP
-            )
+            !Equals(purposeClaimValue, AppConstant.JsonWebToken.ClaimType.PURPOSE.Value.USER_IN_APP)
         )
         {
             context.Fail();
@@ -59,10 +56,10 @@ public sealed class F6AuthorizationRequirementHandler
         var stateBag = new F6StateBag
         {
             AccessTokenId = long.Parse(
-                context.User.FindFirstValue(AppConstants.JsonWebToken.ClaimType.JTI)
+                context.User.FindFirstValue(AppConstant.JsonWebToken.ClaimType.JTI)
             ),
             UserId = long.Parse(
-                context.User.FindFirstValue(AppConstants.JsonWebToken.ClaimType.SUB)
+                context.User.FindFirstValue(AppConstant.JsonWebToken.ClaimType.SUB)
             ),
         };
         httpContext.Items.Add(nameof(F6StateBag), stateBag);

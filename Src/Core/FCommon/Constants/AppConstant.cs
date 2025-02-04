@@ -2,7 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace FCommon.Constants;
 
-public static class AppConstants
+public static class AppConstant
 {
     public const string STATE_BAG_NAME = "StateBag";
 

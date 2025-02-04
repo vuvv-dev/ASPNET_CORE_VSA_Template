@@ -2,9 +2,9 @@ using FluentValidation;
 
 namespace F2.Presentation.Filters.Validation;
 
-public sealed class F2ValidationProfile : AbstractValidator<F2Request>
+public sealed class ValidationProfile : AbstractValidator<Request>
 {
-    public F2ValidationProfile()
+    public ValidationProfile()
     {
         RuleLevelCascadeMode = CascadeMode.Stop;
 

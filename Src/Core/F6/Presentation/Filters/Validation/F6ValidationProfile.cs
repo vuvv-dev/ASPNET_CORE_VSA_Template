@@ -12,6 +12,6 @@ public sealed class F6ValidationProfile : AbstractValidator<F6Request>
 
         RuleFor(prop => prop.RefreshToken)
             .NotEmpty()
-            .MinimumLength(AppConstants.REFRESH_TOKEN_LENGTH);
+            .MinimumLength(AppConstant.REFRESH_TOKEN_LENGTH);
     }
 }

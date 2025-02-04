@@ -68,14 +68,11 @@ public sealed class Service : IServiceHandler<AppRequestModel, AppResponseModel>
 
         var newAccessToken = _accessTokenHandler.Value.GenerateJWS(
             [
-                new(AppConstants.JsonWebToken.ClaimType.JTI, tokenId.ToString()),
+                new(AppConstant.JsonWebToken.ClaimType.JTI, tokenId.ToString()),
+                new(AppConstant.JsonWebToken.ClaimType.SUB, passwordSignInResult.UserId.ToString()),
                 new(
-                    AppConstants.JsonWebToken.ClaimType.SUB,
-                    passwordSignInResult.UserId.ToString()
-                ),
-                new(
-                    AppConstants.JsonWebToken.ClaimType.PURPOSE.Name,
-                    AppConstants.JsonWebToken.ClaimType.PURPOSE.Value.USER_IN_APP
+                    AppConstant.JsonWebToken.ClaimType.PURPOSE.Name,
+                    AppConstant.JsonWebToken.ClaimType.PURPOSE.Value.USER_IN_APP
                 ),
             ],
             Constant.APP_USER_ACCESS_TOKEN.DURATION_IN_MINUTES

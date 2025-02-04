@@ -61,7 +61,7 @@ public sealed class F7Endpoint : ControllerBase
         {
             TodoTaskListName = request.TodoTaskListName,
             UserId = long.Parse(
-                HttpContext.Items[AppConstants.JsonWebToken.ClaimType.SUB] as string
+                HttpContext.Items[AppConstant.JsonWebToken.ClaimType.SUB] as string
             ),
         };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);

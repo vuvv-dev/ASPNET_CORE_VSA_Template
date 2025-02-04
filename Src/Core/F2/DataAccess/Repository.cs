@@ -9,16 +9,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F2.DataAccess;
 
-public sealed class F2Repository : IF2Repository
+public sealed class Repository : IRepository
 {
     private readonly AppDbContext _appContext;
 
-    public F2Repository(AppDbContext appContext)
+    public Repository(AppDbContext appContext)
     {
         _appContext = appContext;
     }
 
-    public async Task<F2TodoTaskListModel> GetTodoTaskListAsync(long listId, CancellationToken ct)
+    public async Task<TodoTaskListModel> GetTodoTaskListAsync(long listId, CancellationToken ct)
     {
         var foundTodoTaskList = await _appContext
             .Set<TodoTaskListEntity>()
@@ -32,7 +32,7 @@ public sealed class F2Repository : IF2Repository
             return null;
         }
 
-        var todoTaskListModel = new F2TodoTaskListModel { Name = foundTodoTaskList.Name };
+        var todoTaskListModel = new TodoTaskListModel { Name = foundTodoTaskList.Name };
 
         return todoTaskListModel;
     }

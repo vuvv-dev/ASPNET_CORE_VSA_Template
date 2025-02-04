@@ -4,5 +4,5 @@ namespace FCommon.RefreshToken;
 
 public interface IAppRefreshTokenHandler
 {
-    string Generate(int tokenLength = AppConstants.REFRESH_TOKEN_LENGTH);
+    string Generate(int tokenLength = AppConstant.REFRESH_TOKEN_LENGTH);
 }

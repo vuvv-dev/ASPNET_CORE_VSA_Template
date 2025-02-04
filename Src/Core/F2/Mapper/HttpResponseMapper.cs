@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Http;
 
 namespace F2.Mapper;
 
-public static class F2HttpResponseMapper
+public static class HttpResponseMapper
 {
     private static ConcurrentDictionary<
-        F2Constant.AppCode,
-        Func<F2AppRequestModel, F2AppResponseModel, HttpContext, F2Response>
+        Constant.AppCode,
+        Func<AppRequestModel, AppResponseModel, HttpContext, Response>
     > _httpResponseMapper;
 
     private static void Init()
@@ -22,21 +22,21 @@ public static class F2HttpResponseMapper
             _httpResponseMapper = new();
 
             _httpResponseMapper.TryAdd(
-                F2Constant.AppCode.LIST_NOT_FOUND,
+                Constant.AppCode.LIST_NOT_FOUND,
                 (appRequest, appResponse, httpContext) =>
                 {
-                    return F2Constant.DefaultResponse.Http.LIST_NOT_FOUND;
+                    return Constant.DefaultResponse.Http.LIST_NOT_FOUND;
                 }
             );
 
             _httpResponseMapper.TryAdd(
-                F2Constant.AppCode.SUCCESS,
+                Constant.AppCode.SUCCESS,
                 (appRequest, appResponse, httpContext) =>
                 {
                     return new()
                     {
                         HttpCode = StatusCodes.Status200OK,
-                        AppCode = (int)F2Constant.AppCode.SUCCESS,
+                        AppCode = (int)Constant.AppCode.SUCCESS,
                         Body = new()
                         {
                             TodoTaskList = new()
@@ -51,15 +51,15 @@ public static class F2HttpResponseMapper
         }
     }
 
-    public static F2Response Get(
-        F2AppRequestModel appRequest,
-        F2AppResponseModel appResponse,
+    public static Response Get(
+        AppRequestModel appRequest,
+        AppResponseModel appResponse,
         HttpContext httpContext
     )
     {
         Init();
 
-        var stateBag = httpContext.Items[nameof(F2StateBag)] as F2StateBag;
+        var stateBag = httpContext.Items[nameof(StateBag)] as StateBag;
 
         var httpResponse = _httpResponseMapper[appResponse.AppCode]
             (appRequest, appResponse, httpContext);

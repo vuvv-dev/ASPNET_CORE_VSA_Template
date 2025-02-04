@@ -31,7 +31,7 @@ public sealed class F5AuthorizationRequirementHandler
             return Task.CompletedTask;
         }
 
-        var expClaimValue = context.User.FindFirstValue(AppConstants.JsonWebToken.ClaimType.EXP);
+        var expClaimValue = context.User.FindFirstValue(AppConstant.JsonWebToken.ClaimType.EXP);
         var isTokenExpired = AppAccessTokenHandler.IsAccessTokenExpired(expClaimValue);
         if (isTokenExpired)
         {
@@ -41,12 +41,12 @@ public sealed class F5AuthorizationRequirementHandler
         }
 
         var purposeClaimValue = context.User.FindFirstValue(
-            AppConstants.JsonWebToken.ClaimType.PURPOSE.Name
+            AppConstant.JsonWebToken.ClaimType.PURPOSE.Name
         );
         if (
             !Equals(
                 purposeClaimValue,
-                AppConstants.JsonWebToken.ClaimType.PURPOSE.Value.USER_PASSWORD_RESET
+                AppConstant.JsonWebToken.ClaimType.PURPOSE.Value.USER_PASSWORD_RESET
             )
         )
         {
@@ -59,10 +59,10 @@ public sealed class F5AuthorizationRequirementHandler
         var stateBag = new F5StateBag
         {
             ResetPasswordTokenId = long.Parse(
-                context.User.FindFirstValue(AppConstants.JsonWebToken.ClaimType.JTI)
+                context.User.FindFirstValue(AppConstant.JsonWebToken.ClaimType.JTI)
             ),
             UserId = long.Parse(
-                context.User.FindFirstValue(AppConstants.JsonWebToken.ClaimType.SUB)
+                context.User.FindFirstValue(AppConstant.JsonWebToken.ClaimType.SUB)
             ),
         };
         httpContext.Items.Add(nameof(F5StateBag), stateBag);
