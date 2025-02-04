@@ -1,6 +1,6 @@
 namespace F6.Models;
 
-public sealed class F6UpdateRefreshTokenModel
+public sealed class UpdateRefreshTokenModel
 {
     public string CurrentId { get; set; }
 

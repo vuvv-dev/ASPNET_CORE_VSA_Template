@@ -9,16 +9,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F6.DataAccess;
 
-public sealed class F6Repository : IF6Repository
+public sealed class Repository : IRepository
 {
     private readonly AppDbContext _appContext;
 
-    public F6Repository(AppDbContext context)
+    public Repository(AppDbContext context)
     {
         _appContext = context;
     }
 
-    public async Task<F6RefreshTokenModel> DoesRefreshTokenBelongToAccessTokenAsync(
+    public async Task<RefreshTokenModel> DoesRefreshTokenBelongToAccessTokenAsync(
         string refreshTokenId,
         string refreshTokenValue,
         CancellationToken ct
@@ -38,13 +38,13 @@ public sealed class F6Repository : IF6Repository
             return null;
         }
 
-        var refreshTokenModel = new F6RefreshTokenModel { ExpiredAt = foundToken.ExpiredAt };
+        var refreshTokenModel = new RefreshTokenModel { ExpiredAt = foundToken.ExpiredAt };
 
         return refreshTokenModel;
     }
 
     public async Task<bool> UpdateRefreshTokenAsync(
-        F6UpdateRefreshTokenModel model,
+        UpdateRefreshTokenModel model,
         CancellationToken ct
     )
     {

@@ -10,25 +10,25 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace F6;
 
-public sealed class F6Register : IServiceRegister
+public sealed class RegistrationCenter : IServiceRegister
 {
     public IServiceCollection Register(IServiceCollection services, IConfiguration configuration)
     {
-        var currentAssembly = typeof(F6Register).Assembly;
+        var currentAssembly = typeof(RegistrationCenter).Assembly;
 
         #region Authorization
         services
             .AddAuthorizationBuilder()
             .AddPolicy(
-                nameof(F6AuthorizationRequirement),
+                nameof(AuthorizationRequirement),
                 policy =>
                     policy
                         .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
                         .RequireAuthenticatedUser()
-                        .AddRequirements(new F6AuthorizationRequirement())
+                        .AddRequirements(new AuthorizationRequirement())
             );
 
-        services.AddSingleton<IAuthorizationHandler, F6AuthorizationRequirementHandler>();
+        services.AddSingleton<IAuthorizationHandler, AuthorizationRequirementHandler>();
         #endregion
 
         #region Filters
@@ -41,9 +41,9 @@ public sealed class F6Register : IServiceRegister
 
         #region Core
         services
-            .AddScoped<IF6Repository, F6Repository>()
-            .MakeScopedLazy<IF6Repository>()
-            .AddScoped<F6Service>();
+            .AddScoped<IRepository, Repository>()
+            .MakeScopedLazy<IRepository>()
+            .AddScoped<Service>();
         #endregion
 
         return services;

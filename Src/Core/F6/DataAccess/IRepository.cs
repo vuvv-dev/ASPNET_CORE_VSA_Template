@@ -4,13 +4,13 @@ using F6.Models;
 
 namespace F6.DataAccess;
 
-public interface IF6Repository
+public interface IRepository
 {
-    Task<F6RefreshTokenModel> DoesRefreshTokenBelongToAccessTokenAsync(
+    Task<RefreshTokenModel> DoesRefreshTokenBelongToAccessTokenAsync(
         string refreshTokenId,
         string refreshTokenValue,
         CancellationToken ct
     );
 
-    Task<bool> UpdateRefreshTokenAsync(F6UpdateRefreshTokenModel model, CancellationToken ct);
+    Task<bool> UpdateRefreshTokenAsync(UpdateRefreshTokenModel model, CancellationToken ct);
 }

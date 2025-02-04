@@ -1,10 +1,10 @@
 namespace F6.Presentation.Filters.SetStateBag;
 
-public sealed class F6StateBag
+public sealed class StateBag
 {
-    public F6Request HttpRequest { get; set; }
+    public Request HttpRequest { get; set; }
 
-    public F6Response HttpResponse { get; set; }
+    public Response HttpResponse { get; set; }
 
     public long AccessTokenId { get; set; }
 
