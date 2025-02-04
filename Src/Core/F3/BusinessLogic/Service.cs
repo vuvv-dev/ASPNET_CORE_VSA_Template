@@ -9,26 +9,23 @@ using FCommon.IdGeneration;
 
 namespace F3.BusinessLogic;
 
-public sealed class F3Service : IServiceHandler<F3AppRequestModel, F3AppResponseModel>
+public sealed class Service : IServiceHandler<AppRequestModel, AppResponseModel>
 {
-    private readonly Lazy<IF3Repository> _repository;
+    private readonly Lazy<IRepository> _repository;
     private readonly Lazy<IAppIdGenerator> _idGenerator;
 
-    public F3Service(Lazy<IF3Repository> repository, Lazy<IAppIdGenerator> idGenerator)
+    public Service(Lazy<IRepository> repository, Lazy<IAppIdGenerator> idGenerator)
     {
         _repository = repository;
         _idGenerator = idGenerator;
     }
 
-    public async Task<F3AppResponseModel> ExecuteAsync(
-        F3AppRequestModel request,
-        CancellationToken ct
-    )
+    public async Task<AppResponseModel> ExecuteAsync(AppRequestModel request, CancellationToken ct)
     {
         var isEmailFound = await _repository.Value.DoesEmailExistsAsync(request.Email, ct);
         if (isEmailFound)
         {
-            return F3Constant.DefaultResponse.App.EMAIL_ALREADY_EXISTS;
+            return Constant.DefaultResponse.App.EMAIL_ALREADY_EXISTS;
         }
 
         var isPasswordValid = await _repository.Value.IsPasswordValidAsync(
@@ -38,20 +35,20 @@ public sealed class F3Service : IServiceHandler<F3AppRequestModel, F3AppResponse
         );
         if (!isPasswordValid)
         {
-            return F3Constant.DefaultResponse.App.PASSWORD_IS_INVALID;
+            return Constant.DefaultResponse.App.PASSWORD_IS_INVALID;
         }
 
         var user = CreateNewUser(request);
         var result = await _repository.Value.CreateUserAsync(user, ct);
         if (!result)
         {
-            return F3Constant.DefaultResponse.App.SERVER_ERROR;
+            return Constant.DefaultResponse.App.SERVER_ERROR;
         }
 
-        return new() { AppCode = F3Constant.AppCode.SUCCESS };
+        return new() { AppCode = Constant.AppCode.SUCCESS };
     }
 
-    private F3UserInfoModel CreateNewUser(F3AppRequestModel appRequest)
+    private UserInfoModel CreateNewUser(AppRequestModel appRequest)
     {
         return new()
         {

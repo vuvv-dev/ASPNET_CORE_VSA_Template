@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace F3.Presentation.Filters.SetStateBag;
 
-public sealed class F3SetStateBagFilter : IAsyncActionFilter
+public sealed class SetStateBagFilter : IAsyncActionFilter
 {
     public async Task OnActionExecutionAsync(
         ActionExecutingContext context,
@@ -16,29 +16,27 @@ public sealed class F3SetStateBagFilter : IAsyncActionFilter
     )
     {
         var doesRequestExist = context.ActionArguments.Any(argument =>
-            argument.Key.Equals(F3Constant.REQUEST_ARGUMENT_NAME)
+            argument.Key.Equals(Constant.REQUEST_ARGUMENT_NAME)
         );
 
         if (!doesRequestExist)
         {
             context.Result = new ContentResult
             {
-                StatusCode = F3Constant.DefaultResponse.Http.VALIDATION_FAILED.HttpCode,
-                Content = JsonSerializer.Serialize(
-                    F3Constant.DefaultResponse.Http.VALIDATION_FAILED
-                ),
+                StatusCode = Constant.DefaultResponse.Http.VALIDATION_FAILED.HttpCode,
+                Content = JsonSerializer.Serialize(Constant.DefaultResponse.Http.VALIDATION_FAILED),
                 ContentType = MediaTypeNames.Application.Json,
             };
 
             return;
         }
 
-        var stateBag = new F3StateBag
+        var stateBag = new StateBag
         {
-            HttpRequest = context.ActionArguments[F3Constant.REQUEST_ARGUMENT_NAME] as F3Request,
+            HttpRequest = context.ActionArguments[Constant.REQUEST_ARGUMENT_NAME] as Request,
         };
 
-        context.HttpContext.Items.Add(nameof(F3StateBag), stateBag);
+        context.HttpContext.Items.Add(nameof(StateBag), stateBag);
 
         await next();
     }

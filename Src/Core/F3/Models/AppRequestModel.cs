@@ -2,7 +2,7 @@ using FCommon.FeatureService;
 
 namespace F3.Models;
 
-public sealed class F3AppRequestModel : IServiceRequest<F3AppResponseModel>
+public sealed class AppRequestModel : IServiceRequest<AppResponseModel>
 {
     public string Email { get; set; }
 

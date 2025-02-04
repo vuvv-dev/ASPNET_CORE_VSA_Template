@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Http;
 
 namespace F3.Mapper;
 
-public static class F3HttpResponseMapper
+public static class HttpResponseMapper
 {
     private static ConcurrentDictionary<
-        F3Constant.AppCode,
-        Func<F3AppRequestModel, F3AppResponseModel, HttpContext, F3Response>
+        Constant.AppCode,
+        Func<AppRequestModel, AppResponseModel, HttpContext, Response>
     > _httpResponseMapper;
 
     private static void Init()
@@ -22,52 +22,52 @@ public static class F3HttpResponseMapper
             _httpResponseMapper = new();
 
             _httpResponseMapper.TryAdd(
-                F3Constant.AppCode.EMAIL_ALREADY_EXISTS,
+                Constant.AppCode.EMAIL_ALREADY_EXISTS,
                 (appRequest, appResponse, httpContext) =>
                 {
-                    return F3Constant.DefaultResponse.Http.EMAIL_ALREADY_EXISTS;
+                    return Constant.DefaultResponse.Http.EMAIL_ALREADY_EXISTS;
                 }
             );
 
             _httpResponseMapper.TryAdd(
-                F3Constant.AppCode.PASSWORD_IS_INVALID,
+                Constant.AppCode.PASSWORD_IS_INVALID,
                 (appRequest, appResponse, httpContext) =>
                 {
-                    return F3Constant.DefaultResponse.Http.PASSWORD_IS_INVALID;
+                    return Constant.DefaultResponse.Http.PASSWORD_IS_INVALID;
                 }
             );
 
             _httpResponseMapper.TryAdd(
-                F3Constant.AppCode.SUCCESS,
+                Constant.AppCode.SUCCESS,
                 (appRequest, appResponse, httpContext) =>
                 {
                     return new()
                     {
                         HttpCode = StatusCodes.Status200OK,
-                        AppCode = (int)F3Constant.AppCode.SUCCESS,
+                        AppCode = (int)Constant.AppCode.SUCCESS,
                     };
                 }
             );
 
             _httpResponseMapper.TryAdd(
-                F3Constant.AppCode.SERVER_ERROR,
+                Constant.AppCode.SERVER_ERROR,
                 (appRequest, appResponse, httpContext) =>
                 {
-                    return F3Constant.DefaultResponse.Http.SERVER_ERROR;
+                    return Constant.DefaultResponse.Http.SERVER_ERROR;
                 }
             );
         }
     }
 
-    public static F3Response Get(
-        F3AppRequestModel appRequest,
-        F3AppResponseModel appResponse,
+    public static Response Get(
+        AppRequestModel appRequest,
+        AppResponseModel appResponse,
         HttpContext httpContext
     )
     {
         Init();
 
-        var stateBag = httpContext.Items[nameof(F3StateBag)] as F3StateBag;
+        var stateBag = httpContext.Items[nameof(StateBag)] as StateBag;
 
         var httpResponse = _httpResponseMapper[appResponse.AppCode]
             (appRequest, appResponse, httpContext);

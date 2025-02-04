@@ -10,18 +10,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F3.DataAccess;
 
-public sealed class F3Repository : IF3Repository
+public sealed class Repository : IRepository
 {
     private readonly AppDbContext _appContext;
     private readonly Lazy<UserManager<IdentityUserEntity>> _userManager;
 
-    public F3Repository(AppDbContext context, Lazy<UserManager<IdentityUserEntity>> userManager)
+    public Repository(AppDbContext context, Lazy<UserManager<IdentityUserEntity>> userManager)
     {
         _appContext = context;
         _userManager = userManager;
     }
 
-    public async Task<bool> CreateUserAsync(F3UserInfoModel user, CancellationToken ct)
+    public async Task<bool> CreateUserAsync(UserInfoModel user, CancellationToken ct)
     {
         var dbResult = true;
 

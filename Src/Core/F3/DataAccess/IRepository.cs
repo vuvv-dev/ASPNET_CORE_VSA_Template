@@ -4,11 +4,11 @@ using F3.Models;
 
 namespace F3.DataAccess;
 
-public interface IF3Repository
+public interface IRepository
 {
     Task<bool> DoesEmailExistsAsync(string email, CancellationToken ct);
 
     Task<bool> IsPasswordValidAsync(string email, string password, CancellationToken ct);
 
-    Task<bool> CreateUserAsync(F3UserInfoModel user, CancellationToken ct);
+    Task<bool> CreateUserAsync(UserInfoModel user, CancellationToken ct);
 }
