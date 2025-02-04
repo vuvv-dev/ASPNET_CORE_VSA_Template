@@ -13,7 +13,7 @@ public sealed class IdentityUserTokenEntityConfiguration
         builder
             .Property(entity => entity.ExpiredAt)
             .HasColumnName(IdentityUserTokenEntity.Metadata.Properties.ExpiredAt.ColumnName)
-            .HasColumnType(FA1Constant.DatabaseType.TIMESTAMPZ)
+            .HasColumnType(Constant.DatabaseType.TIMESTAMPZ)
             .IsRequired(IdentityUserTokenEntity.Metadata.Properties.ExpiredAt.IsNotNull);
     }
 }

@@ -17,7 +17,7 @@ public sealed class TodoTaskEntityConfiguration : IEntityTypeConfiguration<TodoT
             .Property(entity => entity.Content)
             .HasColumnName(TodoTaskEntity.Metadata.Properties.Content.ColumnName)
             .HasColumnType(
-                $"{FA1Constant.DatabaseType.VARCHAR}({TodoTaskEntity.Metadata.Properties.Content.MaxLength})"
+                $"{Constant.DatabaseType.VARCHAR}({TodoTaskEntity.Metadata.Properties.Content.MaxLength})"
             )
             .IsRequired(TodoTaskEntity.Metadata.Properties.Content.IsNotNull);
 
@@ -25,20 +25,20 @@ public sealed class TodoTaskEntityConfiguration : IEntityTypeConfiguration<TodoT
             .Property(entity => entity.Note)
             .HasColumnName(TodoTaskEntity.Metadata.Properties.Note.ColumnName)
             .HasColumnType(
-                $"{FA1Constant.DatabaseType.VARCHAR}({TodoTaskEntity.Metadata.Properties.Note.MaxLength})"
+                $"{Constant.DatabaseType.VARCHAR}({TodoTaskEntity.Metadata.Properties.Note.MaxLength})"
             )
             .IsRequired(TodoTaskEntity.Metadata.Properties.Note.IsNotNull);
 
         builder
             .Property(entity => entity.CreatedDate)
             .HasColumnName(TodoTaskEntity.Metadata.Properties.CreatedDate.ColumnName)
-            .HasColumnType(FA1Constant.DatabaseType.TIMESTAMPZ)
+            .HasColumnType(Constant.DatabaseType.TIMESTAMPZ)
             .IsRequired(TodoTaskEntity.Metadata.Properties.CreatedDate.IsNotNull);
 
         builder
             .Property(entity => entity.DueDate)
             .HasColumnName(TodoTaskEntity.Metadata.Properties.DueDate.ColumnName)
-            .HasColumnType(FA1Constant.DatabaseType.TIMESTAMPZ)
+            .HasColumnType(Constant.DatabaseType.TIMESTAMPZ)
             .IsRequired(TodoTaskEntity.Metadata.Properties.DueDate.IsNotNull);
 
         builder
@@ -60,14 +60,14 @@ public sealed class TodoTaskEntityConfiguration : IEntityTypeConfiguration<TodoT
             .Property(entity => entity.RecurringExpression)
             .HasColumnName(TodoTaskEntity.Metadata.Properties.RecurringExpression.ColumnName)
             .HasColumnType(
-                $"{FA1Constant.DatabaseType.VARCHAR}({TodoTaskEntity.Metadata.Properties.RecurringExpression.MaxLength})"
+                $"{Constant.DatabaseType.VARCHAR}({TodoTaskEntity.Metadata.Properties.RecurringExpression.MaxLength})"
             )
             .IsRequired(TodoTaskEntity.Metadata.Properties.RecurringExpression.IsNotNull);
 
         builder
             .Property(entity => entity.TodoTaskListId)
             .HasColumnName(TodoTaskEntity.Metadata.Properties.TodoTaskListId.ColumnName)
-            .HasColumnType(FA1Constant.DatabaseType.LONG)
+            .HasColumnType(Constant.DatabaseType.LONG)
             .IsRequired(TodoTaskEntity.Metadata.Properties.TodoTaskListId.IsNotNull);
 
         builder
