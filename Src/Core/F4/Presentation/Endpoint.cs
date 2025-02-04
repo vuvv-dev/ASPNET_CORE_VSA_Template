@@ -13,11 +13,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace F4.Presentation;
 
-public sealed class F4Endpoint : ControllerBase
+[Tags(Constant.CONTROLLER_NAME)]
+public sealed class Endpoint : ControllerBase
 {
-    private readonly F4Service _service;
+    private readonly Service _service;
 
-    public F4Endpoint(F4Service service)
+    public Endpoint(Service service)
     {
         _service = service;
     }
@@ -37,22 +38,22 @@ public sealed class F4Endpoint : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(1, Type = typeof(F4Response))]
+    [ProducesResponseType(1, Type = typeof(Response))]
     [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
     // =============================================================
-    [HttpPost(F4Constant.ENDPOINT_PATH)]
-    [ServiceFilter<F4SetStateBagFilter>]
-    [ServiceFilter<F4ValidationFilter>]
+    [HttpPost(Constant.ENDPOINT_PATH)]
+    [ServiceFilter<SetStateBagFilter>]
+    [ServiceFilter<ValidationFilter>]
     public async Task<IActionResult> ExecuteF4Async(
-        [FromBody] [Required] F4Request request,
+        [FromBody] [Required] Request request,
         CancellationToken ct
     )
     {
-        var appRequest = new F4AppRequestModel { Email = request.Email };
+        var appRequest = new AppRequestModel { Email = request.Email };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
-        var httpResponse = F4HttpResponseMapper.Get(appRequest, appResponse, HttpContext);
+        var httpResponse = HttpResponseMapper.Get(appRequest, appResponse, HttpContext);
 
         return StatusCode(httpResponse.HttpCode, httpResponse);
     }

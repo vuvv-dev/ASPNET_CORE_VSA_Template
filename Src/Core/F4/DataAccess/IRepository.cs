@@ -4,9 +4,9 @@ using F4.Models;
 
 namespace F4.DataAccess;
 
-public interface IF4Repository
+public interface IRepository
 {
-    Task<bool> CreateResetPasswordTokenAsync(F4ResetPasswordTokenModel model, CancellationToken ct);
+    Task<bool> CreateResetPasswordTokenAsync(ResetPasswordTokenModel model, CancellationToken ct);
 
     Task<long> GetUserIdAsync(string email, CancellationToken ct);
 

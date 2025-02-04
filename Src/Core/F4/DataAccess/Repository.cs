@@ -10,19 +10,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F4.DataAccess;
 
-public sealed class F4Repository : IF4Repository
+public sealed class Repository : IRepository
 {
     private readonly AppDbContext _appContext;
     private readonly Lazy<UserManager<IdentityUserEntity>> _userManager;
 
-    public F4Repository(AppDbContext context, Lazy<UserManager<IdentityUserEntity>> userManager)
+    public Repository(AppDbContext context, Lazy<UserManager<IdentityUserEntity>> userManager)
     {
         _appContext = context;
         _userManager = userManager;
     }
 
     public async Task<bool> CreateResetPasswordTokenAsync(
-        F4ResetPasswordTokenModel model,
+        ResetPasswordTokenModel model,
         CancellationToken ct
     )
     {
