@@ -1,6 +1,6 @@
 namespace F3.Models;
 
-public sealed class F3UserInfoModel
+public sealed class UserInfoModel
 {
     public long Id { get; set; }
 

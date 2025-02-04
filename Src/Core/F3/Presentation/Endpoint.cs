@@ -13,11 +13,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace F3.Presentation;
 
-public sealed class F3Endpoint : ControllerBase
+[Tags(Constant.CONTROLLER_NAME)]
+public sealed class Endpoint : ControllerBase
 {
-    private readonly F3Service _service;
+    private readonly Service _service;
 
-    public F3Endpoint(F3Service service)
+    public Endpoint(Service service)
     {
         _service = service;
     }
@@ -39,26 +40,22 @@ public sealed class F3Endpoint : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(1, Type = typeof(F3Response))]
+    [ProducesResponseType(1, Type = typeof(Response))]
     [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
     // =============================================================
-    [HttpPost(F3Constant.ENDPOINT_PATH)]
-    [ServiceFilter<F3SetStateBagFilter>]
-    [ServiceFilter<F3ValidationFilter>]
+    [HttpPost(Constant.ENDPOINT_PATH)]
+    [ServiceFilter<SetStateBagFilter>]
+    [ServiceFilter<ValidationFilter>]
     public async Task<IActionResult> ExecuteF3Async(
-        [FromBody] [Required] F3Request request,
+        [FromBody] [Required] Request request,
         CancellationToken ct
     )
     {
-        var appRequest = new F3AppRequestModel
-        {
-            Email = request.Email,
-            Password = request.Password,
-        };
+        var appRequest = new AppRequestModel { Email = request.Email, Password = request.Password };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
-        var httpResponse = F3HttpResponseMapper.Get(appRequest, appResponse, HttpContext);
+        var httpResponse = HttpResponseMapper.Get(appRequest, appResponse, HttpContext);
 
         return StatusCode(httpResponse.HttpCode, httpResponse);
     }
