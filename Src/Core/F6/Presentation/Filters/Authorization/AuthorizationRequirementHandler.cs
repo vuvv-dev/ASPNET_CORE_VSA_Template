@@ -9,19 +9,18 @@ using Microsoft.AspNetCore.Http;
 
 namespace F6.Presentation.Filters.Authorization;
 
-public sealed class F6AuthorizationRequirementHandler
-    : AuthorizationHandler<F6AuthorizationRequirement>
+public sealed class AuthorizationRequirementHandler : AuthorizationHandler<AuthorizationRequirement>
 {
     private readonly Lazy<IHttpContextAccessor> _httpContextAccessor;
 
-    public F6AuthorizationRequirementHandler(Lazy<IHttpContextAccessor> httpContextAccessor)
+    public AuthorizationRequirementHandler(Lazy<IHttpContextAccessor> httpContextAccessor)
     {
         _httpContextAccessor = httpContextAccessor;
     }
 
     protected override Task HandleRequirementAsync(
         AuthorizationHandlerContext context,
-        F6AuthorizationRequirement requirement
+        AuthorizationRequirement requirement
     )
     {
         if (!context.User.Identity.IsAuthenticated)
@@ -53,7 +52,7 @@ public sealed class F6AuthorizationRequirementHandler
         }
 
         var httpContext = _httpContextAccessor.Value.HttpContext;
-        var stateBag = new F6StateBag
+        var stateBag = new StateBag
         {
             AccessTokenId = long.Parse(
                 context.User.FindFirstValue(AppConstant.JsonWebToken.ClaimType.JTI)
@@ -62,7 +61,7 @@ public sealed class F6AuthorizationRequirementHandler
                 context.User.FindFirstValue(AppConstant.JsonWebToken.ClaimType.SUB)
             ),
         };
-        httpContext.Items.Add(nameof(F6StateBag), stateBag);
+        httpContext.Items.Add(nameof(StateBag), stateBag);
 
         context.Succeed(requirement);
 

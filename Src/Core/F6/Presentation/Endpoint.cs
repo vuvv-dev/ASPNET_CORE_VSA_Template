@@ -16,11 +16,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace F6.Presentation;
 
-public sealed class F6Endpoint : ControllerBase
+[Tags(Constant.CONTROLLER_NAME)]
+public sealed class Endpoint : ControllerBase
 {
-    private readonly F6Service _service;
+    private readonly Service _service;
 
-    public F6Endpoint(F6Service service)
+    public Endpoint(Service service)
     {
         _service = service;
     }
@@ -44,22 +45,22 @@ public sealed class F6Endpoint : ControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(1, Type = typeof(F6Response))]
+    [ProducesResponseType(1, Type = typeof(Response))]
     [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
     // =============================================================
-    [HttpPost(F6Constant.ENDPOINT_PATH)]
-    [Authorize(Policy = nameof(F6AuthorizationRequirement))]
-    [ServiceFilter<F6SetStateBagFilter>]
-    [ServiceFilter<F6ValidationFilter>]
+    [HttpPost(Constant.ENDPOINT_PATH)]
+    [Authorize(Policy = nameof(AuthorizationRequirement))]
+    [ServiceFilter<SetStateBagFilter>]
+    [ServiceFilter<ValidationFilter>]
     public async Task<IActionResult> ExecuteF6Async(
-        [FromBody] [Required] F6Request request,
+        [FromBody] [Required] Request request,
         CancellationToken ct
     )
     {
-        var stateBag = HttpContext.Items[AppConstant.STATE_BAG_NAME] as F6StateBag;
+        var stateBag = HttpContext.Items[AppConstant.STATE_BAG_NAME] as StateBag;
 
-        var appRequest = new F6AppRequestModel
+        var appRequest = new AppRequestModel
         {
             AccessTokenId = stateBag.AccessTokenId,
             RefreshToken = request.RefreshToken,
@@ -67,7 +68,7 @@ public sealed class F6Endpoint : ControllerBase
         };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
-        var httpResponse = F6HttpResponseMapper.Get(appRequest, appResponse, HttpContext);
+        var httpResponse = HttpResponseMapper.Get(appRequest, appResponse, HttpContext);
 
         return StatusCode(httpResponse.HttpCode, httpResponse);
     }

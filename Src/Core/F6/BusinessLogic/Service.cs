@@ -11,14 +11,14 @@ using FCommon.IdGeneration;
 
 namespace F6.BusinessLogic;
 
-public sealed class F6Service : IServiceHandler<F6AppRequestModel, F6AppResponseModel>
+public sealed class Service : IServiceHandler<AppRequestModel, AppResponseModel>
 {
-    private readonly Lazy<IF6Repository> _repository;
+    private readonly Lazy<IRepository> _repository;
     private readonly Lazy<IAppAccessTokenHandler> _accessTokenHandler;
     private readonly Lazy<IAppIdGenerator> _idGenerator;
 
-    public F6Service(
-        Lazy<IF6Repository> repository,
+    public Service(
+        Lazy<IRepository> repository,
         Lazy<IAppAccessTokenHandler> accessTokenHandler,
         Lazy<IAppIdGenerator> idGenerator
     )
@@ -28,10 +28,7 @@ public sealed class F6Service : IServiceHandler<F6AppRequestModel, F6AppResponse
         _idGenerator = idGenerator;
     }
 
-    public async Task<F6AppResponseModel> ExecuteAsync(
-        F6AppRequestModel request,
-        CancellationToken ct
-    )
+    public async Task<AppResponseModel> ExecuteAsync(AppRequestModel request, CancellationToken ct)
     {
         var refreshTokenIdAsTring = request.AccessTokenId.ToString();
 
@@ -42,14 +39,14 @@ public sealed class F6Service : IServiceHandler<F6AppRequestModel, F6AppResponse
         );
         if (Equals(foundToken, null))
         {
-            return F6Constant.DefaultResponse.App.REFRESH_TOKEN_DOES_NOT_EXIST;
+            return Constant.DefaultResponse.App.REFRESH_TOKEN_DOES_NOT_EXIST;
         }
         if (foundToken.ExpiredAt < DateTime.UtcNow)
         {
-            return F6Constant.DefaultResponse.App.REFRESH_TOKEN_EXPIRED;
+            return Constant.DefaultResponse.App.REFRESH_TOKEN_EXPIRED;
         }
 
-        var newRefreshToken = new F6UpdateRefreshTokenModel
+        var newRefreshToken = new UpdateRefreshTokenModel
         {
             CurrentId = refreshTokenIdAsTring,
             NewId = _idGenerator.Value.NextId().ToString(),
@@ -58,7 +55,7 @@ public sealed class F6Service : IServiceHandler<F6AppRequestModel, F6AppResponse
         var result = await _repository.Value.UpdateRefreshTokenAsync(newRefreshToken, ct);
         if (!result)
         {
-            return F6Constant.DefaultResponse.App.SERVER_ERROR;
+            return Constant.DefaultResponse.App.SERVER_ERROR;
         }
 
         var newAccessToken = _accessTokenHandler.Value.GenerateJWS(
@@ -70,12 +67,12 @@ public sealed class F6Service : IServiceHandler<F6AppRequestModel, F6AppResponse
                     AppConstant.JsonWebToken.ClaimType.PURPOSE.Value.USER_IN_APP
                 ),
             ],
-            F6Constant.APP_USER_ACCESS_TOKEN.DURATION_IN_MINUTES
+            Constant.APP_USER_ACCESS_TOKEN.DURATION_IN_MINUTES
         );
 
         return new()
         {
-            AppCode = F6Constant.AppCode.SUCCESS,
+            AppCode = Constant.AppCode.SUCCESS,
             Body = new() { AccessToken = newAccessToken, RefreshToken = request.RefreshToken },
         };
     }

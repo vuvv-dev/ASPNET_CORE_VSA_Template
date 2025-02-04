@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace F6.Presentation.Filters.Validation;
 
-public sealed class F6ValidationProfile : AbstractValidator<F6Request>
+public sealed class ValidationProfile : AbstractValidator<Request>
 {
-    public F6ValidationProfile()
+    public ValidationProfile()
     {
         ClassLevelCascadeMode = CascadeMode.Stop;
         RuleLevelCascadeMode = CascadeMode.Stop;

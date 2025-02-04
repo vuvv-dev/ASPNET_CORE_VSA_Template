@@ -2,7 +2,7 @@ using FCommon.FeatureService;
 
 namespace F6.Models;
 
-public sealed class F6AppRequestModel : IServiceRequest<F6AppResponseModel>
+public sealed class AppRequestModel : IServiceRequest<AppResponseModel>
 {
     public long AccessTokenId { get; set; }
 
