@@ -30,7 +30,7 @@ public sealed class DefaultAuthorizationRequirementHandler
             return Task.CompletedTask;
         }
 
-        var expClaimValue = context.User.FindFirstValue(AppConstants.JsonWebToken.ClaimType.EXP);
+        var expClaimValue = context.User.FindFirstValue(AppConstant.JsonWebToken.ClaimType.EXP);
         var tokenExpireTime = AppAccessTokenHandler.IsAccessTokenExpired(expClaimValue);
         if (tokenExpireTime)
         {
@@ -40,13 +40,10 @@ public sealed class DefaultAuthorizationRequirementHandler
         }
 
         var purposeClaimValue = context.User.FindFirstValue(
-            AppConstants.JsonWebToken.ClaimType.PURPOSE.Name
+            AppConstant.JsonWebToken.ClaimType.PURPOSE.Name
         );
         if (
-            !Equals(
-                purposeClaimValue,
-                AppConstants.JsonWebToken.ClaimType.PURPOSE.Value.USER_IN_APP
-            )
+            !Equals(purposeClaimValue, AppConstant.JsonWebToken.ClaimType.PURPOSE.Value.USER_IN_APP)
         )
         {
             context.Fail();
@@ -56,8 +53,8 @@ public sealed class DefaultAuthorizationRequirementHandler
 
         var httpContext = _httpContextAccessor.Value.HttpContext;
         httpContext.Items.Add(
-            AppConstants.JsonWebToken.ClaimType.SUB,
-            context.User.FindFirstValue(AppConstants.JsonWebToken.ClaimType.SUB)
+            AppConstant.JsonWebToken.ClaimType.SUB,
+            context.User.FindFirstValue(AppConstant.JsonWebToken.ClaimType.SUB)
         );
 
         context.Succeed(requirement);

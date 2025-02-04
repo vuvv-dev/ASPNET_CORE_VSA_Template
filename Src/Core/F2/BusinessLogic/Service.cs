@@ -8,29 +8,26 @@ using FCommon.FeatureService;
 
 namespace F2.BusinessLogic;
 
-public sealed class F2Service : IServiceHandler<F2AppRequestModel, F2AppResponseModel>
+public sealed class Service : IServiceHandler<AppRequestModel, AppResponseModel>
 {
-    private readonly Lazy<IF2Repository> _repository;
+    private readonly Lazy<IRepository> _repository;
 
-    public F2Service(Lazy<IF2Repository> repository)
+    public Service(Lazy<IRepository> repository)
     {
         _repository = repository;
     }
 
-    public async Task<F2AppResponseModel> ExecuteAsync(
-        F2AppRequestModel request,
-        CancellationToken ct
-    )
+    public async Task<AppResponseModel> ExecuteAsync(AppRequestModel request, CancellationToken ct)
     {
         var list = await _repository.Value.GetTodoTaskListAsync(request.TodoTaskListId, ct);
         if (Equals(list, null))
         {
-            return F2Constant.DefaultResponse.App.LIST_NOT_FOUND;
+            return Constant.DefaultResponse.App.LIST_NOT_FOUND;
         }
 
         return new()
         {
-            AppCode = F2Constant.AppCode.SUCCESS,
+            AppCode = Constant.AppCode.SUCCESS,
             Body = new()
             {
                 TodoTaskList = new() { Id = request.TodoTaskListId, Name = list.Name },

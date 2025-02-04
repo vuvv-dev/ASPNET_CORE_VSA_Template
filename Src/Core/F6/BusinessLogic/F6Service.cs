@@ -63,11 +63,11 @@ public sealed class F6Service : IServiceHandler<F6AppRequestModel, F6AppResponse
 
         var newAccessToken = _accessTokenHandler.Value.GenerateJWS(
             [
-                new(AppConstants.JsonWebToken.ClaimType.JTI, newRefreshToken.NewId),
-                new(AppConstants.JsonWebToken.ClaimType.SUB, request.UserId.ToString()),
+                new(AppConstant.JsonWebToken.ClaimType.JTI, newRefreshToken.NewId),
+                new(AppConstant.JsonWebToken.ClaimType.SUB, request.UserId.ToString()),
                 new(
-                    AppConstants.JsonWebToken.ClaimType.PURPOSE.Name,
-                    AppConstants.JsonWebToken.ClaimType.PURPOSE.Value.USER_IN_APP
+                    AppConstant.JsonWebToken.ClaimType.PURPOSE.Name,
+                    AppConstant.JsonWebToken.ClaimType.PURPOSE.Value.USER_IN_APP
                 ),
             ],
             F6Constant.APP_USER_ACCESS_TOKEN.DURATION_IN_MINUTES

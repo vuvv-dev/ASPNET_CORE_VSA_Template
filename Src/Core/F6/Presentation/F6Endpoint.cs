@@ -57,7 +57,7 @@ public sealed class F6Endpoint : ControllerBase
         CancellationToken ct
     )
     {
-        var stateBag = HttpContext.Items[AppConstants.STATE_BAG_NAME] as F6StateBag;
+        var stateBag = HttpContext.Items[AppConstant.STATE_BAG_NAME] as F6StateBag;
 
         var appRequest = new F6AppRequestModel
         {

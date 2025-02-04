@@ -51,11 +51,11 @@ public sealed class F4Service : IServiceHandler<F4AppRequestModel, F4AppResponse
 
         var newAccessToken = _accessTokenHandler.Value.GenerateJWS(
             [
-                new(AppConstants.JsonWebToken.ClaimType.JTI, resetPasswordToken.LoginProvider),
-                new(AppConstants.JsonWebToken.ClaimType.SUB, userId.ToString()),
+                new(AppConstant.JsonWebToken.ClaimType.JTI, resetPasswordToken.LoginProvider),
+                new(AppConstant.JsonWebToken.ClaimType.SUB, userId.ToString()),
                 new(
-                    AppConstants.JsonWebToken.ClaimType.PURPOSE.Name,
-                    AppConstants.JsonWebToken.ClaimType.PURPOSE.Value.USER_PASSWORD_RESET
+                    AppConstant.JsonWebToken.ClaimType.PURPOSE.Name,
+                    AppConstant.JsonWebToken.ClaimType.PURPOSE.Value.USER_PASSWORD_RESET
                 ),
             ],
             F4Constant.APP_USER_PASSWORD_RESET_TOKEN.DURATION_IN_MINUTES

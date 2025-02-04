@@ -33,7 +33,7 @@ public sealed class AppAccessTokenHandler : IAppAccessTokenHandler
             IssuedAt = currentTime,
             Expires = expiredTime,
             NotBefore = expiredTime - TimeSpan.FromSeconds(1),
-            TokenType = AppConstants.JsonWebToken.Type.JWT,
+            TokenType = AppConstant.JsonWebToken.Type.JWT,
             CompressionAlgorithm = CompressionAlgorithms.Deflate,
             SigningCredentials = signingCredentials,
             Subject = new(claims),
