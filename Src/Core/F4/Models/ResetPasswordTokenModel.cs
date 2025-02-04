@@ -2,7 +2,7 @@ using System;
 
 namespace F4.Models;
 
-public sealed class F4ResetPasswordTokenModel
+public sealed class ResetPasswordTokenModel
 {
     public string LoginProvider { get; set; }
 
