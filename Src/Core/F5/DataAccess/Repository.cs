@@ -11,12 +11,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F5.DataAccess;
 
-public sealed class F5Repository : IF5Repository
+public sealed class Repository : IRepository
 {
     private readonly AppDbContext _appContext;
     private readonly Lazy<UserManager<IdentityUserEntity>> _userManager;
 
-    public F5Repository(AppDbContext context, Lazy<UserManager<IdentityUserEntity>> userManager)
+    public Repository(AppDbContext context, Lazy<UserManager<IdentityUserEntity>> userManager)
     {
         _appContext = context;
         _userManager = userManager;
@@ -105,7 +105,7 @@ public sealed class F5Repository : IF5Repository
                         .Set<IdentityUserTokenEntity>()
                         .Where(token =>
                             token.UserId == userId
-                            && token.Name.Equals(F5Constant.APP_USER_REFRESH_TOKEN.NAME)
+                            && token.Name.Equals(Constant.APP_USER_REFRESH_TOKEN.NAME)
                         )
                         .ExecuteDeleteAsync(ct);
 

@@ -15,11 +15,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace F5.Presentation;
 
-public sealed class F5Endpoint : ControllerBase
+[Tags(Constant.CONTROLLER_NAME)]
+public sealed class Endpoint : ControllerBase
 {
-    private readonly F5Service _service;
+    private readonly Service _service;
 
-    public F5Endpoint(F5Service service)
+    public Endpoint(Service service)
     {
         _service = service;
     }
@@ -45,22 +46,22 @@ public sealed class F5Endpoint : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(1, Type = typeof(F5Response))]
+    [ProducesResponseType(1, Type = typeof(Response))]
     [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
     // =============================================================
-    [HttpPost(F5Constant.ENDPOINT_PATH)]
-    [Authorize(Policy = nameof(F5AuthorizationRequirement))]
-    [ServiceFilter<F5SetStateBagFilter>]
-    [ServiceFilter<F5ValidationFilter>]
+    [HttpPost(Constant.ENDPOINT_PATH)]
+    [Authorize(Policy = nameof(AuthorizationRequirement))]
+    [ServiceFilter<SetStateBagFilter>]
+    [ServiceFilter<ValidationFilter>]
     public async Task<IActionResult> ExecuteF5Async(
-        [FromBody] [Required] F5Request request,
+        [FromBody] [Required] Request request,
         CancellationToken ct
     )
     {
-        var stateBag = HttpContext.Items[nameof(F5StateBag)] as F5StateBag;
+        var stateBag = HttpContext.Items[nameof(StateBag)] as StateBag;
 
-        var appRequest = new F5AppRequestModel
+        var appRequest = new AppRequestModel
         {
             ResetPasswordTokenId = stateBag.ResetPasswordTokenId,
             UserId = stateBag.UserId,
@@ -68,7 +69,7 @@ public sealed class F5Endpoint : ControllerBase
         };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
-        var httpResponse = F5HttpResponseMapper.Get(appRequest, appResponse, HttpContext);
+        var httpResponse = HttpResponseMapper.Get(appRequest, appResponse, HttpContext);
 
         return StatusCode(httpResponse.HttpCode, httpResponse);
     }
