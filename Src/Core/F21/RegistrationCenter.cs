@@ -7,11 +7,11 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace F21;
 
-public sealed class F21Register : IServiceRegister
+public sealed class RegistrationCenter : IServiceRegister
 {
     public IServiceCollection Register(IServiceCollection services, IConfiguration configuration)
     {
-        var currentAssembly = typeof(F21Register).Assembly;
+        var currentAssembly = typeof(RegistrationCenter).Assembly;
 
         #region Filters
         services.RegisterFiltersFromAssembly(currentAssembly);
@@ -23,9 +23,9 @@ public sealed class F21Register : IServiceRegister
 
         #region Core
         services
-            .AddScoped<IF21Repository, F21Repository>()
-            .MakeScopedLazy<IF21Repository>()
-            .AddScoped<F21Service>();
+            .AddScoped<IRepository, Repository>()
+            .MakeScopedLazy<IRepository>()
+            .AddScoped<Service>();
         #endregion
 
         return services;

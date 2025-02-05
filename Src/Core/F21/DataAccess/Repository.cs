@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F21.DataAccess;
 
-public sealed class F21Repository : IF21Repository
+public sealed class Repository : IRepository
 {
     private readonly AppDbContext _appContext;
 
-    public F21Repository(AppDbContext context)
+    public Repository(AppDbContext context)
     {
         _appContext = context;
     }

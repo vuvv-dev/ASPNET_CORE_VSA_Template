@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 namespace F21.Presentation;
 
 [ValidateNever]
-public sealed class F21Request
+public sealed class Request
 {
     public long TodoTaskId { get; set; }
 

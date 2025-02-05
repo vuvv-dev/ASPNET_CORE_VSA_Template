@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace F21.DataAccess;
 
-public interface IF21Repository
+public interface IRepository
 {
     Task<bool> DoesTodoTaskExistAsync(long taskId, CancellationToken ct);
 

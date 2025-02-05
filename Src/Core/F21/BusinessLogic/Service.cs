@@ -8,24 +8,21 @@ using FCommon.FeatureService;
 
 namespace F21.BusinessLogic;
 
-public sealed class F21Service : IServiceHandler<F21AppRequestModel, F21AppResponseModel>
+public sealed class Service : IServiceHandler<AppRequestModel, AppResponseModel>
 {
-    private readonly Lazy<IF21Repository> _repository;
+    private readonly Lazy<IRepository> _repository;
 
-    public F21Service(Lazy<IF21Repository> repository)
+    public Service(Lazy<IRepository> repository)
     {
         _repository = repository;
     }
 
-    public async Task<F21AppResponseModel> ExecuteAsync(
-        F21AppRequestModel request,
-        CancellationToken ct
-    )
+    public async Task<AppResponseModel> ExecuteAsync(AppRequestModel request, CancellationToken ct)
     {
         var doesTaskExist = await _repository.Value.DoesTodoTaskExistAsync(request.TodoTaskId, ct);
         if (!doesTaskExist)
         {
-            return F21Constant.DefaultResponse.App.TASK_NOT_FOUND;
+            return Constant.DefaultResponse.App.TASK_NOT_FOUND;
         }
 
         var isSuccess = await _repository.Value.ChangeDueDateAsync(
@@ -35,9 +32,9 @@ public sealed class F21Service : IServiceHandler<F21AppRequestModel, F21AppRespo
         );
         if (!isSuccess)
         {
-            return F21Constant.DefaultResponse.App.SERVER_ERROR;
+            return Constant.DefaultResponse.App.SERVER_ERROR;
         }
 
-        return new() { AppCode = F21Constant.AppCode.SUCCESS };
+        return new() { AppCode = Constant.AppCode.SUCCESS };
     }
 }

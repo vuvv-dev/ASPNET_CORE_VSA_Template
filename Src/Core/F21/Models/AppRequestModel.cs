@@ -3,7 +3,7 @@ using FCommon.FeatureService;
 
 namespace F21.Models;
 
-public sealed class F21AppRequestModel : IServiceRequest<F21AppResponseModel>
+public sealed class AppRequestModel : IServiceRequest<AppResponseModel>
 {
     public long TodoTaskId { get; set; }
 
