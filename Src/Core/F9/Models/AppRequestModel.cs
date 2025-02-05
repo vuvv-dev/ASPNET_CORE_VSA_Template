@@ -2,7 +2,7 @@ using FCommon.FeatureService;
 
 namespace F9.Models;
 
-public sealed class F9AppRequestModel : IServiceRequest<F9AppResponseModel>
+public sealed class AppRequestModel : IServiceRequest<AppResponseModel>
 {
     public long TodoTaskListId { get; set; }
 
