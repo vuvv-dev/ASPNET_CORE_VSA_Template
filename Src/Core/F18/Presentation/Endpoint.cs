@@ -15,11 +15,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace F18.Presentation;
 
-public sealed class F18Endpoint : ControllerBase
+[Tags(Constant.CONTROLLER_NAME)]
+public sealed class Endpoint : ControllerBase
 {
-    private readonly F18Service _service;
+    private readonly Service _service;
 
-    public F18Endpoint(F18Service service)
+    public Endpoint(Service service)
     {
         _service = service;
     }
@@ -43,27 +44,27 @@ public sealed class F18Endpoint : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(1, Type = typeof(F18Response))]
+    [ProducesResponseType(1, Type = typeof(Response))]
     [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
     // =============================================================
-    [HttpPost(F18Constant.ENDPOINT_PATH)]
+    [HttpPost(Constant.ENDPOINT_PATH)]
     [Authorize(Policy = nameof(DefaultAuthorizationRequirement))]
-    [ServiceFilter<F18SetStateBagFilter>]
-    [ServiceFilter<F18ValidationFilter>]
+    [ServiceFilter<SetStateBagFilter>]
+    [ServiceFilter<ValidationFilter>]
     public async Task<IActionResult> ExecuteF18Async(
-        [FromBody] [Required] F18Request request,
+        [FromBody] [Required] Request request,
         CancellationToken ct
     )
     {
-        var appRequest = new F18AppRequestModel
+        var appRequest = new AppRequestModel
         {
             TodoTaskId = request.TodoTaskId,
             IsImportant = request.IsImportant,
         };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
-        var httpResponse = F18HttpResponseMapper.Get(appRequest, appResponse, HttpContext);
+        var httpResponse = HttpResponseMapper.Get(appRequest, appResponse, HttpContext);
 
         return StatusCode(httpResponse.HttpCode, httpResponse);
     }

@@ -2,7 +2,7 @@ using FCommon.FeatureService;
 
 namespace F18.Models;
 
-public sealed class F18AppRequestModel : IServiceRequest<F18AppResponseModel>
+public sealed class AppRequestModel : IServiceRequest<AppResponseModel>
 {
     public long TodoTaskId { get; set; }
 
