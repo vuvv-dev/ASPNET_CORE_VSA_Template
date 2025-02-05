@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Http;
 
 namespace F15.Common;
 
-public static class F15Constant
+public static class Constant
 {
+    public const string CONTROLLER_NAME = "F15Endpoint";
+
     public const string ENDPOINT_PATH = "f15/task/{TodoTaskId:required}";
 
     public const string REQUEST_ARGUMENT_NAME = "request";
@@ -14,7 +16,7 @@ public static class F15Constant
     {
         public static class App
         {
-            public static readonly F15AppResponseModel TASK_NOT_FOUND = new()
+            public static readonly AppResponseModel TASK_NOT_FOUND = new()
             {
                 AppCode = AppCode.TASK_NOT_FOUND,
             };
@@ -22,13 +24,13 @@ public static class F15Constant
 
         public static class Http
         {
-            public static readonly F15Response VALIDATION_FAILED = new()
+            public static readonly Response VALIDATION_FAILED = new()
             {
                 AppCode = (int)AppCode.VALIDATION_FAILED,
                 HttpCode = StatusCodes.Status400BadRequest,
             };
 
-            public static readonly F15Response TASK_NOT_FOUND = new()
+            public static readonly Response TASK_NOT_FOUND = new()
             {
                 AppCode = (int)AppCode.TASK_NOT_FOUND,
                 HttpCode = StatusCodes.Status404NotFound,

@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace F15.Presentation;
 
-public sealed class F15Response
+public sealed class Response
 {
     [JsonIgnore]
     public int HttpCode { get; set; }

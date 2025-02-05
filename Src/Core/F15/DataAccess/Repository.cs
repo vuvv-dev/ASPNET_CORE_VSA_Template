@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F15.DataAccess;
 
-public sealed class F15Repository : IF15Repository
+public sealed class Repository : IRepository
 {
     private readonly AppDbContext _appContext;
 
-    public F15Repository(AppDbContext context)
+    public Repository(AppDbContext context)
     {
         _appContext = context;
     }
@@ -23,12 +23,12 @@ public sealed class F15Repository : IF15Repository
         return _appContext.Set<TodoTaskEntity>().AnyAsync(entity => entity.Id == taskId, ct);
     }
 
-    public async Task<F15TodoTaskModel> GetTaskDetailByIdAsync(long taskId, CancellationToken ct)
+    public async Task<TodoTaskModel> GetTaskDetailByIdAsync(long taskId, CancellationToken ct)
     {
         return await _appContext
             .Set<TodoTaskEntity>()
             .Where(entity => entity.Id == taskId)
-            .Select(entity => new F15TodoTaskModel
+            .Select(entity => new TodoTaskModel
             {
                 Content = entity.Content,
                 DueDate = entity.DueDate,

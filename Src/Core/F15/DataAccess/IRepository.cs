@@ -4,9 +4,9 @@ using F15.Models;
 
 namespace F15.DataAccess;
 
-public interface IF15Repository
+public interface IRepository
 {
     Task<bool> DoesTodoTaskExistAsync(long taskId, CancellationToken ct);
 
-    Task<F15TodoTaskModel> GetTaskDetailByIdAsync(long taskId, CancellationToken ct);
+    Task<TodoTaskModel> GetTaskDetailByIdAsync(long taskId, CancellationToken ct);
 }

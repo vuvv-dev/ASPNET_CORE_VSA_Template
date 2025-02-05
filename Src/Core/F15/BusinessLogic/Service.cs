@@ -8,30 +8,27 @@ using FCommon.FeatureService;
 
 namespace F15.BusinessLogic;
 
-public sealed class F15Service : IServiceHandler<F15AppRequestModel, F15AppResponseModel>
+public sealed class Service : IServiceHandler<AppRequestModel, AppResponseModel>
 {
-    private readonly Lazy<IF15Repository> _repository;
+    private readonly Lazy<IRepository> _repository;
 
-    public F15Service(Lazy<IF15Repository> repository)
+    public Service(Lazy<IRepository> repository)
     {
         _repository = repository;
     }
 
-    public async Task<F15AppResponseModel> ExecuteAsync(
-        F15AppRequestModel request,
-        CancellationToken ct
-    )
+    public async Task<AppResponseModel> ExecuteAsync(AppRequestModel request, CancellationToken ct)
     {
         var doesTaskExist = await _repository.Value.DoesTodoTaskExistAsync(request.TodoTaskId, ct);
         if (!doesTaskExist)
         {
-            return F15Constant.DefaultResponse.App.TASK_NOT_FOUND;
+            return Constant.DefaultResponse.App.TASK_NOT_FOUND;
         }
 
         var taskDetail = await _repository.Value.GetTaskDetailByIdAsync(request.TodoTaskId, ct);
-        var appResponse = new F15AppResponseModel()
+        var appResponse = new AppResponseModel()
         {
-            AppCode = F15Constant.AppCode.SUCCESS,
+            AppCode = Constant.AppCode.SUCCESS,
             Body = new()
             {
                 TodoTask = new()
