@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace F21.Presentation.Filters.Validation;
 
-public sealed class F21ValidationProfile : AbstractValidator<F21Request>
+public sealed class ValidationProfile : AbstractValidator<Request>
 {
-    public F21ValidationProfile()
+    public ValidationProfile()
     {
         ClassLevelCascadeMode = CascadeMode.Stop;
         RuleLevelCascadeMode = CascadeMode.Stop;
