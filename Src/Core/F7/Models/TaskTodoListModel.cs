@@ -2,7 +2,7 @@ using System;
 
 namespace F7.Models;
 
-public class F7TaskTodoListModel
+public class TaskTodoListModel
 {
     public long Id { get; set; }
 
