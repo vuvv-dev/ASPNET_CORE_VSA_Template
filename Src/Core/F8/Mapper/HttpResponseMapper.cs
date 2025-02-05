@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Http;
 
 namespace F8.Mapper;
 
-public static class F8HttpResponseMapper
+public static class HttpResponseMapper
 {
     private static ConcurrentDictionary<
-        F8Constant.AppCode,
-        Func<F8AppRequestModel, F8AppResponseModel, HttpContext, F8Response>
+        Constant.AppCode,
+        Func<AppRequestModel, AppResponseModel, HttpContext, Response>
     > _httpResponseMapper;
 
     private static void Init()
@@ -23,43 +23,43 @@ public static class F8HttpResponseMapper
         }
 
         _httpResponseMapper.TryAdd(
-            F8Constant.AppCode.SERVER_ERROR,
+            Constant.AppCode.SERVER_ERROR,
             (appRequest, appResponse, httpContext) =>
             {
-                return F8Constant.DefaultResponse.Http.SERVER_ERROR;
+                return Constant.DefaultResponse.Http.SERVER_ERROR;
             }
         );
 
         _httpResponseMapper.TryAdd(
-            F8Constant.AppCode.SUCCESS,
+            Constant.AppCode.SUCCESS,
             (appRequest, appResponse, httpContext) =>
             {
                 return new()
                 {
-                    AppCode = (int)F8Constant.AppCode.SUCCESS,
+                    AppCode = (int)Constant.AppCode.SUCCESS,
                     HttpCode = StatusCodes.Status200OK,
                 };
             }
         );
 
         _httpResponseMapper.TryAdd(
-            F8Constant.AppCode.LIST_DOES_NOT_EXIST,
+            Constant.AppCode.LIST_DOES_NOT_EXIST,
             (appRequest, appResponse, httpContext) =>
             {
-                return F8Constant.DefaultResponse.Http.LIST_DOES_NOT_EXIST;
+                return Constant.DefaultResponse.Http.LIST_DOES_NOT_EXIST;
             }
         );
     }
 
-    public static F8Response Get(
-        F8AppRequestModel appRequest,
-        F8AppResponseModel appResponse,
+    public static Response Get(
+        AppRequestModel appRequest,
+        AppResponseModel appResponse,
         HttpContext httpContext
     )
     {
         Init();
 
-        var stateBag = httpContext.Items[nameof(F8StateBag)] as F8StateBag;
+        var stateBag = httpContext.Items[nameof(StateBag)] as StateBag;
 
         var httpResponse = _httpResponseMapper[appResponse.AppCode]
             (appRequest, appResponse, httpContext);
