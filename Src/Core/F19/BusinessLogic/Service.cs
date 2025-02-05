@@ -8,24 +8,21 @@ using FCommon.FeatureService;
 
 namespace F19.BusinessLogic;
 
-public sealed class F19Service : IServiceHandler<F19AppRequestModel, F19AppResponseModel>
+public sealed class Service : IServiceHandler<AppRequestModel, AppResponseModel>
 {
-    private readonly Lazy<IF19Repository> _repository;
+    private readonly Lazy<IRepository> _repository;
 
-    public F19Service(Lazy<IF19Repository> repository)
+    public Service(Lazy<IRepository> repository)
     {
         _repository = repository;
     }
 
-    public async Task<F19AppResponseModel> ExecuteAsync(
-        F19AppRequestModel request,
-        CancellationToken ct
-    )
+    public async Task<AppResponseModel> ExecuteAsync(AppRequestModel request, CancellationToken ct)
     {
         var doesTaskExist = await _repository.Value.DoesTodoTaskExistAsync(request.TodoTaskId, ct);
         if (!doesTaskExist)
         {
-            return F19Constant.DefaultResponse.App.TASK_NOT_FOUND;
+            return Constant.DefaultResponse.App.TASK_NOT_FOUND;
         }
 
         var isSuccess = await _repository.Value.ChangeContentAsync(
@@ -35,9 +32,9 @@ public sealed class F19Service : IServiceHandler<F19AppRequestModel, F19AppRespo
         );
         if (!isSuccess)
         {
-            return F19Constant.DefaultResponse.App.SERVER_ERROR;
+            return Constant.DefaultResponse.App.SERVER_ERROR;
         }
 
-        return new() { AppCode = F19Constant.AppCode.SUCCESS };
+        return new() { AppCode = Constant.AppCode.SUCCESS };
     }
 }
