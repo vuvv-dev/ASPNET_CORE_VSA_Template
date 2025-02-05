@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Http;
 
 namespace F15.Mapper;
 
-public static class F15HttpResponseMapper
+public static class HttpResponseMapper
 {
     private static ConcurrentDictionary<
-        F15Constant.AppCode,
-        Func<F15AppRequestModel, F15AppResponseModel, HttpContext, F15Response>
+        Constant.AppCode,
+        Func<AppRequestModel, AppResponseModel, HttpContext, Response>
     > _httpResponseMapper;
 
     private static void Init()
@@ -23,12 +23,12 @@ public static class F15HttpResponseMapper
         }
 
         _httpResponseMapper.TryAdd(
-            F15Constant.AppCode.SUCCESS,
+            Constant.AppCode.SUCCESS,
             (appRequest, appResponse, httpContex) =>
             {
                 return new()
                 {
-                    AppCode = (int)F15Constant.AppCode.SUCCESS,
+                    AppCode = (int)Constant.AppCode.SUCCESS,
                     HttpCode = StatusCodes.Status200OK,
                     Body = new()
                     {
@@ -49,23 +49,23 @@ public static class F15HttpResponseMapper
         );
 
         _httpResponseMapper.TryAdd(
-            F15Constant.AppCode.TASK_NOT_FOUND,
+            Constant.AppCode.TASK_NOT_FOUND,
             (appRequest, appResponse, httpContex) =>
             {
-                return F15Constant.DefaultResponse.Http.TASK_NOT_FOUND;
+                return Constant.DefaultResponse.Http.TASK_NOT_FOUND;
             }
         );
     }
 
-    public static F15Response Get(
-        F15AppRequestModel appRequest,
-        F15AppResponseModel appResponse,
+    public static Response Get(
+        AppRequestModel appRequest,
+        AppResponseModel appResponse,
         HttpContext httpContext
     )
     {
         Init();
 
-        var stateBag = httpContext.Items[nameof(F15StateBag)] as F15StateBag;
+        var stateBag = httpContext.Items[nameof(StateBag)] as StateBag;
 
         var httpResponse = _httpResponseMapper[appResponse.AppCode]
             (appRequest, appResponse, httpContext);
