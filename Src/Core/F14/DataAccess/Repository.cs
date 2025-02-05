@@ -10,11 +10,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F14.DataAccess;
 
-public sealed class F14Repository : IF14Repository
+public sealed class Repository : IRepository
 {
     private readonly AppDbContext _appContext;
 
-    public F14Repository(AppDbContext context)
+    public Repository(AppDbContext context)
     {
         _appContext = context;
     }
@@ -31,8 +31,8 @@ public sealed class F14Repository : IF14Repository
         return _appContext.Set<TodoTaskListEntity>().AnyAsync(entity => entity.Id == listId, ct);
     }
 
-    public async Task<IEnumerable<F14TodoTaskModel>> GetCompletedTodoTasksAsync(
-        F14GetTodoTasksInputModel input,
+    public async Task<IEnumerable<TodoTaskModel>> GetCompletedTodoTasksAsync(
+        GetTodoTasksInputModel input,
         CancellationToken ct
     )
     {
@@ -43,7 +43,7 @@ public sealed class F14Repository : IF14Repository
                 && entity.TodoTaskListId == input.TodoTaskListId
                 && entity.IsFinished == true
             )
-            .Select(entity => new F14TodoTaskModel
+            .Select(entity => new TodoTaskModel
             {
                 Id = entity.Id,
                 Content = entity.Content,

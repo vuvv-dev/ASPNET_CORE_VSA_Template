@@ -1,6 +1,8 @@
+using FCommon.FeatureService;
+
 namespace F14.Models;
 
-public sealed class F14GetTodoTasksInputModel
+public sealed class AppRequestModel : IServiceRequest<AppResponseModel>
 {
     public long TodoTaskId { get; set; }
 
