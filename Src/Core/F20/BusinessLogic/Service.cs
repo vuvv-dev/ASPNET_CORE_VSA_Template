@@ -8,24 +8,21 @@ using FCommon.FeatureService;
 
 namespace F20.BusinessLogic;
 
-public sealed class F20Service : IServiceHandler<F20AppRequestModel, F20AppResponseModel>
+public sealed class Service : IServiceHandler<AppRequestModel, AppResponseModel>
 {
-    private readonly Lazy<IF20Repository> _repository;
+    private readonly Lazy<IRepository> _repository;
 
-    public F20Service(Lazy<IF20Repository> repository)
+    public Service(Lazy<IRepository> repository)
     {
         _repository = repository;
     }
 
-    public async Task<F20AppResponseModel> ExecuteAsync(
-        F20AppRequestModel request,
-        CancellationToken ct
-    )
+    public async Task<AppResponseModel> ExecuteAsync(AppRequestModel request, CancellationToken ct)
     {
         var doesTaskExist = await _repository.Value.DoesTodoTaskExistAsync(request.TodoTaskId, ct);
         if (!doesTaskExist)
         {
-            return F20Constant.DefaultResponse.App.TASK_NOT_FOUND;
+            return Constant.DefaultResponse.App.TASK_NOT_FOUND;
         }
 
         var isSuccess = await _repository.Value.ChangeNoteAsync(
@@ -35,9 +32,9 @@ public sealed class F20Service : IServiceHandler<F20AppRequestModel, F20AppRespo
         );
         if (!isSuccess)
         {
-            return F20Constant.DefaultResponse.App.SERVER_ERROR;
+            return Constant.DefaultResponse.App.SERVER_ERROR;
         }
 
-        return new() { AppCode = F20Constant.AppCode.SUCCESS };
+        return new() { AppCode = Constant.AppCode.SUCCESS };
     }
 }

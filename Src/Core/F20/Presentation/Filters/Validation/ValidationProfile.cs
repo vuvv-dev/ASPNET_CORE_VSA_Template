@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace F20.Presentation.Filters.Validation;
 
-public sealed class F20ValidationProfile : AbstractValidator<F20Request>
+public sealed class ValidationProfile : AbstractValidator<Request>
 {
-    public F20ValidationProfile()
+    public ValidationProfile()
     {
         ClassLevelCascadeMode = CascadeMode.Stop;
         RuleLevelCascadeMode = CascadeMode.Stop;
