@@ -8,16 +8,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F11.DataAccess;
 
-public sealed class F11Repository : IF11Repository
+public sealed class Repository : IRepository
 {
     private readonly AppDbContext _appContext;
 
-    public F11Repository(AppDbContext context)
+    public Repository(AppDbContext context)
     {
         _appContext = context;
     }
 
-    public async Task<bool> CreateTodoTaskAsync(F11TaskTodoModel todoTask, CancellationToken ct)
+    public async Task<bool> CreateTodoTaskAsync(TaskTodoModel todoTask, CancellationToken ct)
     {
         var newEntity = new TodoTaskEntity
         {

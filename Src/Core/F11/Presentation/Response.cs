@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace F11.Presentation;
 
-public sealed class F11Response
+public sealed class Response
 {
     [JsonIgnore]
     public int HttpCode { get; set; }

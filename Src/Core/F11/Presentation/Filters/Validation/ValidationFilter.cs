@@ -9,11 +9,11 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace F11.Presentation.Filters.Validation;
 
-public sealed class F11ValidationFilter : IAsyncActionFilter
+public sealed class ValidationFilter : IAsyncActionFilter
 {
-    private readonly IValidator<F11Request> _validator;
+    private readonly IValidator<Request> _validator;
 
-    public F11ValidationFilter(IValidator<F11Request> validator)
+    public ValidationFilter(IValidator<Request> validator)
     {
         _validator = validator;
     }
@@ -23,7 +23,7 @@ public sealed class F11ValidationFilter : IAsyncActionFilter
         ActionExecutionDelegate next
     )
     {
-        var stateBag = context.HttpContext.Items[nameof(F11StateBag)] as F11StateBag;
+        var stateBag = context.HttpContext.Items[nameof(StateBag)] as StateBag;
         var request = stateBag.HttpRequest;
 
         var result = await _validator.ValidateAsync(request);
@@ -31,10 +31,8 @@ public sealed class F11ValidationFilter : IAsyncActionFilter
         {
             context.Result = new ContentResult
             {
-                StatusCode = F11Constant.DefaultResponse.Http.VALIDATION_FAILED.HttpCode,
-                Content = JsonSerializer.Serialize(
-                    F11Constant.DefaultResponse.Http.VALIDATION_FAILED
-                ),
+                StatusCode = Constant.DefaultResponse.Http.VALIDATION_FAILED.HttpCode,
+                Content = JsonSerializer.Serialize(Constant.DefaultResponse.Http.VALIDATION_FAILED),
                 ContentType = MediaTypeNames.Application.Json,
             };
 

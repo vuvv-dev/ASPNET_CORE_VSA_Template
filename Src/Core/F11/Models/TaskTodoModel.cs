@@ -2,7 +2,7 @@ using System;
 
 namespace F11.Models;
 
-public sealed class F11TaskTodoModel
+public sealed class TaskTodoModel
 {
     public long Id { get; set; }
 

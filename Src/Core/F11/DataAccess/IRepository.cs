@@ -4,9 +4,9 @@ using F11.Models;
 
 namespace F11.DataAccess;
 
-public interface IF11Repository
+public interface IRepository
 {
-    Task<bool> CreateTodoTaskAsync(F11TaskTodoModel todoTask, CancellationToken ct);
+    Task<bool> CreateTodoTaskAsync(TaskTodoModel todoTask, CancellationToken ct);
 
     Task<bool> DoesTodoTaskListExistAsync(long listId, CancellationToken ct);
 }
