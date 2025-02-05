@@ -5,10 +5,10 @@ using F13.Models;
 
 namespace F13.DataAccess;
 
-public interface IF13Repository
+public interface IRepository
 {
-    Task<IEnumerable<F13TodoTaskModel>> GetTodoTasksAsync(
-        F13GetTodoTasksInputModel input,
+    Task<IEnumerable<TodoTaskModel>> GetTodoTasksAsync(
+        GetTodoTasksInputModel input,
         CancellationToken ct
     );
 

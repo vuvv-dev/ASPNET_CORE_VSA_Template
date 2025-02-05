@@ -10,19 +10,16 @@ using FCommon.FeatureService;
 
 namespace F13.BusinessLogic;
 
-public sealed class F13Service : IServiceHandler<F13AppRequestModel, F13AppResponseModel>
+public sealed class Service : IServiceHandler<AppRequestModel, AppResponseModel>
 {
-    private readonly Lazy<IF13Repository> _repository;
+    private readonly Lazy<IRepository> _repository;
 
-    public F13Service(Lazy<IF13Repository> repository)
+    public Service(Lazy<IRepository> repository)
     {
         _repository = repository;
     }
 
-    public async Task<F13AppResponseModel> ExecuteAsync(
-        F13AppRequestModel request,
-        CancellationToken ct
-    )
+    public async Task<AppResponseModel> ExecuteAsync(AppRequestModel request, CancellationToken ct)
     {
         var doesListExist = await _repository.Value.DoesTodoTaskListExistAsync(
             request.TodoTaskListId,
@@ -30,7 +27,7 @@ public sealed class F13Service : IServiceHandler<F13AppRequestModel, F13AppRespo
         );
         if (!doesListExist)
         {
-            return F13Constant.DefaultResponse.App.TODO_TASK_LIST_NOT_FOUND;
+            return Constant.DefaultResponse.App.TODO_TASK_LIST_NOT_FOUND;
         }
 
         if (request.TodoTaskId != 0)
@@ -42,11 +39,11 @@ public sealed class F13Service : IServiceHandler<F13AppRequestModel, F13AppRespo
             );
             if (!doesTaskExist)
             {
-                return F13Constant.DefaultResponse.App.TASK_NOT_FOUND;
+                return Constant.DefaultResponse.App.TASK_NOT_FOUND;
             }
         }
 
-        var input = new F13GetTodoTasksInputModel
+        var input = new GetTodoTasksInputModel
         {
             TodoTaskId = request.TodoTaskId,
             TodoTaskListId = request.TodoTaskListId,
@@ -59,11 +56,11 @@ public sealed class F13Service : IServiceHandler<F13AppRequestModel, F13AppRespo
         {
             return new()
             {
-                AppCode = F13Constant.AppCode.SUCCESS,
+                AppCode = Constant.AppCode.SUCCESS,
                 Body = new()
                 {
                     TodoTasks = foundTodoTasks.Select(
-                        taskDetail => new F13AppResponseModel.BodyModel.TodoTaskModel
+                        taskDetail => new AppResponseModel.BodyModel.TodoTaskModel
                         {
                             Id = taskDetail.Id,
                             Content = taskDetail.Content,
@@ -81,7 +78,7 @@ public sealed class F13Service : IServiceHandler<F13AppRequestModel, F13AppRespo
             };
         }
 
-        var appResponseTodoTasks = new List<F13AppResponseModel.BodyModel.TodoTaskModel>();
+        var appResponseTodoTasks = new List<AppResponseModel.BodyModel.TodoTaskModel>();
         for (var i = 0; i < taskCount; i++)
         {
             var taskDetail = foundTodoTasks.ElementAt(i);
@@ -106,7 +103,7 @@ public sealed class F13Service : IServiceHandler<F13AppRequestModel, F13AppRespo
 
         return new()
         {
-            AppCode = F13Constant.AppCode.SUCCESS,
+            AppCode = Constant.AppCode.SUCCESS,
             Body = new() { TodoTasks = appResponseTodoTasks, NextCursor = nextCursor },
         };
     }
