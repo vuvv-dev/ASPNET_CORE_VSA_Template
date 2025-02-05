@@ -9,23 +9,20 @@ using FCommon.IdGeneration;
 
 namespace F7.BusinessLogic;
 
-public sealed class F7Service : IServiceHandler<F7AppRequestModel, F7AppResponseModel>
+public sealed class Service : IServiceHandler<AppRequestModel, AppResponseModel>
 {
-    private readonly Lazy<IF7Repository> _repository;
+    private readonly Lazy<IRepository> _repository;
     private readonly Lazy<IAppIdGenerator> _idGenerator;
 
-    public F7Service(Lazy<IF7Repository> repository, Lazy<IAppIdGenerator> idGenerator)
+    public Service(Lazy<IRepository> repository, Lazy<IAppIdGenerator> idGenerator)
     {
         _repository = repository;
         _idGenerator = idGenerator;
     }
 
-    public async Task<F7AppResponseModel> ExecuteAsync(
-        F7AppRequestModel request,
-        CancellationToken ct
-    )
+    public async Task<AppResponseModel> ExecuteAsync(AppRequestModel request, CancellationToken ct)
     {
-        var newList = new F7TaskTodoListModel
+        var newList = new TaskTodoListModel
         {
             Id = _idGenerator.Value.NextId(),
             Name = request.TodoTaskListName,
@@ -36,12 +33,12 @@ public sealed class F7Service : IServiceHandler<F7AppRequestModel, F7AppResponse
         var isCreated = await _repository.Value.CreateTaskTodoListAsync(newList, ct);
         if (!isCreated)
         {
-            return F7Constant.DefaultResponse.App.SERVER_ERROR;
+            return Constant.DefaultResponse.App.SERVER_ERROR;
         }
 
         return new()
         {
-            AppCode = F7Constant.AppCode.SUCCESS,
+            AppCode = Constant.AppCode.SUCCESS,
             Body = new() { ListId = newList.Id },
         };
     }

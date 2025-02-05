@@ -7,11 +7,11 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace F7;
 
-public sealed class F7Register : IServiceRegister
+public sealed class RegistrationCenter : IServiceRegister
 {
     public IServiceCollection Register(IServiceCollection services, IConfiguration configuration)
     {
-        var currentAssembly = typeof(F7Register).Assembly;
+        var currentAssembly = typeof(RegistrationCenter).Assembly;
 
         #region Filters
         services.RegisterFiltersFromAssembly(currentAssembly);
@@ -23,9 +23,9 @@ public sealed class F7Register : IServiceRegister
 
         #region Core
         services
-            .AddScoped<IF7Repository, F7Repository>()
-            .MakeScopedLazy<IF7Repository>()
-            .AddScoped<F7Service>();
+            .AddScoped<IRepository, Repository>()
+            .MakeScopedLazy<IRepository>()
+            .AddScoped<Service>();
         #endregion
 
         return services;

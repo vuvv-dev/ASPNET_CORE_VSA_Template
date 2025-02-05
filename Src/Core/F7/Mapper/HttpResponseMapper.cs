@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Http;
 
 namespace F7.Mapper;
 
-public static class F7HttpResponseMapper
+public static class HttpResponseMapper
 {
     private static ConcurrentDictionary<
-        F7Constant.AppCode,
-        Func<F7AppRequestModel, F7AppResponseModel, HttpContext, F7Response>
+        Constant.AppCode,
+        Func<AppRequestModel, AppResponseModel, HttpContext, Response>
     > _httpResponseMapper;
 
     private static void Init()
@@ -23,28 +23,28 @@ public static class F7HttpResponseMapper
         }
 
         _httpResponseMapper.TryAdd(
-            F7Constant.AppCode.SERVER_ERROR,
+            Constant.AppCode.SERVER_ERROR,
             (appRequest, appResponse, httpContext) =>
             {
-                return F7Constant.DefaultResponse.Http.SERVER_ERROR;
+                return Constant.DefaultResponse.Http.SERVER_ERROR;
             }
         );
 
         _httpResponseMapper.TryAdd(
-            F7Constant.AppCode.LIST_ALREADY_EXISTS,
+            Constant.AppCode.LIST_ALREADY_EXISTS,
             (appRequest, appResponse, httpContext) =>
             {
-                return F7Constant.DefaultResponse.Http.LIST_ALREADY_EXISTS;
+                return Constant.DefaultResponse.Http.LIST_ALREADY_EXISTS;
             }
         );
 
         _httpResponseMapper.TryAdd(
-            F7Constant.AppCode.SUCCESS,
+            Constant.AppCode.SUCCESS,
             (appRequest, appResponse, httpContext) =>
             {
                 return new()
                 {
-                    AppCode = (int)F7Constant.AppCode.SUCCESS,
+                    AppCode = (int)Constant.AppCode.SUCCESS,
                     HttpCode = StatusCodes.Status200OK,
                     Body = new() { ListId = appResponse.Body.ListId },
                 };
@@ -52,15 +52,15 @@ public static class F7HttpResponseMapper
         );
     }
 
-    public static F7Response Get(
-        F7AppRequestModel appRequest,
-        F7AppResponseModel appResponse,
+    public static Response Get(
+        AppRequestModel appRequest,
+        AppResponseModel appResponse,
         HttpContext httpContext
     )
     {
         Init();
 
-        var stateBag = httpContext.Items[nameof(F7StateBag)] as F7StateBag;
+        var stateBag = httpContext.Items[nameof(StateBag)] as StateBag;
 
         var httpResponse = _httpResponseMapper[appResponse.AppCode]
             (appRequest, appResponse, httpContext);

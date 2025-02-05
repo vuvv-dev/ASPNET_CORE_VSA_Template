@@ -16,11 +16,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace F7.Presentation;
 
-public sealed class F7Endpoint : ControllerBase
+[Tags(Constant.CONTROLLER_NAME)]
+public sealed class Endpoint : ControllerBase
 {
-    private readonly F7Service _service;
+    private readonly Service _service;
 
-    public F7Endpoint(F7Service service)
+    public Endpoint(Service service)
     {
         _service = service;
     }
@@ -44,20 +45,20 @@ public sealed class F7Endpoint : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(1, Type = typeof(F7Response))]
+    [ProducesResponseType(1, Type = typeof(Response))]
     [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
     // =============================================================
-    [HttpPost(F7Constant.ENDPOINT_PATH)]
+    [HttpPost(Constant.ENDPOINT_PATH)]
     [Authorize(Policy = nameof(DefaultAuthorizationRequirement))]
-    [ServiceFilter<F7SetStateBagFilter>]
-    [ServiceFilter<F7ValidationFilter>]
+    [ServiceFilter<SetStateBagFilter>]
+    [ServiceFilter<ValidationFilter>]
     public async Task<IActionResult> ExecuteF7Async(
-        [FromBody] [Required] F7Request request,
+        [FromBody] [Required] Request request,
         CancellationToken ct
     )
     {
-        var appRequest = new F7AppRequestModel
+        var appRequest = new AppRequestModel
         {
             TodoTaskListName = request.TodoTaskListName,
             UserId = long.Parse(
@@ -66,7 +67,7 @@ public sealed class F7Endpoint : ControllerBase
         };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
-        var httpResponse = F7HttpResponseMapper.Get(appRequest, appResponse, HttpContext);
+        var httpResponse = HttpResponseMapper.Get(appRequest, appResponse, HttpContext);
 
         return StatusCode(httpResponse.HttpCode, httpResponse);
     }

@@ -7,17 +7,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F7.DataAccess;
 
-public sealed partial class F7Repository : IF7Repository
+public sealed partial class Repository : IRepository
 {
     private readonly AppDbContext _appContext;
 
-    public F7Repository(AppDbContext context)
+    public Repository(AppDbContext context)
     {
         _appContext = context;
     }
 
     public async Task<bool> CreateTaskTodoListAsync(
-        F7TaskTodoListModel taskTodoList,
+        TaskTodoListModel taskTodoList,
         CancellationToken ct
     )
     {
