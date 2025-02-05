@@ -1,6 +1,6 @@
 namespace F13.Models;
 
-public sealed class F13GetTodoTasksInputModel
+public sealed class GetTodoTasksInputModel
 {
     public long TodoTaskId { get; set; }
 

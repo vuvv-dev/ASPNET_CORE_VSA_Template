@@ -2,7 +2,7 @@ using System;
 
 namespace F13.Models;
 
-public sealed class F13TodoTaskModel
+public sealed class TodoTaskModel
 {
     public long Id { get; set; }
 

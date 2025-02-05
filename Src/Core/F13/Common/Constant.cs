@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Http;
 
 namespace F13.Common;
 
-public static class F13Constant
+public static class Constant
 {
+    public const string CONTROLLER_NAME = "F13Endpoint";
     public const string ENDPOINT_PATH =
         "f13/list/{TodoTaskListId:required}/task/cursor/{TodoTaskId:required}";
 
@@ -23,12 +24,12 @@ public static class F13Constant
     {
         public static class App
         {
-            public static readonly F13AppResponseModel TASK_NOT_FOUND = new()
+            public static readonly AppResponseModel TASK_NOT_FOUND = new()
             {
                 AppCode = AppCode.TASK_NOT_FOUND,
             };
 
-            public static readonly F13AppResponseModel TODO_TASK_LIST_NOT_FOUND = new()
+            public static readonly AppResponseModel TODO_TASK_LIST_NOT_FOUND = new()
             {
                 AppCode = AppCode.TODO_TASK_LIST_NOT_FOUND,
             };
@@ -36,19 +37,19 @@ public static class F13Constant
 
         public static class Http
         {
-            public static readonly F13Response VALIDATION_FAILED = new()
+            public static readonly Response VALIDATION_FAILED = new()
             {
                 AppCode = (int)AppCode.VALIDATION_FAILED,
                 HttpCode = StatusCodes.Status400BadRequest,
             };
 
-            public static readonly F13Response TASK_NOT_FOUND = new()
+            public static readonly Response TASK_NOT_FOUND = new()
             {
                 AppCode = (int)AppCode.TASK_NOT_FOUND,
                 HttpCode = StatusCodes.Status404NotFound,
             };
 
-            public static readonly F13Response TODO_TASK_LIST_NOT_FOUND = new()
+            public static readonly Response TODO_TASK_LIST_NOT_FOUND = new()
             {
                 AppCode = (int)AppCode.TODO_TASK_LIST_NOT_FOUND,
                 HttpCode = StatusCodes.Status404NotFound,

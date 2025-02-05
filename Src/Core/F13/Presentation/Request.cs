@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 namespace F13.Presentation;
 
 [ValidateNever]
-public sealed class F13Request
+public sealed class Request
 {
     [FromRoute]
     public long TodoTaskId { get; set; }
@@ -13,6 +13,6 @@ public sealed class F13Request
     [FromRoute]
     public long TodoTaskListId { get; set; }
 
-    [FromQuery(Name = F13Constant.Url.Query.NumberOfRecord)]
+    [FromQuery(Name = Constant.Url.Query.NumberOfRecord)]
     public int NumberOfRecord { get; set; }
 }

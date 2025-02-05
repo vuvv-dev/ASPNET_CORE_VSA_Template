@@ -9,11 +9,11 @@ using Microsoft.AspNetCore.Http;
 
 namespace F13.Mapper;
 
-public static class F13HttpResponseMapper
+public static class HttpResponseMapper
 {
     private static ConcurrentDictionary<
-        F13Constant.AppCode,
-        Func<F13AppRequestModel, F13AppResponseModel, HttpContext, F13Response>
+        Constant.AppCode,
+        Func<AppRequestModel, AppResponseModel, HttpContext, Response>
     > _httpResponseMapper;
 
     private static void Init()
@@ -24,17 +24,17 @@ public static class F13HttpResponseMapper
         }
 
         _httpResponseMapper.TryAdd(
-            F13Constant.AppCode.SUCCESS,
+            Constant.AppCode.SUCCESS,
             (appRequest, appResponse, httpContext) =>
             {
                 return new()
                 {
-                    AppCode = (int)F13Constant.AppCode.SUCCESS,
+                    AppCode = (int)Constant.AppCode.SUCCESS,
                     HttpCode = StatusCodes.Status200OK,
                     Body = new()
                     {
                         TodoTasks = appResponse.Body.TodoTasks.Select(
-                            taskDetail => new F13Response.BodyDto.TodoTaskDto
+                            taskDetail => new Response.BodyDto.TodoTaskDto
                             {
                                 Id = taskDetail.Id,
                                 Content = taskDetail.Content,
@@ -54,31 +54,31 @@ public static class F13HttpResponseMapper
         );
 
         _httpResponseMapper.TryAdd(
-            F13Constant.AppCode.TASK_NOT_FOUND,
+            Constant.AppCode.TASK_NOT_FOUND,
             (appRequest, appResponse, httpContext) =>
             {
-                return F13Constant.DefaultResponse.Http.TASK_NOT_FOUND;
+                return Constant.DefaultResponse.Http.TASK_NOT_FOUND;
             }
         );
 
         _httpResponseMapper.TryAdd(
-            F13Constant.AppCode.TODO_TASK_LIST_NOT_FOUND,
+            Constant.AppCode.TODO_TASK_LIST_NOT_FOUND,
             (appRequest, appResponse, httpContext) =>
             {
-                return F13Constant.DefaultResponse.Http.TODO_TASK_LIST_NOT_FOUND;
+                return Constant.DefaultResponse.Http.TODO_TASK_LIST_NOT_FOUND;
             }
         );
     }
 
-    public static F13Response Get(
-        F13AppRequestModel appRequest,
-        F13AppResponseModel appResponse,
+    public static Response Get(
+        AppRequestModel appRequest,
+        AppResponseModel appResponse,
         HttpContext httpContext
     )
     {
         Init();
 
-        var stateBag = httpContext.Items[nameof(F13StateBag)] as F13StateBag;
+        var stateBag = httpContext.Items[nameof(StateBag)] as StateBag;
 
         var httpResponse = _httpResponseMapper[appResponse.AppCode]
             (appRequest, appResponse, httpContext);

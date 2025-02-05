@@ -1,25 +1,23 @@
 using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
+using F13.Common;
+using FCommon.FeatureService;
 
-namespace F13.Presentation;
+namespace F13.Models;
 
-public sealed class F13Response
+public sealed class AppResponseModel : IServiceResponse
 {
-    [JsonIgnore]
-    public int HttpCode { get; set; }
+    public Constant.AppCode AppCode { get; set; }
 
-    public int AppCode { get; set; }
+    public BodyModel Body { get; set; }
 
-    public BodyDto Body { get; set; }
-
-    public sealed class BodyDto
+    public sealed class BodyModel
     {
-        public IEnumerable<TodoTaskDto> TodoTasks { get; set; }
+        public IEnumerable<TodoTaskModel> TodoTasks { get; set; }
 
         public long NextCursor { get; set; }
 
-        public sealed class TodoTaskDto
+        public sealed class TodoTaskModel
         {
             public long Id { get; set; }
 
