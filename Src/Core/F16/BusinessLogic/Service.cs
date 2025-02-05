@@ -8,24 +8,21 @@ using FCommon.FeatureService;
 
 namespace F16.BusinessLogic;
 
-public sealed class F16Service : IServiceHandler<F16AppRequestModel, F16AppResponseModel>
+public sealed class Service : IServiceHandler<AppRequestModel, AppResponseModel>
 {
-    private readonly Lazy<IF16Repository> _repository;
+    private readonly Lazy<IRepository> _repository;
 
-    public F16Service(Lazy<IF16Repository> repository)
+    public Service(Lazy<IRepository> repository)
     {
         _repository = repository;
     }
 
-    public async Task<F16AppResponseModel> ExecuteAsync(
-        F16AppRequestModel request,
-        CancellationToken ct
-    )
+    public async Task<AppResponseModel> ExecuteAsync(AppRequestModel request, CancellationToken ct)
     {
         var doesTaskExist = await _repository.Value.DoesTodoTaskExistAsync(request.TodoTaskId, ct);
         if (!doesTaskExist)
         {
-            return F16Constant.DefaultResponse.App.TASK_NOT_FOUND;
+            return Constant.DefaultResponse.App.TASK_NOT_FOUND;
         }
 
         var isSuccess = await _repository.Value.ModifyIsInMyDayStatusAsync(
@@ -35,9 +32,9 @@ public sealed class F16Service : IServiceHandler<F16AppRequestModel, F16AppRespo
         );
         if (!isSuccess)
         {
-            return F16Constant.DefaultResponse.App.SERVER_ERROR;
+            return Constant.DefaultResponse.App.SERVER_ERROR;
         }
 
-        return new() { AppCode = F16Constant.AppCode.SUCCESS };
+        return new() { AppCode = Constant.AppCode.SUCCESS };
     }
 }

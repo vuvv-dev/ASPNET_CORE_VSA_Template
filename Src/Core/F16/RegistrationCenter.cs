@@ -7,11 +7,11 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace F16;
 
-public sealed class F16Register : IServiceRegister
+public sealed class RegistrationCenter : IServiceRegister
 {
     public IServiceCollection Register(IServiceCollection services, IConfiguration configuration)
     {
-        var currentAssembly = typeof(F16Register).Assembly;
+        var currentAssembly = typeof(RegistrationCenter).Assembly;
 
         #region Filters
         services.RegisterFiltersFromAssembly(currentAssembly);
@@ -23,9 +23,9 @@ public sealed class F16Register : IServiceRegister
 
         #region Core
         services
-            .AddScoped<IF16Repository, F16Repository>()
-            .MakeScopedLazy<IF16Repository>()
-            .AddScoped<F16Service>();
+            .AddScoped<IRepository, Repository>()
+            .MakeScopedLazy<IRepository>()
+            .AddScoped<Service>();
         #endregion
 
         return services;
