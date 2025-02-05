@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 namespace F10.Presentation;
 
 [ValidateNever]
-public sealed class F10Request
+public sealed class Request
 {
     [FromRoute]
     public long TodoTaskListId { get; set; }
 
-    [FromQuery(Name = F10Constant.Url.Query.NumberOfRecord)]
+    [FromQuery(Name = Constant.Url.Query.NumberOfRecord)]
     public int NumberOfRecord { get; set; }
 }

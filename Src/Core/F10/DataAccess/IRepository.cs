@@ -5,9 +5,9 @@ using F10.Models;
 
 namespace F10.DataAccess;
 
-public interface IF10Repository
+public interface IRepository
 {
-    Task<IEnumerable<F10TodoTaskListModel>> GetTodoTaskListAsync(
+    Task<IEnumerable<TodoTaskListModel>> GetTodoTaskListAsync(
         long todoTaskListId,
         int numberOfRecord,
         CancellationToken ct
