@@ -3,9 +3,9 @@ using FCommon.FeatureService;
 
 namespace F19.Models;
 
-public sealed class F19AppResponseModel : IServiceResponse
+public sealed class AppResponseModel : IServiceResponse
 {
-    public F19Constant.AppCode AppCode { get; set; }
+    public Constant.AppCode AppCode { get; set; }
 
     public BodyModel Body { get; set; }
 

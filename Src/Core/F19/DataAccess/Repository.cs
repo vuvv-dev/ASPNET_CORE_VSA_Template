@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F19.DataAccess;
 
-public sealed class F19Repository : IF19Repository
+public sealed class Repository : IRepository
 {
     private readonly AppDbContext _appContext;
 
-    public F19Repository(AppDbContext context)
+    public Repository(AppDbContext context)
     {
         _appContext = context;
     }
