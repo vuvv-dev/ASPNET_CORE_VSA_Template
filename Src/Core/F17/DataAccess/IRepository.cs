@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace F17.DataAccess;
 
-public interface IF17Repository
+public interface IRepository
 {
     Task<bool> DoesTodoTaskExistAsync(long taskId, CancellationToken ct);
 
