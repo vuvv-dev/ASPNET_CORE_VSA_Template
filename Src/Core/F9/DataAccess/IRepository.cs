@@ -4,9 +4,9 @@ using F9.Models;
 
 namespace F9.DataAccess;
 
-public interface IF9Repository
+public interface IRepository
 {
     Task<bool> DoesTaskTodoListExistAsync(long listId, CancellationToken ct);
 
-    Task<bool> UpdateTaskTodoListAsync(F9TaskTodoListModel taskTodoList, CancellationToken ct);
+    Task<bool> UpdateTaskTodoListAsync(TaskTodoListModel taskTodoList, CancellationToken ct);
 }

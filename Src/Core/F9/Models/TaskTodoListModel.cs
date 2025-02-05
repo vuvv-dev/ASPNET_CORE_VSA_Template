@@ -1,6 +1,6 @@
 namespace F9.Models;
 
-public sealed class F9TaskTodoListModel
+public sealed class TaskTodoListModel
 {
     public long Id { get; set; }
 

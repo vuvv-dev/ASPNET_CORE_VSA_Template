@@ -8,19 +8,16 @@ using FCommon.FeatureService;
 
 namespace F9.BusinessLogic;
 
-public sealed class F9Service : IServiceHandler<F9AppRequestModel, F9AppResponseModel>
+public sealed class Service : IServiceHandler<AppRequestModel, AppResponseModel>
 {
-    private readonly Lazy<IF9Repository> _repository;
+    private readonly Lazy<IRepository> _repository;
 
-    public F9Service(Lazy<IF9Repository> repository)
+    public Service(Lazy<IRepository> repository)
     {
         _repository = repository;
     }
 
-    public async Task<F9AppResponseModel> ExecuteAsync(
-        F9AppRequestModel request,
-        CancellationToken ct
-    )
+    public async Task<AppResponseModel> ExecuteAsync(AppRequestModel request, CancellationToken ct)
     {
         var doesListExist = await _repository.Value.DoesTaskTodoListExistAsync(
             request.TodoTaskListId,
@@ -28,10 +25,10 @@ public sealed class F9Service : IServiceHandler<F9AppRequestModel, F9AppResponse
         );
         if (!doesListExist)
         {
-            return F9Constant.DefaultResponse.App.LIST_DOES_NOT_EXIST;
+            return Constant.DefaultResponse.App.LIST_DOES_NOT_EXIST;
         }
 
-        var todoTaskListModel = new F9TaskTodoListModel
+        var todoTaskListModel = new TaskTodoListModel
         {
             Id = request.TodoTaskListId,
             Name = request.NewName,
@@ -40,9 +37,9 @@ public sealed class F9Service : IServiceHandler<F9AppRequestModel, F9AppResponse
         var isRemoved = await _repository.Value.UpdateTaskTodoListAsync(todoTaskListModel, ct);
         if (!isRemoved)
         {
-            return F9Constant.DefaultResponse.App.SERVER_ERROR;
+            return Constant.DefaultResponse.App.SERVER_ERROR;
         }
 
-        return new() { AppCode = F9Constant.AppCode.SUCCESS };
+        return new() { AppCode = Constant.AppCode.SUCCESS };
     }
 }

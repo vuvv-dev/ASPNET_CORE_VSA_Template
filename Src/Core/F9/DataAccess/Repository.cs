@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F9.DataAccess;
 
-public sealed class F9Repository : IF9Repository
+public sealed class Repository : IRepository
 {
     private readonly AppDbContext _appContext;
 
-    public F9Repository(AppDbContext context)
+    public Repository(AppDbContext context)
     {
         _appContext = context;
     }
@@ -24,7 +24,7 @@ public sealed class F9Repository : IF9Repository
     }
 
     public async Task<bool> UpdateTaskTodoListAsync(
-        F9TaskTodoListModel taskTodoList,
+        TaskTodoListModel taskTodoList,
         CancellationToken ct
     )
     {
