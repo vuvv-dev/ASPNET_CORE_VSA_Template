@@ -10,19 +10,16 @@ using FCommon.FeatureService;
 
 namespace F14.BusinessLogic;
 
-public sealed class F14Service : IServiceHandler<F14AppRequestModel, F14AppResponseModel>
+public sealed class Service : IServiceHandler<AppRequestModel, AppResponseModel>
 {
-    private readonly Lazy<IF14Repository> _repository;
+    private readonly Lazy<IRepository> _repository;
 
-    public F14Service(Lazy<IF14Repository> repository)
+    public Service(Lazy<IRepository> repository)
     {
         _repository = repository;
     }
 
-    public async Task<F14AppResponseModel> ExecuteAsync(
-        F14AppRequestModel request,
-        CancellationToken ct
-    )
+    public async Task<AppResponseModel> ExecuteAsync(AppRequestModel request, CancellationToken ct)
     {
         var doesListExist = await _repository.Value.DoesTodoTaskListExistAsync(
             request.TodoTaskListId,
@@ -30,7 +27,7 @@ public sealed class F14Service : IServiceHandler<F14AppRequestModel, F14AppRespo
         );
         if (!doesListExist)
         {
-            return F14Constant.DefaultResponse.App.TODO_TASK_LIST_NOT_FOUND;
+            return Constant.DefaultResponse.App.TODO_TASK_LIST_NOT_FOUND;
         }
 
         if (request.TodoTaskId != 0)
@@ -42,11 +39,11 @@ public sealed class F14Service : IServiceHandler<F14AppRequestModel, F14AppRespo
             );
             if (!doesTaskExist)
             {
-                return F14Constant.DefaultResponse.App.TASK_NOT_FOUND;
+                return Constant.DefaultResponse.App.TASK_NOT_FOUND;
             }
         }
 
-        var input = new F14GetTodoTasksInputModel
+        var input = new GetTodoTasksInputModel
         {
             TodoTaskId = request.TodoTaskId,
             TodoTaskListId = request.TodoTaskListId,
@@ -59,11 +56,11 @@ public sealed class F14Service : IServiceHandler<F14AppRequestModel, F14AppRespo
         {
             return new()
             {
-                AppCode = F14Constant.AppCode.SUCCESS,
+                AppCode = Constant.AppCode.SUCCESS,
                 Body = new()
                 {
                     TodoTasks = foundTodoTasks.Select(
-                        taskDetail => new F14AppResponseModel.BodyModel.TodoTaskModel
+                        taskDetail => new AppResponseModel.BodyModel.TodoTaskModel
                         {
                             Id = taskDetail.Id,
                             Content = taskDetail.Content,
@@ -80,7 +77,7 @@ public sealed class F14Service : IServiceHandler<F14AppRequestModel, F14AppRespo
             };
         }
 
-        var appResponseTodoTasks = new List<F14AppResponseModel.BodyModel.TodoTaskModel>();
+        var appResponseTodoTasks = new List<AppResponseModel.BodyModel.TodoTaskModel>();
         for (var i = 0; i < taskCount; i++)
         {
             var taskDetail = foundTodoTasks.ElementAt(i);
@@ -104,7 +101,7 @@ public sealed class F14Service : IServiceHandler<F14AppRequestModel, F14AppRespo
 
         return new()
         {
-            AppCode = F14Constant.AppCode.SUCCESS,
+            AppCode = Constant.AppCode.SUCCESS,
             Body = new() { TodoTasks = appResponseTodoTasks, NextCursor = nextCursor },
         };
     }
