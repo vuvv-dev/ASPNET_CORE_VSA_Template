@@ -10,19 +10,16 @@ using FCommon.FeatureService;
 
 namespace F10.BusinessLogic;
 
-public sealed class F10Service : IServiceHandler<F10AppRequestModel, F10AppResponseModel>
+public sealed class Service : IServiceHandler<AppRequestModel, AppResponseModel>
 {
-    private readonly Lazy<IF10Repository> _repository;
+    private readonly Lazy<IRepository> _repository;
 
-    public F10Service(Lazy<IF10Repository> repository)
+    public Service(Lazy<IRepository> repository)
     {
         _repository = repository;
     }
 
-    public async Task<F10AppResponseModel> ExecuteAsync(
-        F10AppRequestModel request,
-        CancellationToken ct
-    )
+    public async Task<AppResponseModel> ExecuteAsync(AppRequestModel request, CancellationToken ct)
     {
         if (request.TodoTaskListId != 0)
         {
@@ -32,7 +29,7 @@ public sealed class F10Service : IServiceHandler<F10AppRequestModel, F10AppRespo
             );
             if (!doesListExtst)
             {
-                return F10Constant.DefaultResponse.App.TODO_TASK_LIST_NOT_FOUND;
+                return Constant.DefaultResponse.App.TODO_TASK_LIST_NOT_FOUND;
             }
         }
 
@@ -47,11 +44,11 @@ public sealed class F10Service : IServiceHandler<F10AppRequestModel, F10AppRespo
         {
             return new()
             {
-                AppCode = F10Constant.AppCode.SUCCESS,
+                AppCode = Constant.AppCode.SUCCESS,
                 Body = new()
                 {
                     TodoTaskLists = foundTodoTaskLists.Select(
-                        model => new F10AppResponseModel.BodyModel.TodoTaskListModel
+                        model => new AppResponseModel.BodyModel.TodoTaskListModel
                         {
                             Id = model.Id,
                             Name = model.Name,
@@ -62,7 +59,7 @@ public sealed class F10Service : IServiceHandler<F10AppRequestModel, F10AppRespo
             };
         }
 
-        var appResponseTodoTaskLists = new List<F10AppResponseModel.BodyModel.TodoTaskListModel>();
+        var appResponseTodoTaskLists = new List<AppResponseModel.BodyModel.TodoTaskListModel>();
         for (var i = 0; i < listCount; i++)
         {
             var listDetail = foundTodoTaskLists.ElementAt(i);
@@ -74,7 +71,7 @@ public sealed class F10Service : IServiceHandler<F10AppRequestModel, F10AppRespo
 
         return new()
         {
-            AppCode = F10Constant.AppCode.SUCCESS,
+            AppCode = Constant.AppCode.SUCCESS,
             Body = new() { TodoTaskLists = appResponseTodoTaskLists, NextCursor = nextCursor },
         };
     }

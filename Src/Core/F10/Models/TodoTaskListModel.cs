@@ -1,6 +1,6 @@
 namespace F10.Models;
 
-public sealed class F10TodoTaskListModel
+public sealed class TodoTaskListModel
 {
     public long Id { get; set; }
 

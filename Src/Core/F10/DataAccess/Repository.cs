@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F10.DataAccess;
 
-public sealed class F10Repository : IF10Repository
+public sealed class Repository : IRepository
 {
     private readonly AppDbContext _appContext;
 
-    public F10Repository(AppDbContext context)
+    public Repository(AppDbContext context)
     {
         _appContext = context;
     }
@@ -23,7 +23,7 @@ public sealed class F10Repository : IF10Repository
         return _appContext.Set<TodoTaskListEntity>().AnyAsync(entity => entity.Id == listId, ct);
     }
 
-    public async Task<IEnumerable<F10TodoTaskListModel>> GetTodoTaskListAsync(
+    public async Task<IEnumerable<TodoTaskListModel>> GetTodoTaskListAsync(
         long todoTaskListId,
         int numberOfRecord,
         CancellationToken ct
@@ -33,7 +33,7 @@ public sealed class F10Repository : IF10Repository
             .Set<TodoTaskListEntity>()
             .AsNoTracking()
             .Where(entity => entity.Id >= todoTaskListId)
-            .Select(entity => new F10TodoTaskListModel { Id = entity.Id, Name = entity.Name })
+            .Select(entity => new TodoTaskListModel { Id = entity.Id, Name = entity.Name })
             .OrderBy(entity => entity.Id)
             .Take(numberOfRecord + 1)
             .ToListAsync(ct);
