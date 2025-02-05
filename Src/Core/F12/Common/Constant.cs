@@ -6,7 +6,7 @@ namespace F12.Common;
 
 public static class Constant
 {
-    public const string CONTROLLER_NAME = "F11Endpoint";
+    public const string CONTROLLER_NAME = "F12Endpoint";
 
     public const string ENDPOINT_PATH = "f12/task/{TodoTaskId:required}";
 
