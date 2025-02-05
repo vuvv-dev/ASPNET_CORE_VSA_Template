@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Http;
 
 namespace F12.Mapper;
 
-public static class F12HttpResponseMapper
+public static class HttpResponseMapper
 {
     private static ConcurrentDictionary<
-        F12Constant.AppCode,
-        Func<F12AppRequestModel, F12AppResponseModel, HttpContext, F12Response>
+        Constant.AppCode,
+        Func<AppRequestModel, AppResponseModel, HttpContext, Response>
     > _httpResponseMapper;
 
     private static void Init()
@@ -23,12 +23,12 @@ public static class F12HttpResponseMapper
         }
 
         _httpResponseMapper.TryAdd(
-            F12Constant.AppCode.SUCCESS,
+            Constant.AppCode.SUCCESS,
             (appRequest, appResponse, httpContext) =>
             {
                 return new()
                 {
-                    AppCode = (int)F12Constant.AppCode.SUCCESS,
+                    AppCode = (int)Constant.AppCode.SUCCESS,
                     HttpCode = StatusCodes.Status200OK,
                     Body = new(),
                 };
@@ -36,31 +36,31 @@ public static class F12HttpResponseMapper
         );
 
         _httpResponseMapper.TryAdd(
-            F12Constant.AppCode.SERVER_ERROR,
+            Constant.AppCode.SERVER_ERROR,
             (appRequest, appResponse, httpContext) =>
             {
-                return F12Constant.DefaultResponse.Http.SERVER_ERROR;
+                return Constant.DefaultResponse.Http.SERVER_ERROR;
             }
         );
 
         _httpResponseMapper.TryAdd(
-            F12Constant.AppCode.TODO_TASK_NOT_FOUND,
+            Constant.AppCode.TODO_TASK_NOT_FOUND,
             (appRequest, appResponse, httpContext) =>
             {
-                return F12Constant.DefaultResponse.Http.TODO_TASK_NOT_FOUND;
+                return Constant.DefaultResponse.Http.TODO_TASK_NOT_FOUND;
             }
         );
     }
 
-    public static F12Response Get(
-        F12AppRequestModel appRequest,
-        F12AppResponseModel appResponse,
+    public static Response Get(
+        AppRequestModel appRequest,
+        AppResponseModel appResponse,
         HttpContext httpContext
     )
     {
         Init();
 
-        var stateBag = httpContext.Items[nameof(F12StateBag)] as F12StateBag;
+        var stateBag = httpContext.Items[nameof(StateBag)] as StateBag;
 
         var httpResponse = _httpResponseMapper[appResponse.AppCode]
             (appRequest, appResponse, httpContext);

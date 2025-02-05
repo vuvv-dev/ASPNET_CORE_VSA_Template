@@ -15,11 +15,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace F12.Presentation;
 
-public sealed class F12Endpoint : ControllerBase
+[Tags(Constant.CONTROLLER_NAME)]
+public sealed class Endpoint : ControllerBase
 {
-    private readonly F12Service _service;
+    private readonly Service _service;
 
-    public F12Endpoint(F12Service service)
+    public Endpoint(Service service)
     {
         _service = service;
     }
@@ -43,22 +44,22 @@ public sealed class F12Endpoint : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    [ProducesResponseType(1, Type = typeof(F12Response))]
+    [ProducesResponseType(1, Type = typeof(Response))]
     [Produces(MediaTypeNames.Application.Json)]
     // =============================================================
-    [HttpDelete(F12Constant.ENDPOINT_PATH)]
+    [HttpDelete(Constant.ENDPOINT_PATH)]
     [Authorize(Policy = nameof(DefaultAuthorizationRequirement))]
-    [ServiceFilter<F12SetStateBagFilter>]
-    [ServiceFilter<F12ValidationFilter>]
+    [ServiceFilter<SetStateBagFilter>]
+    [ServiceFilter<ValidationFilter>]
     public async Task<IActionResult> ExecuteF12Async(
-        [Required] F12Request request,
+        [Required] Request request,
         CancellationToken ct
     )
     {
-        var appRequest = new F12AppRequestModel { TodoTaskId = request.TodoTaskId };
+        var appRequest = new AppRequestModel { TodoTaskId = request.TodoTaskId };
         var appResponse = await _service.ExecuteAsync(appRequest, ct);
 
-        var httpResponse = F12HttpResponseMapper.Get(appRequest, appResponse, HttpContext);
+        var httpResponse = HttpResponseMapper.Get(appRequest, appResponse, HttpContext);
 
         return StatusCode(httpResponse.HttpCode, httpResponse);
     }
