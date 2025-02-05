@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace F17.Presentation.Filters.SetStateBag;
 
-public sealed class F17SetStateBagFilter : IAsyncActionFilter
+public sealed class SetStateBagFilter : IAsyncActionFilter
 {
     public async Task OnActionExecutionAsync(
         ActionExecutingContext context,
@@ -16,29 +16,27 @@ public sealed class F17SetStateBagFilter : IAsyncActionFilter
     )
     {
         var doesRequestExist = context.ActionArguments.Any(argument =>
-            argument.Key.Equals(F17Constant.REQUEST_ARGUMENT_NAME)
+            argument.Key.Equals(Constant.REQUEST_ARGUMENT_NAME)
         );
 
         if (!doesRequestExist)
         {
             context.Result = new ContentResult
             {
-                StatusCode = F17Constant.DefaultResponse.Http.VALIDATION_FAILED.HttpCode,
-                Content = JsonSerializer.Serialize(
-                    F17Constant.DefaultResponse.Http.VALIDATION_FAILED
-                ),
+                StatusCode = Constant.DefaultResponse.Http.VALIDATION_FAILED.HttpCode,
+                Content = JsonSerializer.Serialize(Constant.DefaultResponse.Http.VALIDATION_FAILED),
                 ContentType = MediaTypeNames.Application.Json,
             };
 
             return;
         }
 
-        var stateBag = new F17StateBag
+        var stateBag = new StateBag
         {
-            HttpRequest = context.ActionArguments[F17Constant.REQUEST_ARGUMENT_NAME] as F17Request,
+            HttpRequest = context.ActionArguments[Constant.REQUEST_ARGUMENT_NAME] as Request,
         };
 
-        context.HttpContext.Items.Add(nameof(F17StateBag), stateBag);
+        context.HttpContext.Items.Add(nameof(StateBag), stateBag);
 
         await next();
     }

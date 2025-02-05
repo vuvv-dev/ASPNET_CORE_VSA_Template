@@ -8,24 +8,21 @@ using FCommon.FeatureService;
 
 namespace F17.BusinessLogic;
 
-public sealed class F17Service : IServiceHandler<F17AppRequestModel, F17AppResponseModel>
+public sealed class Service : IServiceHandler<AppRequestModel, AppResponseModel>
 {
-    private readonly Lazy<IF17Repository> _repository;
+    private readonly Lazy<IRepository> _repository;
 
-    public F17Service(Lazy<IF17Repository> repository)
+    public Service(Lazy<IRepository> repository)
     {
         _repository = repository;
     }
 
-    public async Task<F17AppResponseModel> ExecuteAsync(
-        F17AppRequestModel request,
-        CancellationToken ct
-    )
+    public async Task<AppResponseModel> ExecuteAsync(AppRequestModel request, CancellationToken ct)
     {
         var doesTaskExist = await _repository.Value.DoesTodoTaskExistAsync(request.TodoTaskId, ct);
         if (!doesTaskExist)
         {
-            return F17Constant.DefaultResponse.App.TASK_NOT_FOUND;
+            return Constant.DefaultResponse.App.TASK_NOT_FOUND;
         }
 
         var isSuccess = await _repository.Value.ModifyCompletedStatusAsync(
@@ -35,9 +32,9 @@ public sealed class F17Service : IServiceHandler<F17AppRequestModel, F17AppRespo
         );
         if (!isSuccess)
         {
-            return F17Constant.DefaultResponse.App.SERVER_ERROR;
+            return Constant.DefaultResponse.App.SERVER_ERROR;
         }
 
-        return new() { AppCode = F17Constant.AppCode.SUCCESS };
+        return new() { AppCode = Constant.AppCode.SUCCESS };
     }
 }

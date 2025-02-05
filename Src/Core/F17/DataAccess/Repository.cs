@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F17.DataAccess;
 
-public sealed class F17Repository : IF17Repository
+public sealed class Repository : IRepository
 {
     private readonly AppDbContext _appContext;
 
-    public F17Repository(AppDbContext context)
+    public Repository(AppDbContext context)
     {
         _appContext = context;
     }
