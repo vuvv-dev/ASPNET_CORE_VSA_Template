@@ -11,7 +11,5 @@ public sealed class RegisteredAssemblyModel
         public IEnumerable<string> Core { get; set; }
 
         public IEnumerable<string> External { get; set; }
-
-        public IEnumerable<string> Entry { get; set; }
     }
 }

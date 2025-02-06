@@ -24,7 +24,6 @@
       "F20",
       "F21"
     ],
-    "External": ["FA1", "FA2", "FA3", "FA4"],
-    "Entry": ["Entry"]
+    "External": ["FA1", "FA2", "FA3", "FA4"]
   }
 }
