@@ -6,6 +6,7 @@ using F13.BusinessLogic;
 using F13.Common;
 using F13.Mapper;
 using F13.Models;
+using F13.Presentation.Filters.SetStateBag;
 using F13.Presentation.Filters.Validation;
 using FCommon.Authorization.Default;
 using Microsoft.AspNetCore.Authorization;
@@ -46,7 +47,8 @@ public sealed class Endpoint : ControllerBase
     // =============================================================
     [HttpGet(Constant.ENDPOINT_PATH)]
     [Authorize(Policy = nameof(DefaultAuthorizationRequirement))]
-    [ServiceFilter<ValidationFilter>(Order = 1)]
+    [ServiceFilter<SetStateBagFilter>]
+    [ServiceFilter<ValidationFilter>]
     public async Task<IActionResult> ExecuteF13Async(
         [Required] Request request,
         CancellationToken ct
