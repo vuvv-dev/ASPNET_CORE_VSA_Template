@@ -22,33 +22,58 @@ However, **VSA is just an approach** to structure your code. It's up to you to i
 
 Below, you'll find a brief description of each file and folder in this project.
 
+## ⚙️ .config/dotnet-tools.json ([more](DotnetToolConfig.md))
+
+This file lists the .NET tools your project uses, like CSharpier (for code formatting) and dotnet-ef (for Entity Framework). Think of it as a list of extra helpers your project relies on.
+
+Read more [**here**](DotnetToolConfig.md).
+
+## ⚙️ .github/workflows
+
+This folder contains files that define automated workflows on GitHub. These workflows can be triggered by events like commits, pull requests, or other actions. They automate tasks like building, testing, and deploying your code.
+
+## 📂 AppInfrastructure
+
+This folder contains Dockerfiles and configuration related to the main application container itself
+
+If you want to customize anything in this folder, you should have some knowledge about docker first (e.g., docker compose, dockerfile, etc.)
+
+If you want to run, please check out how to run it here [**here**](RunDockerStack.md)
+
+## 📂 Scripts ([more](CustomizeScript.md))
+
+This folder holds scripts used for various project tasks, such as building the project, publishing it, or running other custom operations.
+
+Read more [**here**](CustomizeScript.md).
+
 ## 📂 Src
 
-Place for all source code that is used in this project.
+This is where all your project's source code lives. It's the heart of your application.
 
-## 🛠️ nuget.config ([more](NugetConfig.md))
+## 🔧 .csharpierrc.json
 
-It is used to configure how NuGet handles package sources and settings for your project. It allows you to:
+This file configures the CSharpier code formatting tool. It defines rules for things like indentation (tabs vs. spaces), line length, and other stylistic choices. It keeps your code looking consistent. Just like how prettier works.
 
-- Define specific repositories (sources) from which NuGet can download packages.
+## 🔴 .gitattributes
 
-- Ensure all team members use the same package sources to maintain consistency.
+This file tells Git how to handle specific files, especially regarding line endings (Windows vs. Linux style). It helps ensure consistency across different operating systems.
 
-- Customize package restore behavior when running commands like dotnet restore.
+## 🔴 .gitignore
 
-By using this file, you can centralize and standardize NuGet settings, making it easier to manage dependencies across your project.
+Crucially, this file specifies files and folders that Git should ignore and not track in version control. This prevents unnecessary files (like build outputs or temporary files) from cluttering your repository. Every project should have one.
 
-Read more [**here**](NugetConfig.md).
+## 📂 Directory.Build.props ([more](DirectoryBuildProps.md))
 
-## 🌍 global.json ([more](GlobalJson.md))
+It file is used to define common MSBuild properties and configurations that apply to all projects in the directory and its subdirectories. By using this file, you will have following advantages:.
 
-It is used to specify the .NET SDK version your project requires. By defining a specific SDK version, you ensure that everyone working on the project, as well as all stages like development, testing, and production, use the same version. This helps maintain a stable and consistent environment throughout the project's lifecycle.
+- Centralized Configuration: Common settings (e.g., TargetFramework, OutputPath) are managed in one place, ensuring consistency across projects.
 
-Read more [**here**](GlobalJson.md).
+- Simplified Maintenance: Instead of repeating the same configurations in every project file, you define them once here.
 
-## 🗂️ SetupProject.sln
+- Overrides: Individual project files can override the settings if needed, offering flexibility.
+  By using Directory.Build.props, you make the project setup cleaner, easier to maintain, and more scalable as the solution grows.
 
-It is a solution file that organizes and groups multiple related .NET projects (such as webapi, classlib, etc.) into a single workspace. This file is essential for managing the structure and dependencies of a multi-project solution in .NET.
+Read more [**here**](DirectoryBuildProps.md).
 
 ## 📦 Directory.Packages.props ([more](DirectoryPackagesProps.md))
 
@@ -64,51 +89,42 @@ This approach benefits the entire project by promoting stability and reducing th
 
 Read more [**here**](DirectoryPackagesProps.md).
 
-## 📂 Directory.Build.props ([more](DirectoryBuildProps.md))
+## 🗂️ SetupProject.sln
 
-It file is used to define common MSBuild properties and configurations that apply to all projects in the directory and its subdirectories. By using this file, you will have following advantages:.
+This is the solution file. It organizes all the different projects (like your web API, class libraries, etc.) that make up your application. It's the main file you open in `Visual Studio` or other IDE like `Rider`
 
-- Centralized Configuration: Common settings (e.g., TargetFramework, OutputPath) are managed in one place, ensuring consistency across projects.
+## 🔧 app-assembly.json
 
-- Simplified Maintenance: Instead of repeating the same configurations in every project file, you define them once here.
+This file lists all the assemblies (collections of code) that contain services your application needs. It's like a directory telling the application where to find these services.
 
-- Overrides: Individual project files can override the settings if needed, offering flexibility.
-  By using Directory.Build.props, you make the project setup cleaner, easier to maintain, and more scalable as the solution grows.
+**How do assemblies register their services?**
 
-Read more [**here**](DirectoryBuildProps.md).
+Each assembly _should_ have a `RegistrationCenter` file (which is a class) that knows how to register the services within that assembly. This `RegistrationCenter` file is crucial for the application to understand what services are available.
 
-## 🔴 .gitignore
+Below is a simple example of working a module:
 
-Every project should have a `.gitignore` file to prevent unnecessary files from being committed to git.
+Let's say you're adding a new feature called "F100". Here's the process:
 
-## 🔴 .gitattributes
+1. **Create the assembly:** You create a new assembly (a class library project) named `F100`. It usually lives in a specific folder, like `Src/Core/F100`.
 
-Just use it for defining behavior for file in git, like how line end should be.
+2. **Create the RegistrationCenter:** Inside the `F100` assembly, you create a `RegistrationCenter` file (a class). This file is responsible for registering the services that belong to the `F100` feature. It _must_ inherit from `IServiceRegister`.
 
-## 🔧 .csharpierrc.json
+3. **Update `app-assembly.json`:** Open the `app-assembly.json` file. Add the _name_ of your new assembly (`F100` in this example) to the appropriate section (e.g., the `Core` section if it's a core feature).
 
-It is used to configure the behavior of the C# format tool (CSharpier), like how many tabs, how many spaces, etc. Just like how prettier works.
+**That's it!** By adding the assembly name to `app-assembly.json`, you've told the application to look inside that assembly for its `RegistrationCenter` and register the services it contains.
 
-## 📂 Scripts ([more](CustomizeScript.md))
+**Why _should_ every assembly have a `RegistrationCenter`, even if it doesn't have services yet?**
 
-Place for all scripts that is used in this project such as build, publish, etc.
+Even if your new assembly doesn't have any services _right now_, it's best practice to create the `RegistrationCenter` file anyway. You might need to add services to it later. Having the `RegistrationCenter` in place from the start prevents you from having to refactor and add it later, making future development smoother. It's like planning ahead!
 
-Read more [**here**](CustomizeScript.md).
+## 🌍 global.json ([more](GlobalJson.md))
 
-## ⚙️ .github/workflows
+This file specifies the .NET SDK version your project requires. This ensures everyone working on the project uses the same SDK, preventing compatibility issues.
 
-Place for workflows that run in github, maybe after commit or pull request or many other scenarios.
+Read more [**here**](GlobalJson.md).
 
-## ⚙️ .config/dotnet-tools.json ([more](DotnetToolConfig.md))
+## 🛠️ nuget.config ([more](NugetConfig.md))
 
-This file contains metadata about the dotnet tool that the project use like csharpier, dotnet-ef,...
+This file configures how NuGet (the package manager) works. It lets you define where NuGet should look for packages and customize its behavior. It helps ensure consistent package management across the team.
 
-Read more [**here**](DotnetToolConfig.md).
-
-## ⚙️ app-assembly.json
-
-- Place for assembly that have its own services, and these assemblies require these services to be registered.
-
-- The entry point can scan the list of assembly names in this file and check for services that need to registered of each module and add them to the service collection.
-
-- Basically, you want to leave this file alone, unless you introduces new c# module like classlib, web api or other project and these module may have services that need to be **REGISTERED**, you may want to modify this file to include the name of new module.
+Read more [**here**](NugetConfig.md).
