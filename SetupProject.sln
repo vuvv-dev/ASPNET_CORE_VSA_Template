@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{63B9A3EA-71C1-4717-9263-994AC96E5E74}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{F7C07F6C-C2ED-4E06-9025-AD33B4BBBB51}"
+	ProjectSection(SolutionItems) = preProject
+		Src\Core\Directory.Build.props = Src\Core\Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F1", "Src\Core\F1\F1.csproj", "{66F01071-1A19-419A-B406-4AECB5BACA02}"
 EndProject
@@ -32,6 +35,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FCommon", "Src\Core\FCommon\FCommon.csproj", "{37CA3F49-B936-4E4E-86C2-EC027E10627D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{CBDAA96C-4A53-4A24-A4CC-EE8EB0DE5433}"
+	ProjectSection(SolutionItems) = preProject
+		Src\External\Directory.Build.props = Src\External\Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FA1", "Src\External\FA1\FA1.csproj", "{A1597A7F-A1EC-46AF-8F4A-25CC4F82D226}"
 EndProject
@@ -70,6 +76,114 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F21", "Src\Core\F21\F21.csproj", "{E605AF2D-B556-4108-BD6E-3BD93046D4A0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FA4", "Src\External\FA4\FA4.csproj", "{C4D5578B-E1E7-4B82-8790-FC6ABAE8AA92}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B0FEB464-4C8F-47CA-AE59-2DE61B7F4707}"
+	ProjectSection(SolutionItems) = preProject
+		.csharpierrc.json = .csharpierrc.json
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		app-assembly.json = app-assembly.json
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+		global.json = global.json
+		LICENSE = LICENSE
+		nuget.config = nuget.config
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".config", ".config", "{D9331861-8FC5-4C06-8EE2-7364404B5A01}"
+	ProjectSection(SolutionItems) = preProject
+		.config\dotnet-tools.json = .config\dotnet-tools.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{AFDFD30E-38E6-4679-AD39-50628F9C5DF3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{2468767E-E3D2-44E7-BC95-F2C2B4FB10AF}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\ci.yml = .github\workflows\ci.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{B1D77757-B378-427C-970B-5D31C8DF289F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{69EF1320-1DAD-466F-8572-ED14EF93227F}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\Build\build.ps1 = Scripts\Build\build.ps1
+		Scripts\Build\build.sh = Scripts\Build\build.sh
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clean", "Clean", "{7FE7F545-A67A-43AD-B78B-DAE81C56A872}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\Clean\clean.ps1 = Scripts\Clean\clean.ps1
+		Scripts\Clean\clean.sh = Scripts\Clean\clean.sh
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Init", "Init", "{CBA9DF4D-833C-491A-AF56-7F6C417054C6}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\Init\init.ps1 = Scripts\Init\init.ps1
+		Scripts\Init\init.sh = Scripts\Init\init.sh
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishApp", "PublishApp", "{143C5DA0-3F23-4195-BE61-466506491A03}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\PublishApp\publish.ps1 = Scripts\PublishApp\publish.ps1
+		Scripts\PublishApp\publish.sh = Scripts\PublishApp\publish.sh
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Run", "Run", "{6E87277D-AF2D-4050-A7EA-D7D4FC67105D}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\Run\run.ps1 = Scripts\Run\run.ps1
+		Scripts\Run\run.sh = Scripts\Run\run.sh
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{EC27E747-F45C-44DE-B8C2-CBD5DC048358}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\Test\test.ps1 = Scripts\Test\test.ps1
+		Scripts\Test\test.sh = Scripts\Test\test.sh
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppInfrastructure", "AppInfrastructure", "{BADD0A00-633B-448B-918B-FC8BF854AF35}"
+	ProjectSection(SolutionItems) = preProject
+		AppInfrastructure\.dockerignore = AppInfrastructure\.dockerignore
+		AppInfrastructure\.env = AppInfrastructure\.env
+		AppInfrastructure\docker-compose.yml = AppInfrastructure\docker-compose.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Customs", "Customs", "{1274DA84-7CA0-46FE-93F9-94953B756976}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pgbouncer", "Pgbouncer", "{FD12479D-F6E6-44A4-BD4E-A11AE2C7E521}"
+	ProjectSection(SolutionItems) = preProject
+		AppInfrastructure\Customs\Pgbouncer\Dockerfile = AppInfrastructure\Customs\Pgbouncer\Dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Postgres", "Postgres", "{09FD213A-67D1-4403-A6D7-7C6EEFFD81F9}"
+	ProjectSection(SolutionItems) = preProject
+		AppInfrastructure\Customs\Postgres\Dockerfile = AppInfrastructure\Customs\Postgres\Dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Redis", "Redis", "{EE264AC6-73ED-4FD7-B134-DAB7E5CC2D75}"
+	ProjectSection(SolutionItems) = preProject
+		AppInfrastructure\Customs\Redis\Dockerfile = AppInfrastructure\Customs\Redis\Dockerfile
+		AppInfrastructure\Customs\Redis\users.acl = AppInfrastructure\Customs\Redis\users.acl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Static", "Static", "{C4A6606B-1991-447F-91D9-D1D430FF68DE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{DAA8339F-838B-41CB-9242-9BB4152C5771}"
+	ProjectSection(SolutionItems) = preProject
+		Static\Docs\AGentleIntroduction.md = Static\Docs\AGentleIntroduction.md
+		Static\Docs\CustomizeScript.md = Static\Docs\CustomizeScript.md
+		Static\Docs\DirectoryBuildProps.md = Static\Docs\DirectoryBuildProps.md
+		Static\Docs\DirectoryPackagesProps.md = Static\Docs\DirectoryPackagesProps.md
+		Static\Docs\DotnetToolConfig.md = Static\Docs\DotnetToolConfig.md
+		Static\Docs\GlobalJson.md = Static\Docs\GlobalJson.md
+		Static\Docs\NugetConfig.md = Static\Docs\NugetConfig.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{BF923DDB-1FD2-42F1-8E1C-DA8D2765094C}"
+	ProjectSection(SolutionItems) = preProject
+		Static\Images\Out.png = Static\Images\Out.png
+		Static\Images\TestResult.png = Static\Images\TestResult.png
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -235,5 +349,23 @@ Global
 		{3BABDF7F-9D58-4AA2-A496-00463F1FA131} = {F7C07F6C-C2ED-4E06-9025-AD33B4BBBB51}
 		{E605AF2D-B556-4108-BD6E-3BD93046D4A0} = {F7C07F6C-C2ED-4E06-9025-AD33B4BBBB51}
 		{C4D5578B-E1E7-4B82-8790-FC6ABAE8AA92} = {CBDAA96C-4A53-4A24-A4CC-EE8EB0DE5433}
+		{D9331861-8FC5-4C06-8EE2-7364404B5A01} = {B0FEB464-4C8F-47CA-AE59-2DE61B7F4707}
+		{AFDFD30E-38E6-4679-AD39-50628F9C5DF3} = {B0FEB464-4C8F-47CA-AE59-2DE61B7F4707}
+		{2468767E-E3D2-44E7-BC95-F2C2B4FB10AF} = {AFDFD30E-38E6-4679-AD39-50628F9C5DF3}
+		{B1D77757-B378-427C-970B-5D31C8DF289F} = {B0FEB464-4C8F-47CA-AE59-2DE61B7F4707}
+		{69EF1320-1DAD-466F-8572-ED14EF93227F} = {B1D77757-B378-427C-970B-5D31C8DF289F}
+		{7FE7F545-A67A-43AD-B78B-DAE81C56A872} = {B1D77757-B378-427C-970B-5D31C8DF289F}
+		{CBA9DF4D-833C-491A-AF56-7F6C417054C6} = {B1D77757-B378-427C-970B-5D31C8DF289F}
+		{143C5DA0-3F23-4195-BE61-466506491A03} = {B1D77757-B378-427C-970B-5D31C8DF289F}
+		{6E87277D-AF2D-4050-A7EA-D7D4FC67105D} = {B1D77757-B378-427C-970B-5D31C8DF289F}
+		{EC27E747-F45C-44DE-B8C2-CBD5DC048358} = {B1D77757-B378-427C-970B-5D31C8DF289F}
+		{BADD0A00-633B-448B-918B-FC8BF854AF35} = {B0FEB464-4C8F-47CA-AE59-2DE61B7F4707}
+		{1274DA84-7CA0-46FE-93F9-94953B756976} = {BADD0A00-633B-448B-918B-FC8BF854AF35}
+		{FD12479D-F6E6-44A4-BD4E-A11AE2C7E521} = {1274DA84-7CA0-46FE-93F9-94953B756976}
+		{09FD213A-67D1-4403-A6D7-7C6EEFFD81F9} = {1274DA84-7CA0-46FE-93F9-94953B756976}
+		{EE264AC6-73ED-4FD7-B134-DAB7E5CC2D75} = {1274DA84-7CA0-46FE-93F9-94953B756976}
+		{C4A6606B-1991-447F-91D9-D1D430FF68DE} = {B0FEB464-4C8F-47CA-AE59-2DE61B7F4707}
+		{DAA8339F-838B-41CB-9242-9BB4152C5771} = {C4A6606B-1991-447F-91D9-D1D430FF68DE}
+		{BF923DDB-1FD2-42F1-8E1C-DA8D2765094C} = {C4A6606B-1991-447F-91D9-D1D430FF68DE}
 	EndGlobalSection
 EndGlobal
