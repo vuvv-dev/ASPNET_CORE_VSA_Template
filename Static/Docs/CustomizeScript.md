@@ -1,65 +1,67 @@
-# 📂 Customize Script
+# Customizing Project Scripts for Different Folder Names
 
-| ⚡ TL;DR (quick version)                                                                            |
-| --------------------------------------------------------------------------------------------------- |
-| Change `PROJECT_NAME` value at the top of some scripts to make them work with different folder name |
+This guide explains how to modify the project scripts to work with custom folder names when cloning the repository.
 
-When cloning this project, you may need to use a folder name different from the default one. This could happen due to project constraints, customer requirements, or other reasons. To make the project scripts work with your custom folder name, you'll need to update a specific variable in the scripts.
+**Why Customize?**
 
-### How to customize
+When cloning the repository, you might want to use a folder name other than the default (`ASPNET_CORE_VSA_Template`). The project scripts rely on this default name, so you'll need to update them to reflect your custom folder name.
 
-The following `SCRIPTS` require changes:
+**Which Scripts to Update?**
 
-- `./Scripts/Build/build.sh` or `./Scripts/Build/build.ps1`
+The following scripts need modification:
 
-- `./Scripts/Clean/clean.sh` or `./Scripts/Clean/clean.ps1`
+- `./Scripts/Build/build.sh` or `./Scripts/Build/build.ps1` (Build scripts)
 
-- `./Scripts/Run/run.sh` or `./Scripts/Run/run.ps1`
+- `./Scripts/Clean/clean.sh` or `./Scripts/Clean/clean.ps1` (Clean scripts)
 
-- `./Scripts/PublishApp/publish.sh` or `./Scripts/PublishApp/publish.ps1`
+- `./Scripts/Run/run.sh` or `./Scripts/Run/run.ps1` (Run scripts)
 
-- `./Scripts/Test/test.sh` or `./Scripts/Test/test.ps1`
+- `./Scripts/PublishApp/publish.sh` or `./Scripts/PublishApp/publish.ps1` (Publish scripts)
 
-You need to find and update the `PROJECT_NAME` variable. Below is the place of the variable in each script:
+- `./Scripts/Test/test.sh` or `./Scripts/Test/test.ps1` (Test scripts)
 
-#### 1. PowerShell Scripts (`.ps1`):
+**How to Update the Scripts:**
 
-At the top of each `.ps1` script, you will find a line like this:
+In each of the scripts listed above, you need to change the value of the `PROJECT_NAME` variable.
 
-```ps1
+**1. PowerShell Scripts (`.ps1`):**
+
+At the beginning of each `.ps1` script, you'll find a line like this:
+
+```powershell
 # Change this to your project name
-$PROJECT_NAME="ASPNET_CORE_VSA_Template"
+$PROJECT_NAME = "ASPNET_CORE_VSA_Template"
 ```
 
-Update the value of `$PROJECT_NAME` to match the name of the folder where you cloned the repository.
+Change the value within the double quotes (`"ASPNET_CORE_VSA_Template"`) to the actual name of the folder where you cloned the repository.
 
-#### 2. Shell Scripts (`.sh`):
+**2. Shell Scripts (`.sh`):**
 
-At the top of each `.sh` script, you will find a line like this:
+At the beginning of each `.sh` script, you'll find a line like this:
 
-```sh
+```bash
 # Change this to your project name
 PROJECT_NAME="ASPNET_CORE_VSA_Template"
 ```
 
-Update the value of `PROJECT_NAME` to match the name of the folder where you cloned the repository.
+Change the value within the double quotes (`"ASPNET_CORE_VSA_Template"`) to the actual name of the folder where you cloned the repository.
 
-### Example Update
+**Example:**
 
-If you cloned the repository into a folder named `First_Project`, update the scripts as follows:
+Let's say you cloned the repository into a folder named `MyProject`. You would update the scripts as follows:
 
-- #### PowerShell Scripts (`.ps1`):
+**PowerShell (`.ps1`):**
 
-```ps1
+```powershell
 # Change this to your project name
-$PROJECT_NAME="First_Project"
+$PROJECT_NAME = "MyProject"
 ```
 
-- #### Shell Scripts (`.sh`):
+**Shell (`.sh`):**
 
-```sh
+```bash
 # Change this to your project name
-PROJECT_NAME="First_Project"
+PROJECT_NAME="MyProject"
 ```
 
-## There are more to customize for this file, but for me, this is enough.
+## Again: There are more to customize for this file, but for me, this is enough.

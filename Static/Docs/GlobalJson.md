@@ -1,38 +1,30 @@
-# 🌍 global.json
+# Understanding and Using `global.json`
 
-| ⚡ TL;DR (quick version)                                                                                                                  |
-| ----------------------------------------------------------------------------------------------------------------------------------------- |
-| The `global.json` file in a .NET project pins the .NET SDK version to ensure consistent builds across development and CI/CD environments. |
+This guide explains the purpose and structure of the `global.json` file in .NET projects, focusing on its role in ensuring consistent builds.
 
-The `global.json` file is a configuration file used in .NET projects to define specific settings for the development environment. Its primary purpose is to lock the .NET SDK version to ensure consistent behavior across different machines and build environments.
+**What is `global.json`?**
 
-This is especially useful in teams or CI/CD pipelines, where mismatched SDK versions can cause unexpected issues.
+The `global.json` file is a configuration file that allows you to define settings for the .NET SDK used in your project. Its primary purpose is to _pin_ or _lock_ the .NET SDK version, ensuring that everyone working on the project uses the same SDK version, regardless of what they have installed locally. This is vital for consistent builds across development machines, continuous integration (CI) servers, and other environments.
 
-### How does it work
+**Why use `global.json`?**
 
-Imagine a team of developers working on the same project, but each developer has a different version of the .NET SDK installed. Without `global.json`:
+Imagine a team of developers. Without `global.json`, each developer might have a different .NET SDK version installed. This can lead to:
 
-- Version Mismatch: Each developer might unknowingly use a different SDK version.
+- **Version Mismatches:** Developers unknowingly use different SDK versions.
+- **Inconsistent Builds:** Builds produce different results depending on the environment.
+- **Compatibility Issues:** Code that works for one developer might break for another due to SDK differences.
 
-- Inconsistent Builds: Builds may behave differently depending on the environment.
+`global.json` solves these problems by explicitly specifying the SDK version, guaranteeing:
 
-- Compatibility Issues: Certain libraries or APIs might behave differently between SDK versions.
+- **Consistent SDK Usage:** Everyone uses the same SDK version.
+- **Consistent Builds:** Builds produce the same results across all environments.
+- **Improved Compatibility:** Reduces the risk of compatibility issues due to SDK version differences.
 
-With `global.json`, the SDK version is explicitly specified, ensuring:
+**Customization:**
 
-- The correct SDK version is used.
+While `global.json` primarily focuses on SDK version management, it does offer some customization options. This guide covers the essentials, but you can explore more advanced features in the official Microsoft documentation: [global.json](https://learn.microsoft.com/en-us/dotnet/core/tools/global-json).
 
-- Builds are consistent across environments.
-
-- Compatibility is maintained throughout the project lifecycle.
-
-### Can you customize the file
-
-There are more to customize for this file, you can checkout [global.json](https://learn.microsoft.com/en-us/dotnet/core/tools/global-json) in microsoft documents to customize for more.
-
-### Structure
-
-Here’s the structure of the [global.json](/global.json) file in this project:
+**Example `global.json` Structure:**
 
 ```json
 {
@@ -44,16 +36,15 @@ Here’s the structure of the [global.json](/global.json) file in this project:
 }
 ```
 
-### Explanation of Settings
+**Explanation of Settings:**
 
-`sdk`
+- **`sdk`:** This section defines the .NET SDK settings.
+  - **`version`:** Specifies the _exact_ .NET SDK version to use (e.g., "8.0.404"). This is the most important setting.
+  - **`rollForward`:** Determines how the SDK should handle situations where the specified `version` is not found. Common values include:
+    - `latestMajor`: Roll forward to the latest major version.
+    - `latestMinor`: Roll forward to the latest minor version.
+    - `latestPatch`: Roll forward to the latest patch version.
+    - `disable`: Do not roll forward. This is often preferred for production to ensure maximum consistency.
+  - **`allowPrerelease`:** A boolean value. `true` allows using prerelease (e.g., preview, alpha, beta) SDK versions. Generally, set this to `false` for production projects.
 
-Defines the specific version of the .NET SDK to use:
-
-- `version`: Specifies the exact version.
-
-- `rollForward`: Determines how the SDK handles updates.
-
-- `allowPrerelease`: Allows the use of prerelease SDK versions.
-
-## Again: There are more to customize for this file, but for me, this is enough, you can checkout [global.json](https://learn.microsoft.com/en-us/dotnet/core/tools/global-json) in microsoft documents to customize for more.
+## Again: There are more to customize for this file, but for me, this is enough.
