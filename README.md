@@ -87,7 +87,7 @@ cd /home/CODE_PROJECTS/ASPNET_CORE_VSA_Template/
 ./Scripts/Init/init.sh
 ```
 
-### 3: Update the **`HOST_IP`** var in `.env` file in `AppInfrastructure` folder (docker stack)
+### 3: Update the **`HOST_IP`** var in `.env` file in `./AppInfrastructure` folder (docker stack)
 
 For example:
 
@@ -109,7 +109,13 @@ But your docker server IP is `192.168.1.10`, so you must change it to:
 HOST_IP=192.168.1.10
 ```
 
-### 4: Find and update the all parts that have `IP` in all `files` that start with `appsettings` in `Src/Entry` folder
+### 4: Run docker compose by following command, make sure to stand in `./AppInfrastructure` folder:
+
+```bash
+docker compose up -d --build
+```
+
+### 5: Find and update the all parts that have `IP` in all `files` that start with `appsettings` in `Src/Entry` folder
 
 For example:
 
@@ -135,7 +141,7 @@ The current postgres server IP is `192.168.56.104`, but your server IP is `192.1
   }
 ```
 
-### 5. Run the project via this script:
+### 6. Run the project via this script:
 
 - #### Windows
 
