@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <ProjectReference Include="..\..\Base\FBaseApi\FBaseApi.csproj" />
-    <ProjectReference Include="..\..\Base\FConfig\FConfig.csproj" />
+    <ProjectReference Include="..\..\Base\**\*.csproj" />
   </ItemGroup>
   <PropertyGroup Label="Custom">
     <AppProjectName>FACommon</AppProjectName>

@@ -34,11 +34,7 @@ public static class ServiceRegisterationCenter
             configuration
         );
 
-        services = RegisterAssemblyByName(
-            registerAssemblyNames.Assembly.Entry,
-            services,
-            configuration
-        );
+        services = RegisterAssemblyByName([nameof(Entry)], services, configuration);
 
         return services;
     }
