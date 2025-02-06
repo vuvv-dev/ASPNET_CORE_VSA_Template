@@ -8,7 +8,7 @@
 
 - For a **introduction about project and each config file**, please check out [Here](./Static/Docs/AGentleIntroduction.md)
 
-- For how to test the project, please check out this [Getting Started](#getting-started)
+- For how to start the project, please check out this [Getting Started](#getting-started)
 
 - For explaination about the src structure, please check out this [Coming soon]()
 
