@@ -1,85 +1,72 @@
-# 🛠️ nuget.config
+# Understanding and Customizing `nuget.config`
 
-| ⚡ TL;DR (quick version)                                                                                                                                                                                                                |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| The `nuget.config` file configures NuGet to automatically restore packages, fetch packages only from defined sources, and scan for vulnerabilities using defined sources, ensuring a streamlined and secure package management process. |
+This guide explains the purpose and structure of the `nuget.config` file, a crucial component for managing NuGet packages in your .NET projects.
 
-The `nuget.config` file is a configuration file used by NuGet, a package manager for .NET applications. It contains settings that control NuGet's behavior, such as the sources from which packages are retrieved, the locations where packages are installed, and authentication credentials for private feeds.
+**What is `nuget.config`?**
 
-The `nuget.config` file can exist at multiple levels:
+The `nuget.config` file is a configuration file used by NuGet, the package manager for .NET. It controls NuGet's behavior, including:
 
-- Machine-wide configuration: Found in a standard location on your system, affecting all users.
+- **Package Sources:** Where NuGet looks for packages.
+- **Package Installation Locations:** Where packages are installed.
+- **Authentication:** Credentials for private package feeds.
+- **Package Restore Behavior:** How and when packages are restored.
+- **Security Scanning:** Sources to use to scan for vulnerabilities.
 
-- User-specific configuration: Located in the user's profile directory, affecting only that user's NuGet operations.
+**Where is `nuget.config` located?**
 
-- Project-specific configuration: Found in a solution or project directory, overriding the above configurations for that specific project.
+`nuget.config` files can exist at multiple levels, with a hierarchical structure:
 
-### How does it work
+1.  **Machine-wide:** Affects all users on the system.
+2.  **User-specific:** Affects only the current user.
+3.  **Project-specific:** Affects only the specific solution or project.
 
-When resolving NuGet operations, NuGet combines settings from all `nuget.config` files (from machine-wide to project-specific) in a hierarchical manner, with project-specific settings taking precedence. It uses the XML format for defining settings.
+NuGet combines settings from all levels, with project-specific settings taking precedence.
 
-### Why to define all of these when they are default
+**Why define settings in `nuget.config`?**
 
-Well sometimes you cannot sure this is default in all dev machines. So clearly define them help all machine have the same setting when working with packages like the same package sources, same package restore behavior in all machines.
+While some settings might have defaults, explicitly defining them ensures consistency across all developer machines and build environments. This prevents issues caused by different default configurations and provides better control over package management.
 
-### Can you customize the file
+**Customization:**
 
-There are more to customize for this file, you can checkout [nuget.config](https://learn.microsoft.com/en-us/nuget/reference/nuget-config-file) in microsoft documents to customize for more.
+The `nuget.config` file is highly customizable. This guide covers the most common settings, but you can find more advanced options in the official Microsoft documentation: [nuget.config file](https://learn.microsoft.com/en-us/nuget/reference/nuget-config-file).
 
-### Structure
-
-Here’s the structure of the [nuget.config](/nuget.config) file in this project:
+**Example `nuget.config` Structure:**
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
-  <!-- Behavior when restoring. -->
   <packageRestore>
     <add key="enabled" value="true" />
     <add key="automatic" value="true" />
   </packageRestore>
 
-  <!-- Sources for retrieving packages. -->
   <packageSources>
-    <clear />
-    <add key="nuget" value="https://api.nuget.org/v3/index.json" />
-  </packageSources>
+    <clear />  <add key="nuget" value="https://api.nuget.org/v3/index.json" />
+    </packageSources>
 
-  <!-- Sources for scanning security vulnerabilities of packages. -->
   <auditSources>
-    <clear />
-    <add key="nuget" value="https://api.nuget.org/v3/index.json" />
-  </auditSources>
+    <clear />  <add key="nuget" value="https://api.nuget.org/v3/index.json" />
+    </auditSources>
 </configuration>
 ```
 
-### Explanation of Settings
+**Explanation of Settings:**
 
-`<packageRestore>`
+- **`<packageRestore>`:** Controls package restoration behavior.
 
-This section configures the behavior of package restoration:
+  - `enabled="true"`: Enables package restore.
+  - `automatic="true"`: Automatically restores missing packages during build.
 
-- enabled: Enables package restore for the project.
-- automatic: Automatically restores missing packages when the project is built.
+- **`<packageSources>`:** Defines where NuGet looks for packages.
 
-`<packageSources>`
+  - `<clear />`: **Crucially, this element clears any package sources inherited from higher-level `nuget.config` files.** This ensures that only the sources defined in this file are used. Without this, you could unintentionally be pulling packages from unexpected or unwanted sources.
+  - `<add key="[Name]" value="https://www.faccts.de/docs/orca/5.0/tutorials/first_steps/trouble_install.html" />`: Adds a package source.
+    - `key`: A descriptive name for the source (e.g., "nuget", "MyPrivateFeed").
+    - `value`: The URL of the package feed (e.g., `https://api.nuget.org/v3/index.json` for NuGet.org) or a local file path.
 
-Defines the sources from which NuGet packages are downloaded.
+- **`<auditSources>`:** Defines where NuGet looks for security vulnerability information about packages. \* `<clear />`: **Crucially, this element clears any audit sources inherited from higher-level `nuget.config` files.** This ensures that only the sources defined in this file are used.
+  - `<add key="[Name]" value="https://www.faccts.de/docs/orca/5.0/tutorials/first_steps/trouble_install.html" />`: Adds an audit source.
+    - `key`: A descriptive name for the source (e.g., "nuget").
+    - `value`: The URL of the package feed (e.g., `https://api.nuget.org/v3/index.json` for NuGet.org) or a local file path. This is often the same as your `packageSources`.
 
-- The block should start with `<clear />` to clears any inherited package sources from higher-level configurations if this you want to be specific about the sources that you want this module / project to use.
-
-- Each `<add>` element specifies:
-  - key: The name of the source (e.g., nuget.org, PrivateRepo), any name you want.
-  - value: The URL or local path to the package source.
-
-`<auditSources>`
-
-Specifies sources used for scanning package vulnerabilities.
-
-- The block should start with `<clear />` to clears any inherited package sources from higher-level configurations if this you want to be specific about the sources that you want this module / project to use.
-
-- Each `<add>` element specifies:
-  - key: The name of the source (e.g., nuget.org, PrivateRepo), any name you want.
-  - value: The URL or local path to the package source.
-
-## Again: There are more to customize for this file, but for me, this is enough, you can checkout [nuget.config](https://learn.microsoft.com/en-us/nuget/reference/nuget-config-file) in microsoft documents to customize for more.
+## Again: There are more to customize for this file, but for me, this is enough.

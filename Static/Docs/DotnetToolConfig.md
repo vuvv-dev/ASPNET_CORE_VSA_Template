@@ -1,38 +1,31 @@
-# ⚙️ dotnet-tools.config
+# Understanding and Managing .NET Tools with `dotnet-tools.json`
 
-| ⚡ TL;DR (quick version)                                                                                                                                                                                                                                            |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| The `dotnet-tools.json` file manages .NET tools installed in a project or solution, ensuring consistent tooling across environments. It tracks the tool names, versions, and installation sources to make it easy for developers to restore and use the same tools. |
+This guide explains the purpose and structure of the `dotnet-tools.json` file, which is used to manage local .NET tools within a project.
 
-The `dotnet-tools.json` file is a configuration file used in .NET projects to manage **local .NET tools**. These are command-line tools installed for a specific project or solution, rather than globally. The file tracks the tools and their settings, making it easy to restore and ensure consistency across development environments.
+**What is `dotnet-tools.json`?**
 
-This is particularly useful in team projects or CI/CD pipelines where all contributors need the same set of tools.
+The `dotnet-tools.json` file is a configuration file that manages _local_ .NET tools. Local tools are installed for a specific project or solution, as opposed to _global_ tools which are installed system-wide. This file ensures that everyone working on the project uses the same versions of the required tools.
 
-### How does it work
+**Why use `dotnet-tools.json`?**
 
-Imagine a project requires a specific tool like `dotnet-ef` (Entity Framework CLI) for migrations. Without `dotnet-tools.json`:
+Consider a project that uses tools like `dotnet-ef` (Entity Framework Core tools) or code formatters. Without `dotnet-tools.json`:
 
-- Developers need to manually install the tool.
+- **Manual Installation:** Developers would need to manually install each tool.
+- **Version Conflicts:** Different developers might use different tool versions, leading to inconsistencies.
+- **Tracking Difficulty:** It's hard to keep track of which tools the project requires.
 
-- Version mismatches could cause errors or unexpected behavior.
+`dotnet-tools.json` solves these issues by:
 
-- There's no easy way to track which tools are required for the project.
+- **Centralized Tool Definition:** The file lists all required tools and their versions.
+- **Easy Restoration:** Developers can restore all tools with a single command (`dotnet tool restore`).
+- **Version Consistency:** Ensures everyone uses the same tool versions.
+- **Project-Specific Tools:** Tools are associated with the project, not the developer's machine.
 
-With `dotnet-tools.json`, the tools and their versions are defined centrally:
+**Customization:**
 
-- Developers can restore tools with a single command (`dotnet tool restore`).
+The `dotnet-tools.json` file is customizable. This guide covers the core elements, but more details can be found in the official Microsoft documentation: [Install a local tool](https://learn.microsoft.com/en-us/dotnet/core/tools/global-tools#install-a-local-tool).
 
-- The exact version and source are enforced, avoiding discrepancies.
-
-- The tools become part of the project's environment, ensuring reproducibility.
-
-### Can you customize the file
-
-There are more to customize for this file, you can checkout [dotnet-tools.config](https://learn.microsoft.com/en-us/dotnet/core/tools/global-tools#install-a-local-tool) in microsoft documents to customize for more.
-
-### Structure
-
-Here’s the structure of the [dotnet-tools.config](/.config/dotnet-tools.json) file in this project:
+**Example `dotnet-tools.json` Structure:**
 
 ```json
 {
@@ -58,24 +51,14 @@ Here’s the structure of the [dotnet-tools.config](/.config/dotnet-tools.json) 
 }
 ```
 
-### Explanation of Settings
+**Explanation of Settings:**
 
-#### 1. Versioned Tool Management
+- **`version`:** The version of the `dotnet-tools.json` file format. This helps ensure compatibility.
+- **`isRoot`:** A boolean value. `true` indicates this is the root `dotnet-tools.json` file for the project. This is important if you have nested projects.
+- **`tools`:** This section lists the local tools. Each tool is defined as an object with the following properties:
+  - **`[Tool Name]`:** The name of the tool (e.g., `csharpier`, `dotnet-ef`). This is the key in the `tools` object.
+  - **`version`:** The _exact_ version of the tool to use. This is critical for consistency.
+  - **`commands`:** An array of command names provided by the tool (e.g., `["dotnet-csharpier"]`, `["dotnet-ef"]`). This is how you invoke the tool from the command line.
+  - **`rollForward`:** Controls how the tool handles updates. `false` (as in the example) means it will _not_ automatically roll forward to newer versions. This provides the most consistent behavior, which is typically what you want in a project.
 
-The `"version"` property in the file ensures compatibility with the format of the `dotnet-tools.json` file itself.
-
-#### 2. IsRoot Property
-
-`"isRoot": true` marks this file as the root of the tool manifest.
-
-#### 3. Tools Section
-
-- Each key under `"tools"` is the name of a .NET tool (e.g., `dotnet-ef`, `csharpier`):
-
-  - The "version" specifies the exact version of the tool to install.
-
-  - The "commands" array lists the commands the tool provides.
-
-  - The "rollForward" property controls how the tool handles updates.
-
-## Again: There are more to customize for this file, but for me, this is enough, you can checkout [dotnet-tools.config](https://learn.microsoft.com/en-us/dotnet/core/tools/global-tools#install-a-local-tool) in microsoft documents to customize for more.
+## Again: There are more to customize for this file, but for me, this is enough.

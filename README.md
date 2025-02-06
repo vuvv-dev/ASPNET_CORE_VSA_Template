@@ -14,7 +14,7 @@
 
 ## Introduction
 
-Welcome to the ASP.NET Core Vertical Slice Architecture Template! This template is designed to help you build maintainable, scalable ASP.NET Core projects that follows the Vertical Slice Architecture (VSA). Its modular approach keeps your codebase clean and easy to navigate as your project grows.
+Welcome to the ASP.NET Core Vertical Slice Architecture Template! This template helps you build maintainable, scalable, and testable web applications by organizing code around business features. It addresses the challenges of traditional layered architectures, such as bloated controllers and scattered code, by promoting a modular and feature-centric approach.
 
 ## Context
 
@@ -47,7 +47,7 @@ And that’s how this template was born!
 
 Ensure you have the following installed:
 
-- .NET SDK 8.0.404
+- .NET SDK `8.0.404`
 
 ### Installation
 
@@ -87,7 +87,55 @@ cd /home/CODE_PROJECTS/ASPNET_CORE_VSA_Template/
 ./Scripts/Init/init.sh
 ```
 
-### 3. Run the project via this script:
+### 3: Update the **`HOST_IP`** var in `.env` file in `AppInfrastructure` folder (docker stack)
+
+For example:
+
+Currently, in `.env` there is a section at the top expressing docker server IP:
+
+```bash
+# ======================
+# GLOBAL
+# ======================
+HOST_IP=192.168.56.104
+```
+
+But your docker server IP is `192.168.1.10`, so you must change it to:
+
+```bash
+# ======================
+# GLOBAL
+# ======================
+HOST_IP=192.168.1.10
+```
+
+### 4: Find and update the all parts that have `IP` in all `files` that start with `appsettings` in `Src/Entry` folder
+
+For example:
+
+Currently, in `appsettings.Development.json` in `Src/Entry` ther was a connection string for postgressql database like this:
+
+```json
+"Database": {
+    "Main": {
+      "ConnectionString": "Server=192.168.56.104; Port=6102; Database=todoappdb; User ID=admin; Password=Admin123@; SSL Mode=Prefer; Pooling=true; Minimum Pool Size=64; Maximum Pool Size=120; Connection Idle Lifetime=300; Connection Lifetime=500",
+      // ... other settings
+    }
+  }
+```
+
+The current postgres server IP is `192.168.56.104`, but your server IP is `192.168.1.10`, so you must change it to:
+
+```json
+"Database": {
+    "Main": {
+      "ConnectionString": "Server=192.168.1.10; Port=6102; Database=todoappdb; User ID=admin; Password=Admin123@; SSL Mode=Prefer; Pooling=true; Minimum Pool Size=64; Maximum Pool Size=120; Connection Idle Lifetime=300; Connection Lifetime=500",
+      // ... other settings
+    }
+  }
+```
+
+### 5. Run the project via this script:
 
 - #### Windows
 
