@@ -8,9 +8,9 @@
 
 - For a **introduction about project and each config file**, please check out [Here](./Static/Docs/AGentleIntroduction.md)
 
-- For how to start the project, please check out this [Getting Started](#getting-started)
+- For how to start the project, please check out [Getting Started](#getting-started)
 
-- For explaination about the src structure, please check out this [Coming soon]()
+- For explaination about the idea of this template, please check out [Here](Static/Docs/TemplateDiscussion/)
 
 ## Introduction
 
@@ -48,6 +48,12 @@ And that’s how this template was born!
 Ensure you have the following installed:
 
 - .NET SDK `8.0.404`
+
+- Docker (Any version but at least `20.10.17`)
+
+  - please make sure it supports docker compose
+
+- `Text editor` (Vs code, fleet,..) or `IDE` (Visual Studio 2022, Rider, ...)
 
 ### Installation
 

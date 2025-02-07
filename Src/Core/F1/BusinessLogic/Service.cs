@@ -66,7 +66,7 @@ public sealed class Service : IServiceHandler<AppRequestModel, AppResponseModel>
             return Constant.DefaultResponse.App.SERVER_ERROR;
         }
 
-        var newAccessToken = _accessTokenHandler.Value.GenerateJWS(
+        var newAccessToken = _accessTokenHandler.Value.GenerateJWT(
             [
                 new(AppConstant.JsonWebToken.ClaimType.JTI, tokenId.ToString()),
                 new(AppConstant.JsonWebToken.ClaimType.SUB, passwordSignInResult.UserId.ToString()),

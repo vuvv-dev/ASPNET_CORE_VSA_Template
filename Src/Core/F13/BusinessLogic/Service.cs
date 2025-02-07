@@ -49,7 +49,7 @@ public sealed class Service : IServiceHandler<AppRequestModel, AppResponseModel>
             TodoTaskListId = request.TodoTaskListId,
             NumberOfRecord = request.NumberOfRecord,
         };
-        var foundTodoTasks = await _repository.Value.GetTodoTasksAsync(input, ct);
+        var foundTodoTasks = await _repository.Value.GetUncompletedTodoTasksAsync(input, ct);
 
         var taskCount = foundTodoTasks.Count();
         if (taskCount <= request.NumberOfRecord)

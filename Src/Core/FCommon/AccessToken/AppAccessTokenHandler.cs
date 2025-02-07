@@ -16,7 +16,7 @@ public sealed class AppAccessTokenHandler : IAppAccessTokenHandler
         _validationParameters = validationParameters;
     }
 
-    public string GenerateJWS(IEnumerable<Claim> claims, int additionalMinutesFromNow)
+    public string GenerateJWT(IEnumerable<Claim> claims, int additionalMinutesFromNow)
     {
         var signingCredentials = new SigningCredentials(
             _validationParameters.IssuerSigningKey,
@@ -41,9 +41,9 @@ public sealed class AppAccessTokenHandler : IAppAccessTokenHandler
 
         var tokenHandler = new JwtSecurityTokenHandler();
         var jwtDescriptor = tokenHandler.CreateToken(tokenDescriptor);
-        var jws = tokenHandler.WriteToken(jwtDescriptor);
+        var jwt = tokenHandler.WriteToken(jwtDescriptor);
 
-        return jws;
+        return jwt;
     }
 
     /// <summary>
