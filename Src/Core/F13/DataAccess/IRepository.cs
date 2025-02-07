@@ -7,7 +7,7 @@ namespace F13.DataAccess;
 
 public interface IRepository
 {
-    Task<IEnumerable<TodoTaskModel>> GetTodoTasksAsync(
+    Task<IEnumerable<TodoTaskModel>> GetUncompletedTodoTasksAsync(
         GetTodoTasksInputModel input,
         CancellationToken ct
     );

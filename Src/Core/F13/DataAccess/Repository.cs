@@ -32,7 +32,7 @@ public sealed class Repository : IRepository
         return _appContext.Set<TodoTaskListEntity>().AnyAsync(entity => entity.Id == listId, ct);
     }
 
-    public async Task<IEnumerable<TodoTaskModel>> GetTodoTasksAsync(
+    public async Task<IEnumerable<TodoTaskModel>> GetUncompletedTodoTasksAsync(
         GetTodoTasksInputModel input,
         CancellationToken ct
     )

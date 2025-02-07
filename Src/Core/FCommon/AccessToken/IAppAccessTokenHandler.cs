@@ -5,5 +5,5 @@ namespace FCommon.AccessToken;
 
 public interface IAppAccessTokenHandler
 {
-    string GenerateJWS(IEnumerable<Claim> claims, int additionalMinutesFromNow);
+    string GenerateJWT(IEnumerable<Claim> claims, int additionalMinutesFromNow);
 }
