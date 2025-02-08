@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Jackpieking",
+  "classifications": ["Common", "Library"],
+  "identity": "Template.Feature",
+  "name": "Core feature classlib (controller base)",
+  "shortName": "tcfeat",
+  "sourceName": "FeatTemplate",
+  "tags": {
+    "language": "C#",
+    "type": "item"
+  },
+  "preferNameDirectory": true,
+  "symbols": {
+    "FeatureCommon": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The common module of feature",
+      "defaultValue": "FCommon",
+      "replaces": "RFeatureCommonModule"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 namespace FA1.Common;
 
-public static class Constant
+internal static class Constant
 {
     public const string DatabaseSchema = "todo";
 
