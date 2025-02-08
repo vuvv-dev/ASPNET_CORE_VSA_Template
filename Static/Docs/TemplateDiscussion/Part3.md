@@ -1,4 +1,4 @@
-# PART 3 - CODE STRUCTURE DISCUSSION
+# PART 3 - CODE STRUCTURE EXPLANATION
 
 This section details the code structure within the Core modules, emphasizing the organization of sub-features (or features, if there's only one sub-feature).
 

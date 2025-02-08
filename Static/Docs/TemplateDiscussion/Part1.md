@@ -1,4 +1,4 @@
-# PART 1 - FEATURE DISCUSSION
+# PART 1 - FEATURE EXPLANATION
 
 This document outlines a proposed approach to defining, designing, and managing features within an application.
 
