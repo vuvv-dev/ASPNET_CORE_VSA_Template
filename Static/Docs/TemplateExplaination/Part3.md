@@ -34,18 +34,10 @@ Depending on the feature's needs, the following additional components may be inc
 
 - **Models:** Defines the core business logic models used by the service. These models are distinct from database entities or DTOs, promoting loose coupling and stability within the business logic.
 
-**4. Example: F15 Module:**
+#### As this is standard practice, I'll skip the 3-layer architecture explanation, which is readily available in numerous YouTube tutorials
 
-The `F15` module serves as a concrete example. Let's examine its key component:
+---
 
-- **Business Logic:**
+**FINISH READING?**
 
-  ![Service](../../Images/F15-Feat/F15Service.png)
-
-  - The [`Service.cs`](../../../Src/Core/F15/BusinessLogic/Service.cs) file within the `F15/BusinessLogic` folder contains the core logic of the feature. It typically exposes an `ExecuteAsync` method, which serves as the main entry point for the feature's functionality. Internal methods may be used to support the primary logic within `ExecuteAsync`.
-
-  - Critically, the Business Logic interacts _exclusively_ through its defined interfaces and models. For instance, in the example, the service receives its input via a defined request model [`AppRequestModel.cs`](../../../Src/Core/F15/Models/AppRequestModel.cs) and produces its output using a defined response model [`AppResponseModel.cs`](../../../Src/Core/F15/Models/AppResponseModel.cs).
-
-  **-->** This strict adherence to defined interfaces and models **decouples** the feature's core logic from other components. This decoupling is essential for testability and maintainability, allowing changes to other parts of the module without affecting the core business logic, and vice versa.
-
-# MORE IS COMING
+**==> CHECK OUT [PART 4](Part4.md)**

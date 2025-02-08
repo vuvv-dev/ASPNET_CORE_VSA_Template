@@ -47,4 +47,4 @@ The document above provides a centralized location for information about each fe
 
 **FINISH READING?**
 
-**==> CHECK OUT [PART 2](./Part2.md)**
+**==> CHECK OUT [PART 2](Part2.md)**
