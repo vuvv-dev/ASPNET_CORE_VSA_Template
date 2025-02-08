@@ -1,12 +1,12 @@
 # 🦄 A Gentle Introduction
 
-In my view, an application typically contains two types of features:
+In my view, a feature is defined as a **self-contained unit of functionality** within an application. It should be easily testable and independent where possible. Applications are composed of **multiple features**, each with its own components, requirements, and dependencies, but typically there are **two types of features**:
 
 - **Non-Functional Features**: These features focus on aspects like performance, security, or usability. Examples include caching or logging. While they don't directly affect the core functionality of the app, they are crucial for the system's overall health.
 
 - **Functional Features**: These represent the main functionalities of the system, such as user logins, report generation, or data processing. These features directly impact how users interact with the application.
 
-Each feature usually consists of 1 to 3 components or maybe more if needed, depending on the complexity:
+Each feature usually consists of 1 to 3 components in code or maybe more if needed, depending on the complexity:
 
 - **Presentation (Optional)**: This is the entry point for user interaction with the feature, such as API endpoints or views. Some features may not need a presentation layer (e.g., background tasks like cleaning or scheduled processes).
 

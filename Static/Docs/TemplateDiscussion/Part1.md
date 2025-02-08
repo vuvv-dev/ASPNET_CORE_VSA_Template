@@ -1,10 +1,10 @@
-## FEATURE DISCUSSION
+## PART 1 - FEATURE DISCUSSION
 
 This document outlines a proposed approach to defining, designing, and managing features within an application.
 
 ### Defining Features
 
-A feature is defined as a **self-contained unit of functionality** within an application. It should be easily testable and independent where possible. Applications are composed of multiple features, each with its own components, requirements, and dependencies.
+As I have discussed in **[Gentel Introduction](../AGentleIntroduction.md)**, a feature is defined as a **self-contained unit of functionality** within an application and an application is composed of **multiple features**, each with its own components, requirements, and dependencies.
 
 Before development begins, each feature should be carefully designed. This includes defining its workflow, inputs, outputs, and dependencies. A visual representation of the workflow, using a diagram, is highly recommended. This diagram serves as a valuable tool for understanding the feature's logic and can save significant time compared to deciphering code directly. While input/output can be documented using tools like Swagger, detailed documentation can also be included if necessary.
 
@@ -35,6 +35,12 @@ To address these challenges, a feature management document (e.g., in a spreadshe
 
 **Example Feature Management Document:**
 
-![Feature Management Doc](../../Images/FeatureManagementDoc.png)
+![Feature Management Doc Picture 1](../../Images/FeatureManagementDoc_1.png)
+
+![Feature Management Doc Picture 3](../../Images/FeatureManagementDoc_3.png)
+
+![Feature Management Doc Picture 2](../../Images/FeatureManagementDoc_2.png)
 
 The document above provides a centralized location for information about each feature, facilitating better organization and tracking. It helps to mitigate the risks associated with poor feature management. This document can be found **[Here](../FeatManagementDoc.xlsx)**
+
+## ===> **CHECK OUT [PART 2](./Part2)**
