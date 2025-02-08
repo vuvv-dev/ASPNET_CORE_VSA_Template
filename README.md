@@ -10,7 +10,7 @@
 
 - For how to start the project, please check out [Getting Started](#getting-started)
 
-- For explaination about the idea of this template, please check out [Here](Static/Docs/TemplateDiscussion/)
+- For explaination about the idea and structure of this template, please check out [Here](Static/Docs/TemplateDiscussion/)
 
 ## Introduction
 
