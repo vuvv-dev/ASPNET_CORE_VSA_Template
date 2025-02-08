@@ -8,7 +8,7 @@
 
 - For **explanations about idea and structure of template**, please check out [Here](./Static/Docs/TemplateExplaination/AGentleIntroduction.md)
 
-- For more **information about each config file**, please check out [Here](./Static/Docs/ConfigDescription/Introduction.md)
+- For more **information about each config file**, please check out [Here](./Static/Docs/ConfigExplaination/Introduction.md)
 
 - For how to **start the project**, please check out [Getting Started](#getting-started)
 
