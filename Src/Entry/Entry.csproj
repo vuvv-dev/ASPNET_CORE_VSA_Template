@@ -8,4 +8,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Core\**\*.csproj" />
   </ItemGroup>
-</Project>  
+</Project>
