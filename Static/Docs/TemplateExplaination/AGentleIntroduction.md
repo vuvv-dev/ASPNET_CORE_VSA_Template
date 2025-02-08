@@ -16,4 +16,4 @@ However, **VSA is just an approach** to structure your code. It's up to you to i
 
 **FINISH READING?**
 
-**==> CHECK OUT [PART 1](./TemplateDiscussion/Part1.md)**
+**==> CHECK OUT [PART 1](Part1.md)**

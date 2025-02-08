@@ -73,4 +73,4 @@ The modules have the following dependency structure:
 
 **FINISH READING?**
 
-**==> CHECK OUT [PART 3](./Part3.md)**
+**==> CHECK OUT [PART 3](Part3.md)**
