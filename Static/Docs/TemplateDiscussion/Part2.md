@@ -1,4 +1,4 @@
-## PART 2 - ARCHITECTURE DISCUSSION
+# PART 2 - ARCHITECTURE DISCUSSION
 
 This document describes the Vertical Structure Architecture (VSA) used in this project, focusing on how features and their dependencies are organized.
 
@@ -68,3 +68,9 @@ The modules have the following dependency structure:
 - This architectural approach centers around the **Core** module, which acts as the heart of the project. All business logic, interfaces, and other business-related classes reside within the Core.
 
 - The **External** modules serve as suppliers, providing the necessary integrations and dependencies that the Core requires to function. Essentially, the Core encapsulates the application's core functionality, while the External modules provide the supporting infrastructure.
+
+---
+
+**FINISH READING?**
+
+**==> CHECK OUT [PART 3](./Part3.md)**
