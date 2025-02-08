@@ -43,4 +43,4 @@ To address these challenges, a feature management document (e.g., in a spreadshe
 
 The document above provides a centralized location for information about each feature, facilitating better organization and tracking. It helps to mitigate the risks associated with poor feature management. This document can be found **[Here](../FeatManagementDoc.xlsx)**
 
-## ===> **CHECK OUT [PART 2](./Part2)**
+## ===> **CHECK OUT [PART 2](./Part2.md)**
