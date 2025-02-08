@@ -6,7 +6,7 @@
 
 - Please leave the name of the repository folder that you have cloned as `ASPNET_CORE_VSA_Template` (default) in order to make the scripts work or check out **how to make scripts work** with different folder name [Here](./Static/Docs/CustomizeScript.md).
 
-- For a **Discussion about idea and structure of template**, please check out [Here](./Static/Docs/AGentleIntroduction.md)
+- For **explanations about idea and structure of template**, please check out [Here](./Static/Docs/AGentleIntroduction.md)
 
 - For more **information about each config file**, please check out [Here](./Static/Docs/ConfigFileAndFolder.md)
 

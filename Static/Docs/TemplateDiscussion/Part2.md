@@ -1,4 +1,4 @@
-# PART 2 - ARCHITECTURE DISCUSSION
+# PART 2 - ARCHITECTURE EXPLANATION
 
 This document describes the Vertical Structure Architecture (VSA) used in this project, focusing on how features and their dependencies are organized.
 
