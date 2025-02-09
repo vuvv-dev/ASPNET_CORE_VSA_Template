@@ -1,4 +1,4 @@
-# Customizing Project Scripts for Different Folder Names
+# Customizing Scripts
 
 This guide explains how to modify the project scripts to work with custom folder names when cloning the repository.
 
@@ -20,7 +20,7 @@ This file only contains two key-value pairs:
 
 ![Inside Script Env File](../../Images/Inside-Scripts-Env-File.png)
 
-Open this file and update the values for `PROJECT_NAME` and `SLN_FILE_NAME` to match the names of your custom folder and `sln` file.
+Open this file and update the value for `PROJECT_NAME` to match the name of your new folder and `SLN_FILE_NAME` to match the name of your new `sln` file.
 
 And you are **DONE**
 
