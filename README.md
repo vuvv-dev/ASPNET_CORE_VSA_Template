@@ -4,7 +4,7 @@
 
 - The ASP.NET Core template follows the Vertical Slice Architecture (VSA).
 
-- Please leave everything as default in order to make the scripts work or check out **how to make scripts work** [Here](./Static/Docs/ConfigExplaination/CustomizeScript.md).
+- Please leave everything as default in order to make the scripts work or check out **how to customize scripts** [Here](./Static/Docs/ConfigExplaination/CustomizeScript.md).
 
 - For **explanations about idea and structure of template**, please check out [Here](./Static/Docs/TemplateExplaination/AGentleIntroduction.md)
 
