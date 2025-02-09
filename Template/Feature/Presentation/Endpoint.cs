@@ -44,7 +44,7 @@ public sealed class Endpoint : ControllerBase
     [ServiceFilter<SetStateBagFilter>]
     [ServiceFilter<ValidationFilter>]
     public async Task<IActionResult> ExecuteFeatTemplateAsync(
-        [FromBody][Required] Request request,
+        [FromBody] [Required] Request request,
         CancellationToken ct
     )
     {
