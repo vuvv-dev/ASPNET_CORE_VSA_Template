@@ -71,27 +71,11 @@ This is the solution file. It organizes all the different projects (like your we
 
 ## 🔧 app-assembly.json
 
-This file lists all the assemblies (collections of code) that contain services your application needs. It's like a directory telling the application where to find these services.
+This file lists assembly names corresponding to code collections that provide services required by your application. Each listed assembly must include a `RegistrationCenter` class, responsible for registering that assembly's services.
 
-**How do assemblies register their services?**
+Even if an assembly doesn’t currently contain services, it’s best practice to include a `RegistrationCenter` file. This ensures a smoother development process by avoiding future refactoring when services are added later. Think of it as proactive planning!
 
-Each assembly _should_ have a `RegistrationCenter` file (which is a class) that knows how to register the services within that assembly. This `RegistrationCenter` file is crucial for the application to understand what services are available.
-
-Below is a simple example of working a module:
-
-Let's say you're adding a new feature called "F100". Here's the process:
-
-1. **Create the assembly:** You create a new assembly (a class library project) named `F100`. It usually lives in a specific folder, like `Src/Core/F100`.
-
-2. **Create the RegistrationCenter:** Inside the `F100` assembly, you create a `RegistrationCenter` file (a class). This file is responsible for registering the services that belong to the `F100` feature. It _must_ inherit from `IServiceRegister`.
-
-3. **Update `app-assembly.json`:** Open the `app-assembly.json` file. Add the _name_ of your new assembly (`F100` in this example) to the appropriate section (e.g., the `Core` section if it's a core feature).
-
-**That's it!** By adding the assembly name to `app-assembly.json`, you've told the application to look inside that assembly for its `RegistrationCenter` and register the services it contains.
-
-**Why _should_ every assembly have a `RegistrationCenter`, even if it doesn't have services yet?**
-
-Even if your new assembly doesn't have any services _right now_, it's best practice to create the `RegistrationCenter` file anyway. You might need to add services to it later. Having the `RegistrationCenter` in place from the start prevents you from having to refactor and add it later, making future development smoother. It's like planning ahead!
+Read more about example workflow that uses this file [**here**](../TemplateExplaination/Part4.md).
 
 ## 🌍 global.json ([more](GlobalJson.md))
 
