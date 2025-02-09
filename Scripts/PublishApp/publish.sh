@@ -4,15 +4,35 @@
 # Run this file for publishing and check the out assets 
 # In out folder (situated in SETUPPROJECT/out)
 
-# Change this to your project name
-PROJECT_NAME="ASPNET_CORE_VSA_Template"
-
 # Exit on errors
 set -e
 
 # Constants
 CONFIGURATION_MODE="Release"
 CURRENT_PATH=$(pwd)
+
+# Project name key and value
+PROJECT_NAME_KEY="PROJECT_NAME"
+PROJECT_NAME_VALUE=""
+
+# Solution file name key and value
+SLN_FILE_NAME_KEY="SLN_FILE_NAME"
+SLN_FILE_NAME_VALUE=""
+
+# Define the path to the .env file
+PARENT_PATH=$(dirname "$PWD")
+ENV_FILE_PATH="$PARENT_PATH/.env"
+
+# Read the .env file and parse key-value pairs
+if [ -f "$ENV_FILE_PATH" ]; then
+    while IFS='=' read -r key value; do
+        if [[ "$key" == "$PROJECT_NAME_KEY" ]]; then
+            PROJECT_NAME_VALUE="$value"
+        elif [[ "$key" == "$SLN_FILE_NAME_KEY" ]]; then
+            SLN_FILE_NAME_VALUE="$value"
+        fi
+    done < <(grep -v '^#' "$ENV_FILE_PATH" | sed -e 's/\r//g')
+fi
 
 # Function to find the root directory containing the solution file
 find_project_root() {
@@ -27,7 +47,7 @@ find_project_root() {
 
         # Try to go up one directory level
         parent_dir=$(dirname "$current_dir")
-        if [[ "$parent_dir" != *"$PROJECT_NAME"* ]]; then
+        if [[ "$parent_dir" != *"$PROJECT_NAME_VALUE"* ]]; then
             return
         fi
         current_dir="$parent_dir"
@@ -47,7 +67,7 @@ cd "$project_root"
 
 # Format the project
 echo "Publish project..."
-if ! dotnet publish -c "$CONFIGURATION_MODE"; then
+if ! dotnet publish -c "$CONFIGURATION_MODE" "./$SLN_FILE_NAME_VALUE"; then
     echo "dotnet publish failed"
     exit 1
 fi

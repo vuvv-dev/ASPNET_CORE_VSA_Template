@@ -2,15 +2,44 @@
 # Run this file for publishing and check the out assets 
 # In out folder (situated in SETUPPROJECT/out)
 
-# Change this to your project name
-$PROJECT_NAME = 'ASPNET_CORE_VSA_Template'
-
 # Set error handling
 $ErrorActionPreference = "Stop"
 
 # Constants
 $CURRENT_PATH = Get-Location
 $CONFIGURATION_MODE = 'Release'
+
+# Project name key and value
+$PROJECT_NAME_KEY = 'PROJECT_NAME'
+$PROJECT_NAME_VALUE = ''
+
+# Solution file name key and value
+$SLN_FILE_NAME_KEY = 'SLN_FILE_NAME'
+$SLN_FILE_NAME_VALUE = ''
+
+# Define the path to the .env file
+$parentPath = Split-Path -Path $PSScriptRoot -Parent
+$envFilePath = "$parentPath\.env"
+
+# Read the .env file and parse key-value pairs
+if (Test-Path $envFilePath) {
+    $envVars = @{}
+
+    Get-Content $envFilePath | ForEach-Object {
+        if ($_ -match "^\s*([^#][\w]+)\s*=\s*(.+)\s*$") {
+            $envVars[$matches[1]] = $matches[2]
+        }
+    }
+
+    # Check and assign values explicitly
+    if ($envVars.ContainsKey($PROJECT_NAME_KEY)) {
+        $PROJECT_NAME_VALUE = $envVars[$PROJECT_NAME_KEY]
+    }
+
+    if ($envVars.ContainsKey($SLN_FILE_NAME_KEY)) {
+        $SLN_FILE_NAME_VALUE = $envVars[$SLN_FILE_NAME_KEY]
+    }
+}
 
 # Function to find the root directory containing the solution file
 function Find-ProjectRoot {
@@ -34,7 +63,7 @@ function Find-ProjectRoot {
         #
         # Then we assign new path to current dir
         $parentDir = Split-Path -Path $currentDir -Parent
-        if ($parentDir -contains $PROJECT_NAME) {
+        if ($parentDir -contains $PROJECT_NAME_VALUE) {
             return $null
         }
         $currentDir = $parentDir
@@ -56,7 +85,7 @@ Set-Location $projectRoot
 
 # Format the project
 Write-Output "Publish project..."
-dotnet publish -c $CONFIGURATION_MODE
+dotnet publish -c $CONFIGURATION_MODE .\$SLN_FILE_NAME_VALUE
 if ($LASTEXITCODE -ne 0) {
     Write-Error "dotnet publish failed"
     exit $LASTEXITCODE
