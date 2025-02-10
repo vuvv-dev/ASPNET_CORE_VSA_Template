@@ -20,7 +20,7 @@
 
 Welcome to the ASP.NET Core Vertical Slice Architecture Template! This template helps you build maintainable, scalable, and testable web applications by organizing code around business features. It addresses the challenges of traditional layered architectures, such as bloated controllers and scattered code, by promoting a modular and feature-centric approach.
 
-## Demo video
+## Demo video of how to apply this template to your project
 
 [Coming soon]()
 
