@@ -1,7 +1,5 @@
 # Customizing Scripts
 
-This guide explains how to modify the project scripts to work with custom folder names when cloning the repository.
-
 **Why Customize?**
 
 When cloning the repository, you might want to use a new `folder name` other than the default `ASPNET_CORE_VSA_Template` and also a new `sln` file name other than default `Project.sln`. The project scripts rely on these default names, so you'll need to update them to reflect your custom ones.
