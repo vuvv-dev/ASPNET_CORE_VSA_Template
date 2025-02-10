@@ -171,6 +171,14 @@ The current postgres server IP is `192.168.56.104`, but your server IP is `192.1
 ./Scripts/Run/run.sh
 ```
 
+After script **runs successfully**, you are going to see the result like this:
+
+- On terminal:
+  ![Run-On-Terminal-Result](./Static/Images/Run-On-Terminal-Result.png)
+
+- Click the link **http://localhost:5245**, a swagger page is going to pop up for API testing purpose.
+  ![Swagger-Page](./Static/Images/Swagger-Page.png)
+
 ## Other usage
 
 ### 1. Build the project via this script:
