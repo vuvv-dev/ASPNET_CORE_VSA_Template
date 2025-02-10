@@ -16,30 +16,40 @@
 
 Welcome to the ASP.NET Core Vertical Slice Architecture Template! This template helps you build maintainable, scalable, and testable web applications by organizing code around business features. It addresses the challenges of traditional layered architectures, such as bloated controllers and scattered code, by promoting a modular and feature-centric approach.
 
-## Context
-
-In the past, I often followed tutorials to build projects, but I encountered significant challenges with the project structures they suggested. Here are some common issues I faced:
-
-- **Long service files**: These became difficult to maintain as they grew in size.
-- **Scattered context**: Retrieving all the information related to a feature was challenging because methods and classes were spread across multiple files and folders.
-- **Fat controllers**: Controllers often became bloated and hard to manage.
-
-I realized that this approach, known as **technical-based architecture**, groups all files of the same type (e.g., services in a `Services` folder). While this approach seemed organized, it often led to inefficiencies. To address this, I researched **feature-based architecture**, which has the following advantages:
-
-- Each feature has its own dedicated folder, making the structure easier to navigate.
-- All files related to a feature are stored together, simplifying maintenance.
-
-However, even with a feature-based architecture, I encountered new challenges as the project grew:
-
-- **Class naming conflicts**: With multiple feature-related classes in one project, it was easy to mistype or confuse class names (e.g., `FM1Endpoint` vs. `FM2Endpoint`).
-
-To solve this, I decided to move each feature into its own class library. This approach makes it impossible to call classes from one feature without explicitly referencing its assembly (e.g., `FM1Endpoint` cannot be called from assembly containing `FM2Endpoint`), reducing the chances of errors.
-
-And that’s how this template was born!
-
 ## Demo video
 
 [Coming soon]()
+
+## Context
+
+I used to build projects by following tutorials, but their suggested structures caused problems. I struggled with:
+
+- **Massive service files:** These became unwieldy and hard to maintain as they grew.
+- **Dispersed context:** It was difficult to find all the pieces of a feature because they were scattered across different files and folders.
+- **Overloaded controllers:** Controllers became bloated and hard to manage.
+
+This traditional, **technical-based architecture**, which groups files by type (e.g., all services in a `Services` folder), seemed organized at first, but it became inefficient. I then explored **feature-based architecture**, which offers:
+
+- **Clearer organization:** Each feature gets its own folder, making navigation easier.
+- **Simplified maintenance:** All related files are together.
+
+However, feature-based architecture also presented challenges as projects scaled:
+
+- **Class naming collisions:** With many feature-related classes, it was easy to mix up or mistype names (e.g., `FM1Endpoint` vs. `FM2Endpoint`).
+
+To address this, I moved each feature into its own `assembly (class library)`. This prevents accidental calls between features, as you must explicitly reference the correct assembly (e.g., you can't call `FM1Endpoint` from the `FM2Endpoint` assembly). This also allows for simpler, more consistent naming _within_ each feature, eliminating the need for feature prefixes (e.g., `FM1Endpoint` becomes simply `Endpoint`).
+
+While this could lead to duplicate class names _across_ libraries, this is easily resolved by using the **full class name (namespace + class)**. For example:
+
+We have 2 classes that have the same name like this:
+
+![Duplicate Class Name](./Static/Images/Duplicate-Class-Name.png)
+
+We can decide which one to use by writing the full class name, like this:
+
+```csharp
+System.Reflection.Metadata.Constant
+```
 
 ## Getting Started
 
