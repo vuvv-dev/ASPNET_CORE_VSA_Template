@@ -41,15 +41,23 @@ To address this, I moved each feature into its own `assembly (class library)`. T
 
 While this could lead to duplicate class names _across_ libraries, this is easily resolved by using the **full class name (namespace + class)**. For example:
 
-We have 2 classes that have the same name like this:
+I have 2 classes that have the same name like this:
 
 ![Duplicate Class Name](./Static/Images/Duplicate-Class-Name.png)
 
-We can decide which one to use by writing the full class name, like this:
+I can decide which one to use by writing the full class name, like this:
 
 ```csharp
 System.Reflection.Metadata.Constant
 ```
+
+Beside, you can check out for **more things** related to this template:
+
+- Explanations about idea and structure of template: [Here](./Static/Docs/TemplateExplaination/AGentleIntroduction.md)
+
+- Detail of each config files: [Here](./Static/Docs/ConfigExplaination/Introduction.md)
+
+- How to customize **scripts** that are used to support for this project: [Here](./Static/Docs/ConfigExplaination/CustomizeScript.md)
 
 ## Getting Started
 
@@ -130,6 +138,16 @@ HOST_IP=192.168.1.10
 ```bash
 docker compose up -d --build
 ```
+
+you can confirm the results by running the following command:
+
+```bash
+docker ps
+```
+
+It should give out an image like this:
+
+![Docker Running Successfully](./Static/Images/Docker-Running-Successfully.png)
 
 ### 5: Find and update the all parts that have `IP` in all `files` that start with `appsettings` in `Src/Entry` folder
 
