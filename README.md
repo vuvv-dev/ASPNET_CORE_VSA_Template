@@ -12,6 +12,10 @@
 
 - For how to **start the project**, please check out [Getting Started](#getting-started)
 
+- For the detail about the features I build on this template, please download and check out this [Excel File](./Static/Docs/FeatManagementDoc.xlsx) or take a look at this image below:
+
+![FeatManagementDoc](./Static/Images/FeatureManagementDoc_1.png)
+
 ## Introduction
 
 Welcome to the ASP.NET Core Vertical Slice Architecture Template! This template helps you build maintainable, scalable, and testable web applications by organizing code around business features. It addresses the challenges of traditional layered architectures, such as bloated controllers and scattered code, by promoting a modular and feature-centric approach.
@@ -58,6 +62,10 @@ Beside, you can check out for **more things** related to this template:
 - Detail of each config files: [Here](./Static/Docs/ConfigExplaination/Introduction.md)
 
 - How to customize **scripts** that are used to support for this project: [Here](./Static/Docs/ConfigExplaination/CustomizeScript.md)
+
+- For the detail about the features I build on this template, please download and check out this [Excel File](./Static/Docs/FeatManagementDoc.xlsx) or take a look at this image below:
+
+![FeatManagementDoc](./Static/Images/FeatureManagementDoc_1.png)
 
 ## Getting Started
 
