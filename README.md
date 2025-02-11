@@ -1,5 +1,11 @@
 # ASPNET_CORE_VSA_Template
 
+## ⭐ Support
+
+If you like feel free to ⭐ this repository, It helps out :)
+
+Thanks a bunch for supporting me!
+
 ## TL;DR
 
 - The ASP.NET Core template follows the Vertical Slice Architecture (VSA).
