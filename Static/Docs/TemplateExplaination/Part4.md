@@ -74,3 +74,7 @@ To verify that everything is correctly set up, rebuild the project:
   ![Build Project](../../Images/Build-Project.png)
 
 If the build succeeds, **congratulations!** You are now ready to start coding the `F22` module.
+
+**FINISH READING?**
+
+**==> CHECK OUT [PART 5](Part5.md)**

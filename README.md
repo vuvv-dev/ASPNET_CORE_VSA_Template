@@ -14,6 +14,8 @@ Thanks a bunch for supporting me!
 
 - For **explanations about idea and structure of template**, please check out [Here](./Static/Docs/TemplateExplaination/AGentleIntroduction.md)
 
+- For **project script explainations and usages**, please check out [Here](./Static/Docs/TemplateExplaination/Part5.md)
+
 - For more **information about each config file**, please check out [Here](./Static/Docs/ConfigExplaination/Introduction.md)
 
 - For how to **start the project**, please check out [Getting Started](#getting-started)
@@ -66,6 +68,8 @@ Beside, you can check out for **more things** related to this template:
 - Explanations about idea and structure of template: [Here](./Static/Docs/TemplateExplaination/AGentleIntroduction.md)
 
 - Detail of each config files: [Here](./Static/Docs/ConfigExplaination/Introduction.md)
+
+- For project script explainations and usages, check out [Here](./Static/Docs/TemplateExplaination/Part5.md)
 
 - How to customize **scripts** that are used to support for this project: [Here](./Static/Docs/ConfigExplaination/CustomizeScript.md)
 
