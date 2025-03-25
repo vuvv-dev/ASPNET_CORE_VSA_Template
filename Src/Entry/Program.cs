@@ -40,30 +40,14 @@ if (app.Environment.IsDevelopment())
 
 if (app.Environment.IsStaging())
 {
-    app.UseRouting()
-        .UseAuthentication()
-        .UseAuthorization()
-        .UseOpenApi()
-        .UseSwaggerUi(options =>
-        {
-            options.Path = string.Empty;
-            options.DefaultModelsExpandDepth = -1;
-        });
+    app.UseRouting().UseAuthentication().UseAuthorization();
 
     app.MapControllers();
 }
 
 if (app.Environment.IsProduction())
 {
-    app.UseRouting()
-        .UseAuthentication()
-        .UseAuthorization()
-        .UseOpenApi()
-        .UseSwaggerUi(options =>
-        {
-            options.Path = string.Empty;
-            options.DefaultModelsExpandDepth = -1;
-        });
+    app.UseRouting().UseAuthentication().UseAuthorization();
 
     app.MapControllers();
 }

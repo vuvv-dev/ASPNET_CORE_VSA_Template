@@ -1,5 +1,5 @@
 using System;
-using FConfig;
+using Base.Config;
 using Microsoft.Extensions.Configuration;
 using SnowflakeGenerator;
 using SnowflakeGenerator.Exceptions;

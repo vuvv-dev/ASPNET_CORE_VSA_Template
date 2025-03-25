@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <ProjectReference Include="..\..\External\**\*.csproj" />
+    <ProjectReference Include="..\..\Base\Base.csproj" />
   </ItemGroup>
   <PropertyGroup Label="Custom">
     <AppProjectName>FCommon</AppProjectName>

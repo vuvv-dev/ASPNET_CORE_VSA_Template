@@ -1,8 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk">
-  <ItemGroup>
-    <ProjectReference Include="..\..\Base\**\*.csproj" />
-  </ItemGroup>
-  <PropertyGroup Label="Custom">
-    <AppProjectName>FACommon</AppProjectName>
-  </PropertyGroup>
-</Project>

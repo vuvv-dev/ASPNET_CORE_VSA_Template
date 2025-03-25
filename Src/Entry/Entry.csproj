@@ -5,7 +5,28 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Core\**\*.csproj" />
+  <ItemGroup Label="ProjectReferences">
+    <ProjectReference Include="..\Core\F001\F001.csproj" />
+    <ProjectReference Include="..\Core\F002\F002.csproj" />
+    <ProjectReference Include="..\Core\F003\F003.csproj" />
+    <ProjectReference Include="..\Core\F004\F004.csproj" />
+    <ProjectReference Include="..\Core\F005\F005.csproj" />
+    <ProjectReference Include="..\Core\F006\F006.csproj" />
+    <ProjectReference Include="..\Core\F007\F007.csproj" />
+    <ProjectReference Include="..\Core\F008\F008.csproj" />
+    <ProjectReference Include="..\Core\F009\F009.csproj" />
+    <ProjectReference Include="..\Core\F010\F010.csproj" />
+    <ProjectReference Include="..\Core\F011\F011.csproj" />
+    <ProjectReference Include="..\Core\F012\F012.csproj" />
+    <ProjectReference Include="..\Core\F013\F013.csproj" />
+    <ProjectReference Include="..\Core\F014\F014.csproj" />
+    <ProjectReference Include="..\Core\F015\F015.csproj" />
+    <ProjectReference Include="..\Core\F016\F016.csproj" />
+    <ProjectReference Include="..\Core\F017\F017.csproj" />
+    <ProjectReference Include="..\Core\F018\F018.csproj" />
+    <ProjectReference Include="..\Core\F019\F019.csproj" />
+    <ProjectReference Include="..\Core\F020\F020.csproj" />
+    <ProjectReference Include="..\Core\F021\F021.csproj" />
+    <ProjectReference Include="..\Core\FCommon\FCommon.csproj" />
   </ItemGroup>
 </Project>
