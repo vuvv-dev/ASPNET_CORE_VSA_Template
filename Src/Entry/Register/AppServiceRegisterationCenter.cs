@@ -84,7 +84,6 @@ internal static class AppServiceRegisterationCenter
 
     private static async Task<IEnumerable<string>> GetListOfRegisteredAssemblyNameAsync()
     {
-        //const string CsprojFile = "Entry.csproj";
         const string ProjectReferenceElementName = "ProjectReference";
         const string IncludeAttributeName = "Include";
 
