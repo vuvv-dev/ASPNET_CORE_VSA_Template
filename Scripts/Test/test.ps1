@@ -12,10 +12,6 @@ $CURRENT_PATH = Get-Location
 $PROJECT_NAME_KEY = 'PROJECT_NAME'
 $PROJECT_NAME_VALUE = ''
 
-# Solution file name key and value
-$SLN_FILE_NAME_KEY = 'SLN_FILE_NAME'
-$SLN_FILE_NAME_VALUE = ''
-
 # Define the path to the .env file
 $parentPath = Split-Path -Path $PSScriptRoot -Parent
 $envFilePath = "$parentPath\.env"
@@ -33,10 +29,6 @@ if (Test-Path $envFilePath) {
     # Check and assign values explicitly
     if ($envVars.ContainsKey($PROJECT_NAME_KEY)) {
         $PROJECT_NAME_VALUE = $envVars[$PROJECT_NAME_KEY]
-    }
-
-    if ($envVars.ContainsKey($SLN_FILE_NAME_KEY)) {
-        $SLN_FILE_NAME_VALUE = $envVars[$SLN_FILE_NAME_KEY]
     }
 }
 

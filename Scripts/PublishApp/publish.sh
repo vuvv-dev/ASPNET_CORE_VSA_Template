@@ -15,10 +15,6 @@ CURRENT_PATH=$(pwd)
 PROJECT_NAME_KEY="PROJECT_NAME"
 PROJECT_NAME_VALUE=""
 
-# Solution file name key and value
-SLN_FILE_NAME_KEY="SLN_FILE_NAME"
-SLN_FILE_NAME_VALUE=""
-
 # Define the path to the .env file
 PARENT_PATH=$(dirname "$PWD")
 ENV_FILE_PATH="$PARENT_PATH/.env"
@@ -28,8 +24,6 @@ if [ -f "$ENV_FILE_PATH" ]; then
     while IFS='=' read -r key value; do
         if [[ "$key" == "$PROJECT_NAME_KEY" ]]; then
             PROJECT_NAME_VALUE="$value"
-        elif [[ "$key" == "$SLN_FILE_NAME_KEY" ]]; then
-            SLN_FILE_NAME_VALUE="$value"
         fi
     done < <(grep -v '^#' "$ENV_FILE_PATH" | sed -e 's/\r//g')
 fi
@@ -67,7 +61,7 @@ cd "$project_root"
 
 # Format the project
 echo "Publish project..."
-if ! dotnet publish -c "$CONFIGURATION_MODE" "./$SLN_FILE_NAME_VALUE"; then
+if ! dotnet publish -c "$CONFIGURATION_MODE" "./Src/Entry"; then
     echo "dotnet publish failed"
     exit 1
 fi
