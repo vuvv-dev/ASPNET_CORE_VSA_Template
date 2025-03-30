@@ -84,13 +84,12 @@ internal static class AppServiceRegisterationCenter
 
     private static async Task<IEnumerable<string>> GetListOfRegisteredAssemblyNameAsync()
     {
-        const string CsprojFile = "Entry.csproj";
+        //const string CsprojFile = "Entry.csproj";
         const string ProjectReferenceElementName = "ProjectReference";
         const string IncludeAttributeName = "Include";
 
-        var fullFilePath = Path.GetFullPath(CsprojFile);
-        var doesFileExist = File.Exists(fullFilePath);
-        if (!doesFileExist)
+        var fullFilePath = FindProjectFilePath(Assembly.GetExecutingAssembly().Location);
+        if (Equals(fullFilePath, null))
         {
             throw new ApplicationException("Missing entry csproj !!");
         }
@@ -104,5 +103,30 @@ internal static class AppServiceRegisterationCenter
             );
 
         return projectNames;
+    }
+
+    private static string FindProjectFilePath(string assemblyPath)
+    {
+        const string CsprojSearchWildCard = "*.csproj";
+
+        var dir = Path.GetDirectoryName(assemblyPath);
+
+        while (!Equals(dir, null))
+        {
+            var csprojFiles = Directory.GetFiles(
+                dir,
+                CsprojSearchWildCard,
+                SearchOption.TopDirectoryOnly
+            );
+
+            if (csprojFiles.Length > 0)
+            {
+                return csprojFiles[0]; // Return the first found .csproj file
+            }
+
+            dir = Directory.GetParent(dir).FullName;
+        }
+
+        return null; // .csproj not found
     }
 }
